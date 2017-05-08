@@ -1,9 +1,14 @@
 package com.example.katevandonge.dejaphotoproject;
 
+import android.Manifest;
 import android.app.WallpaperManager;
+import android.content.ContentResolver;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +21,7 @@ import android.widget.Button;
 
 import java.io.IOException;
 import java.lang.*;
+import java.util.ArrayList;
 
 import static android.R.attr.button;
 
@@ -24,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn;
     Button btn2;
     WallpaperManager myWall;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +72,31 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Explain to the user why we need to read the contacts
+            }
+
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    57756687);
+
+            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+            // app-defined int constant that should be quite unique
+
+            return;
+        }
+
+        ContentResolver conR = getApplicationContext().getContentResolver();
+
+        PhotoList list = new PhotoList();
+        ArrayList<String> images = list.queryGallery(conR);
+        Log.v("size",Integer.toString(images.size()));
+        Log.v("list size", Integer.toString(list.getSize()));
     }
 
 
