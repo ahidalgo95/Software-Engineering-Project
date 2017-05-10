@@ -4,8 +4,12 @@ import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by luujfer on 5/9/17.
@@ -13,10 +17,11 @@ import java.io.IOException;
 
 public class Photo {
     Uri photouri;
-    Double date;
+    String dayOfWeek;
+    String date;
+    String time;
     Double latitude;
     Double longitude;
-
     int weight;
 
     public Photo(){
@@ -34,7 +39,15 @@ public class Photo {
         photouri = uri;
     }
 
-    public void setDate(Double d){ date = d; }
+    public void setDate(long d){
+        Date n= new Date(d);
+        DateFormat format= new SimpleDateFormat("EEE MM/dd/yyyy HH:mm");
+        String formatted= format.format(n);
+        String[] arr= formatted.split(" ");
+        dayOfWeek=arr[0];
+        date= arr[1];
+        time=arr[2];
+    }
 
     public void setLatitude(Double d){ latitude= d; }
 

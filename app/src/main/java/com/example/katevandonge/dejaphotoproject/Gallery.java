@@ -26,7 +26,7 @@ import java.util.PriorityQueue;
 public class Gallery {
     int size;
     ArrayList<Uri> uriList;
-    ArrayList<Double> dateList;
+    ArrayList<Long> dateList;
     ArrayList<Double> latList;
     ArrayList<Double> longList;
     PriorityQueue<Photo> photoQueue;
@@ -35,7 +35,7 @@ public class Gallery {
     public Gallery(){
         size = 0;
         uriList = new ArrayList<Uri>(size);
-        dateList = new ArrayList<Double>(size);
+        dateList = new ArrayList<Long>(size);
         latList = new ArrayList<Double>(size);
         longList = new ArrayList<Double>(size);
         Comparator<Photo> photoComparator= new PhotoComparator();
@@ -68,7 +68,7 @@ public class Gallery {
                 final String data = cursor.getString(dataColumn);
                 final Double lon= cursor.getDouble(longColumn);
                 final Double lat= cursor.getDouble(latColumn);
-                final Double date= cursor.getDouble(dateColumn);
+                final long date= cursor.getLong(dateColumn);
                 Uri uri = Uri.withAppendedPath( MediaStore.Images.Media.EXTERNAL_CONTENT_URI, data);
                 dateList.add(date);
                 latList.add(lat);
