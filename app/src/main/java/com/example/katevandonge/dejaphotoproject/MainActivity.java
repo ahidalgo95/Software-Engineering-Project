@@ -6,8 +6,11 @@ import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +21,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.lang.*;
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 WallpaperManager pared = WallpaperManager.getInstance(getApplicationContext());
                 Wall wally = new Wall();
-                wally.set(pared);
+               // wally.set(pared);
             }
         });
 
@@ -92,11 +97,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ContentResolver conR = getApplicationContext().getContentResolver();
-
-        PhotoList list = new PhotoList();
-        ArrayList<String> images = list.queryGallery(conR);
-        Log.v("size",Integer.toString(images.size()));
+        Gallery list = new Gallery();
+        list.queryGallery(conR);
+        list.fillQueue();
+        //Log.v("size",Integer.toString(images.size()));
         Log.v("list size", Integer.toString(list.getSize()));
+
+       /* Bitmap bm = null;
+        try {
+            bm = MediaStore.Images.Media.getBitmap(conR,images.get(0));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
+        Wall wall = new Wall();
+         wall.set(wm, bm);
+        ImageView image = (ImageView) findViewById(R.id.img);
+       image.setImageBitmap(bm);*/
     }
 
 
