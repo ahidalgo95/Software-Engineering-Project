@@ -43,10 +43,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
-
-
         btn = (Button) findViewById(R.id.setWall);
         btn2 = (Button) findViewById(R.id.button2);
 
@@ -78,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        *  Permissions for reading from Camera Roll.
+        * */
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -98,22 +97,17 @@ public class MainActivity extends AppCompatActivity {
 
         ContentResolver conR = getApplicationContext().getContentResolver();
         Gallery list = new Gallery();
-        list.queryGallery(conR);
-        list.fillQueue();
-        //Log.v("size",Integer.toString(images.size()));
+        list.queryGallery(conR); //queries photo uris
+        list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
 
-       /* Bitmap bm = null;
-        try {
-            bm = MediaStore.Images.Media.getBitmap(conR,images.get(0));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        //tests setting wallpaper with photos from our queue
+        Photo popped= list.photoQueue.poll();
+        Bitmap bm=popped.toBitmap(conR);
         WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
         Wall wall = new Wall();
-         wall.set(wm, bm);
-        ImageView image = (ImageView) findViewById(R.id.img);
-       image.setImageBitmap(bm);*/
+        wall.set(wm, bm);
     }
 
 

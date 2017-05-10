@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
+ * Contains a uriList and PriorityQueue which holds photos.
  * Created by luujfer on 5/8/17.
  */
 
@@ -38,6 +39,10 @@ public class Gallery {
         return size;
     }
 
+
+    /*
+    * Queries photos from Camera roll on Android, fills uriList with Uris of our photos.
+    * */
     public void queryGallery(ContentResolver cr){
         Uri imagesURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String [] proj = { MediaStore.Images.Media._ID};
@@ -60,6 +65,10 @@ public class Gallery {
         uriList = result;
     }
 
+
+    /*
+    * Makes photo objects and fills with corresponding uris and fills photoQueue with photo objects.
+    * */
     public void fillQueue (){
         Uri uri;
         for(int i = 0; i<size ; i++){
