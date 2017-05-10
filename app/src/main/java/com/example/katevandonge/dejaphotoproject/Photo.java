@@ -19,10 +19,20 @@ public class Photo {
         weight=0;
     }
 
+    /*
+    * METHOD NEEDS TO BE MADE!!!
+    * */
+    public void setWeight(int loc, int date, int time){
+
+    }
+
     public void setUri(Uri uri){
         photouri = uri;
     }
 
+    /*
+    * Converts uri to bitmap and returns that bitmap.
+    * */
     public Bitmap toBitmap(ContentResolver cr){
         Bitmap bm = null;
         try {

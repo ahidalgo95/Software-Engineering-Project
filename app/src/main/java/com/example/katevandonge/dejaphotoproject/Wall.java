@@ -17,6 +17,9 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     public Wall() {
     }
 
+    /*
+    *  Sets input bitmap to wallpaper.
+    * */
     public void set(WallpaperManager yourwall, Bitmap bm){
         try {
 
