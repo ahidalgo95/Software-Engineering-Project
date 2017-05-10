@@ -35,12 +35,15 @@ public class NewAppWidget extends AppWidgetProvider {
         views.setTextViewText(R.id.appwidget_text, but);
 
         //Intent intent = new Intent(WIDGET_BUTTON);
-        Intent intent = new Intent(context, NewAppWidget.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // This button launches the app
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,0, intent, 0);
+        //intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         views.setOnClickPendingIntent(R.id.button6, pendingIntent);
 
+        Intent intentKarma = new Intent(context, Karma.class);
+        PendingIntent pendingIntentKarma = PendingIntent.getActivity(context,0, intentKarma, 0);
+        views.setOnClickPendingIntent(R.id.Karma, pendingIntentKarma);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
