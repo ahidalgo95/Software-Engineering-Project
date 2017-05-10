@@ -2,6 +2,9 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.app.WallpaperManager;
 
@@ -14,9 +17,10 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     public Wall() {
     }
 
-    public void set(WallpaperManager yourwall){
+    public void set(WallpaperManager yourwall, Bitmap bm){
         try {
-            yourwall.setResource(+R.drawable.pic);
+
+            yourwall.setBitmap(bm);
         } catch (IOException e) {
             e.printStackTrace();
         }
