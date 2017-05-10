@@ -3,6 +3,7 @@ package com.example.katevandonge.dejaphotoproject;
 import android.Manifest;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Start location service
+        Intent intent = new Intent(this, UserLocation.class);
+        startService(intent);
 
         btn = (Button) findViewById(R.id.setWall);
         btn2 = (Button) findViewById(R.id.button2);
