@@ -33,8 +33,8 @@ public class Photo {
     /*
     * METHOD NEEDS TO BE MADE!!!
     * */
-    public void setWeight(int loc, int date, int time){
-
+    public void setWeight(int val){
+        weight = val;
     }
 
     public void setUri(Uri uri){
