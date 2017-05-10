@@ -26,11 +26,18 @@ import java.util.PriorityQueue;
 public class Gallery {
     int size;
     ArrayList<Uri> uriList;
+    ArrayList<Long> dateList;
+    ArrayList<Double> latList;
+    ArrayList<Double> longList;
     PriorityQueue<Photo> photoQueue;
 
     @TargetApi(24)
     public Gallery(){
         size = 0;
+        uriList = new ArrayList<Uri>(size);
+        dateList = new ArrayList<Long>(size);
+        latList = new ArrayList<Double>(size);
+        longList = new ArrayList<Double>(size);
         Comparator<Photo> photoComparator= new PhotoComparator();
         photoQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
     }
@@ -45,24 +52,37 @@ public class Gallery {
     * */
     public void queryGallery(ContentResolver cr){
         Uri imagesURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        String [] proj = { MediaStore.Images.Media._ID};
+        String [] proj = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATE_TAKEN, MediaStore.Images.Media.LATITUDE, MediaStore.Images.Media.LONGITUDE};
         Cursor cursor;
         cursor = cr.query(imagesURI,proj, null, null, MediaStore.Images.Media._ID);
         size = cursor.getCount();
         Log.v("cursor size", Integer.toString(size));
-        ArrayList<Uri> result = new ArrayList<Uri>(size);
 
         if (cursor.moveToFirst()) {
             final int dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
+            final int longColumn= cursor.getColumnIndexOrThrow(MediaStore.Images.Media.LONGITUDE);
+            final int latColumn= cursor.getColumnIndexOrThrow(MediaStore.Images.Media.LATITUDE);
+            //Log.v("latColumn", Integer.toString(latColumn));
+            final int dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN);
             do {
                 final String data = cursor.getString(dataColumn);
+                final Double lon= cursor.getDouble(longColumn);
+                final Double lat= cursor.getDouble(latColumn);
+                final long date= cursor.getLong(dateColumn);
                 Uri uri = Uri.withAppendedPath( MediaStore.Images.Media.EXTERNAL_CONTENT_URI, data);
-                result.add(uri);
-                //Log.v("test", "testing to see if goes in loop");
+                dateList.add(date);
+                latList.add(lat);
+                longList.add(lon);
+                uriList.add(uri);
             } while (cursor.moveToNext());
         }
         cursor.close();
-        uriList = result;
+
+
+       // Log.v("dateList size", Integer.toString(dateList.size()));
+        //Log.v("longList size", Integer.toString(longList.size()));
+        //Log.v("latList size", Integer.toString(latList.size()));
+        //Log.v("uriList size", Integer.toString(uriList.size()));
     }
 
 
@@ -70,13 +90,15 @@ public class Gallery {
     * Makes photo objects and fills with corresponding uris and fills photoQueue with photo objects.
     * */
     public void fillQueue (){
-        Uri uri;
         for(int i = 0; i<size ; i++){
-            uri = uriList.get(i);
             Photo photo = new Photo();
-            photo.setUri(uri);
+            photo.setUri(uriList.get(i));
+            photo.setDate(dateList.get(i));
+            photo.setLatitude(latList.get(i));
+            photo.setLongitude(longList.get(i));
             photoQueue.add(photo);
         }
+        Log.v("photo 1 info", ""+ uriList.get(1)+ "  "+ dateList.get(1)+" " +latList.get(1)+ " "+ longList.get(1));
         Log.v("size of photo queue", Integer.toString(photoQueue.size()));
     }
 
