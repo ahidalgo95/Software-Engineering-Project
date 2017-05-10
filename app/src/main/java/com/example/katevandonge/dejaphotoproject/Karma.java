@@ -1,5 +1,7 @@
 package com.example.katevandonge.dejaphotoproject;
 
+import android.util.Log;
+
 /**
  * Created by katevandonge on 5/10/17.
  */
@@ -11,7 +13,7 @@ public class Karma {
 
     public Karma(){
         karma = false;
-
+        Log.v("kk", "karm message");
     }
 
     public void switching(){

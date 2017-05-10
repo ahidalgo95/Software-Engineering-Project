@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 
+
 public class UserLocation extends Service {
 
     Service m_service;
@@ -24,7 +25,7 @@ public class UserLocation extends Service {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
-
+/*
     //Define service connection
     private ServiceConnection m_serviceConnection = new ServiceConnection() {
         @Override
@@ -38,7 +39,7 @@ public class UserLocation extends Service {
         }
 
     };
-
+*/
 
     public class MyBinder extends Binder {
         public UserLocation getService(){

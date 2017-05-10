@@ -41,6 +41,9 @@ public class NewAppWidget extends AppWidgetProvider {
         //intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         views.setOnClickPendingIntent(R.id.button6, pendingIntent);
 
+        Intent intentKarma = new Intent(context, Karma.class);
+        PendingIntent pendingIntentKarma = PendingIntent.getActivity(context,0, intentKarma, 0);
+        views.setOnClickPendingIntent(R.id.Karma, pendingIntentKarma);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
