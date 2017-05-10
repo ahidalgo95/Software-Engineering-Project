@@ -1,23 +1,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Button
+        android:id="@+id/BACK"
+        android:layout_width="40dp"
+        android:layout_height="109dp"
+        android:text="BACK" />
+
+    <Button
+        android:id="@+id/Karma"
+        android:layout_width="40dp"
+        android:layout_height="111dp"
+        android:text="Karma" />
+
+    <Button
+        android:id="@+id/Next"
+        android:layout_width="40dp"
+        android:layout_height="113dp"
+        android:text="Next" />
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="118dp"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_width="40dp"
+        android:layout_height="109dp"
+        android:text="Release" />
 
     <TextView
         android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
-        android:layout_height="238dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="Click to visit my site"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="84dp"
+        android:layout_weight="1"
+        android:background="#09C"
+        android:contentDescription="@string/appwidget_text"
+        android:text="@string/appwidget_text"
         android:textColor="#ffffff"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold|italic" />
 
 
 </LinearLayout>
