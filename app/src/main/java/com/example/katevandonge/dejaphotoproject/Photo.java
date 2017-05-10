@@ -13,6 +13,10 @@ import java.io.IOException;
 
 public class Photo {
     Uri photouri;
+    Double date;
+    Double latitude;
+    Double longitude;
+
     int weight;
 
     public Photo(){
@@ -29,6 +33,12 @@ public class Photo {
     public void setUri(Uri uri){
         photouri = uri;
     }
+
+    public void setDate(Double d){ date = d; }
+
+    public void setLatitude(Double d){ latitude= d; }
+
+    public void setLongitude(Double d){ longitude= d; }
 
     /*
     * Converts uri to bitmap and returns that bitmap.
