@@ -22,10 +22,12 @@ public class Photo {
     String time;
     Double latitude;
     Double longitude;
+    Karma karma;
     int weight;
 
     public Photo(){
         weight=0;
+        karma = new Karma();
     }
 
     /*
