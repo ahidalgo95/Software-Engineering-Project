@@ -25,16 +25,16 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     PriorityQueue<Photo> pList;
     WallpaperManager myWall;
     Context conR;
-<<<<<<< HEAD
+
     /*Photo currPhoto;
     Iterator<Photo> iter;*/
 
-=======
+
     Photo currPhoto;
     static Photo [] photoArr;
     static int currIndex;
     ///Comparator<Photo> photoComparator;
->>>>>>> ab4a4d1534ff3112b51aecd4ba323192ca1c68fb
+
 
     public Wall(Context context, Gallery gallery, WallpaperManager wm) {
         conR=context;
