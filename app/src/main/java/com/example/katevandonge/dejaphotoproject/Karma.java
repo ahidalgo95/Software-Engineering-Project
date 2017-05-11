@@ -21,7 +21,7 @@ public class Karma{
 
     public Karma(Context context){
         karma = false;
-        Log.v("kk", "karm message");
+         Log.v("kk", "karm message");
         pared = WallpaperManager.getInstance(context);
     }
 
