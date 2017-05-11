@@ -94,7 +94,7 @@ public class Gallery {
     * */
     public void fillQueue (){
         for(int i = 0; i<size ; i++){
-            Photo photo = new Photo();
+            Photo photo = new Photo(con);
             photo.setUri(uriList.get(i));
             photo.setDate(dateList.get(i));
             photo.setLatitude(latList.get(i));

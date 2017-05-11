@@ -13,6 +13,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -26,7 +27,6 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     static WallpaperManager myWall;
     PriorityQueue<Photo> pList;
     Context conR;
-
     /*Photo currPhoto;
     Iterator<Photo> iter;*/
 
@@ -41,9 +41,16 @@ public class Wall extends Activity { //android.app.WallpaperManager{
         conR=context;
         pList = gallery.photoQueue;
         myWall = wm;
+
         // photoComparator = new PhotoComparator();
        // photoArr = Arrays.sort(pList.toArray(),);
         //rotatePhoto();
+        photoArr = new Photo[pList.size()];
+        for(int i=0; i<pList.size(); i++){
+            photoArr[i] = pList.poll();
+
+        }
+
 
     }
 

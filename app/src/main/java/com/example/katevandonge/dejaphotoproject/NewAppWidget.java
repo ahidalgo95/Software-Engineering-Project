@@ -4,6 +4,7 @@ import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import static android.R.attr.button;
+import static android.R.attr.content;
 
 import android.Manifest;
 
@@ -30,6 +32,7 @@ public class NewAppWidget extends AppWidgetProvider {
     public static String WIDGET_BUTTON = "MY_PACKAGE_NAME.WIDGET_BUTTON";
     public static String WIDGET_NEXT = "NEXT_BUTTON";
     public static String WIDGET_PREV = "PREV_BUTTON";
+    int counter = 0;
 
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                          int appWidgetId) {
@@ -124,8 +127,15 @@ public class NewAppWidget extends AppWidgetProvider {
             Log.v(widind, widind);
             Log.v(wallind, wallind);*/
             WallpaperManager myWall = Wall.myWall;
+            Photo[] wallArr = Wall.photoArr;
+            Photo picToSet = wallArr[counter];
+            counter++;
+            String kates = "" + counter;
+            Log.v(kates, kates);
             try {
-                myWall.setResource(+R.drawable.pic);
+                Bitmap bm = picToSet.toBitmap(context.getContentResolver());
+                myWall.setBitmap(bm);
+                //myWall.setResource(+R.drawable.pic);
             } catch (IOException e) {
                 e.printStackTrace();
             }
