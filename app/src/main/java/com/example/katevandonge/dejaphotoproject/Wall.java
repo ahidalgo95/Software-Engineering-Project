@@ -13,6 +13,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.PriorityQueue;
 
 import static android.R.id.list;
 
@@ -21,49 +23,55 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     Gallery pList;
     WallpaperManager myWall;
     Context conR;
+    Photo currPhoto;
+    Iterator<Photo> iter;
 
 
-
-    public Wall(Context context) {
+    public Wall(Context context, Gallery gallery, WallpaperManager wm) {
         conR=context;
+        pList = gallery;
+        myWall = wm;
+        rotatePhoto();
+
     }
 
     /*
     *  Sets input bitmap to wallpaper.
     * */
-    public void set(WallpaperManager wm, Bitmap bm){
+    public void set(Bitmap bm){
         try {
             myWall.setBitmap(bm);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void clear(WallpaperManager myWall){
+    public void clear(){
         try {
             myWall.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void rotatePhoto(Bitmap bm) {
+    public void rotatePhoto() {
+        iter = pList.photoQueue.iterator();
+        Bitmap bm;
+        if (iter.hasNext()) {
+            Photo curr = iter.next();
+            currPhoto = curr;
+            bm = curr.toBitmap(getContentResolver());
+            set(bm);
+        }
+    }
 
-        Gallery list = new Gallery(conR);
-        list.queryGallery(conR.getContentResolver()); //queries photo uris
-        list.fillQueue(); //fills priority queue with picture objs
-        Log.v("list size", Integer.toString(list.getSize()));
 
-        Photo popped= list.photoQueue.poll();
-        bm = popped.toBitmap(conR.getContentResolver());
-        WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
-        Wall wall = new Wall(conR);
-        wall.set(wm, bm);
+
 
         //user set time to update
 
-        //to do time goes by next photo set
+        //to do time goes
 
 
-        };
+
 
 }
 //(WallpaperManager)context.getSystemService(Context.WALLPAPER_SERVICE);

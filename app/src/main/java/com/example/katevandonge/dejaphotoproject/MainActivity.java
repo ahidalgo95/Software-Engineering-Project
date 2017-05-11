@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WallpaperManager pared = WallpaperManager.getInstance(getApplicationContext());
-                Wall wally = new Wall(getApplicationContext());
+                //Wall wally = new Wall(getApplicationContext());
                // wally.set(pared);
             }
         });
@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WallpaperManager pared2 = WallpaperManager.getInstance(getApplicationContext());
-                Wall wally2 = new Wall(getApplicationContext());
-                wally2.clear(pared2);
+                //Wall wally2 = new Wall(getApplicationContext());
+                //wally2.clear(pared2);
             }
         });
 
@@ -105,20 +105,20 @@ public class MainActivity extends AppCompatActivity {
         ContentResolver conR = getApplicationContext().getContentResolver();
         Gallery list = new Gallery(context);
 
-        /*Gallery list = new Gallery();
+        //Gallery list = new Gallery();
         list.queryGallery(conR); //queries photo uris
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
 
 
         //tests setting wallpaper with photos from our queue
-        Photo popped= list.photoQueue.poll();
+        /*Photo popped= list.photoQueue.poll();
         Bitmap bm=popped.toBitmap(conR);
         WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
         Wall wall = new Wall();
-        wall.set(wm, bm);*/
+        wall.set(wm, bm);
         //Context context= getApplicationContext();
-        Wall wall= new Wall(context);
+        Wall wall= new Wall(context);*/
     }
 
 
