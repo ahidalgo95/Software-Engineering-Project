@@ -1,5 +1,6 @@
 package com.example.katevandonge.dejaphotoproject;
 
+import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -18,10 +19,14 @@ import android.Manifest;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 /**
  * Implementation of App Widget functionality.
  */
 public class NewAppWidget extends AppWidgetProvider {
+    Gallery pList;
+    WallpaperManager myWall;
     public static String WIDGET_BUTTON = "MY_PACKAGE_NAME.WIDGET_BUTTON";
     public static String WIDGET_NEXT = "NEXT_BUTTON";
     public static String WIDGET_PREV = "PREV_BUTTON";
@@ -107,10 +112,37 @@ public class NewAppWidget extends AppWidgetProvider {
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_NEXT)) {
             Log.v("NEXTwidgetIFF", "NEXTwidgetIFF");
             Toast.makeText(context, "NEXT", Toast.LENGTH_SHORT).show();
+            //Wall thisWoll = new Wall(); //Wall.Woll;
+            //thisWoll.next();
+            //Wall wal = new Wall(context, Wall.pList, Wall.myWall);
+            //wal.next();
+            /*int index = Wall.index;
+            index++;
+            Wall.index = index;
+            String widind = "" + index;
+            String wallind = "" + Wall.index;
+            Log.v(widind, widind);
+            Log.v(wallind, wallind);*/
+            WallpaperManager myWall = Wall.myWall;
+            try {
+                myWall.setResource(+R.drawable.pic);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_PREV)) {
             Log.v("BACKwidgetIFF", "BACKwidgetIFF");
             Toast.makeText(context, "BACK", Toast.LENGTH_SHORT).show();
+            WallpaperManager myWall = Wall.myWall;
+            try {
+                myWall.clear();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
 
 

@@ -20,18 +20,17 @@ import static android.R.id.list;
 
 public class Wall extends Activity { //android.app.WallpaperManager{
 
-    Gallery pList;
-    WallpaperManager myWall;
+    static Gallery pList;
+    static WallpaperManager myWall;
     Context conR;
     Photo currPhoto;
     Iterator<Photo> iter;
-
 
     public Wall(Context context, Gallery gallery, WallpaperManager wm) {
         conR=context;
         pList = gallery;
         myWall = wm;
-        rotatePhoto();
+        //rotatePhoto();
 
     }
 
@@ -76,7 +75,7 @@ public class Wall extends Activity { //android.app.WallpaperManager{
 
 
     public void next(){
-        Log.v("next", "next");
+        Log.v("nextWALL", "nextWALL");
         return;
     }
 

@@ -112,13 +112,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         //tests setting wallpaper with photos from our queue
-        /*Photo popped= list.photoQueue.poll();
-        Bitmap bm=popped.toBitmap(conR);
+        //Photo popped= list.photoQueue.poll();
+        //Bitmap bm=popped.toBitmap(conR);
         WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
-        Wall wall = new Wall();
-        wall.set(wm, bm);
+        Wall wall = new Wall(context, list, wm);
+        //wall.set(bm);
         //Context context= getApplicationContext();
-        Wall wall= new Wall(context);*/
+        //Wall wall= new Wall(context);
     }
 
 
