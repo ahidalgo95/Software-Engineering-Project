@@ -1,6 +1,7 @@
 package com.example.katevandonge.dejaphotoproject;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -25,9 +26,9 @@ public class Photo {
     Karma karma;
     int weight;
 
-    public Photo(){
+    public Photo(Context context){
         weight=0;
-        karma = new Karma();
+        karma = new Karma(context);
     }
 
     /*

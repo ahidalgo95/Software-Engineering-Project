@@ -3,6 +3,7 @@ package com.example.katevandonge.dejaphotoproject;
 import android.Manifest;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -100,8 +101,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        Context context= getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
-        Gallery list = new Gallery();
+        Gallery list = new Gallery(context);
         list.queryGallery(conR); //queries photo uris
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
@@ -136,6 +138,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void testing(){
+        return;
     }
 }
 

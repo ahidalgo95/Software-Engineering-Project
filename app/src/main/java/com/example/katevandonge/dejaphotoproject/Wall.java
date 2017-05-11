@@ -12,10 +12,6 @@ import java.io.IOException;
 
 
 public class Wall extends Activity { //android.app.WallpaperManager{
-    WallpaperManager myWall;
-
-    public Wall() {
-    }
 
     /*
     *  Sets input bitmap to wallpaper.
