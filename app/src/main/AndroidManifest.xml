@@ -31,7 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <service
             android:name=".MyService"
             android:enabled="true"
@@ -51,7 +50,8 @@
         <service
             android:name=".UserLocation"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true">
+        </service>
 
         <!--
         <meta-data
