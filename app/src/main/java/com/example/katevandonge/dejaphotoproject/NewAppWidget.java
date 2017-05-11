@@ -69,16 +69,6 @@ public class NewAppWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-    /*public static PendingIntent buildButtonPendingIntent(Context context) {
-            //++NewAppWidgetIntentReceiver.clickCount;
-
-            // initiate widget update request
-            Intent intentB = new Intent();
-            intentB.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            return PendingIntent.getBroadcast(context, 0, intentB,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        }*/
-
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -92,13 +82,6 @@ public class NewAppWidget extends AppWidgetProvider {
                 Log.v("for", "gfor");
         }
     }
-
-    /*public static void pushWidgetUpdate(Context context, RemoteViews remoteViews) {
-        ComponentName myWidget = new ComponentName(context,
-                NewAppWidget.class);
-        AppWidgetManager manager = AppWidgetManager.getInstance(context);
-        manager.updateAppWidget(myWidget, remoteViews);
-    }*/
 
     @Override
     public void onEnabled(Context context) {
