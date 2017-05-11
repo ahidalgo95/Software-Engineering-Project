@@ -23,6 +23,8 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     WallpaperManager myWall;
     Context conR;
 
+
+
     public Wall(Context context) {
         conR=context;
     }
