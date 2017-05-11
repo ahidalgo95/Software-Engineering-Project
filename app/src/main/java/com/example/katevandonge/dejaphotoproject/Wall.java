@@ -73,5 +73,19 @@ public class Wall extends Activity { //android.app.WallpaperManager{
 
 
 
+
+
+    public void next(){
+        Log.v("next", "next");
+        return;
+    }
+
+    public void prev(){
+        Log.v("prev", "prev");
+        return;
+    }
+
+
+
 }
 //(WallpaperManager)context.getSystemService(Context.WALLPAPER_SERVICE);

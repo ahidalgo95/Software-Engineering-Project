@@ -4,7 +4,7 @@
     android:weightSum="1">
 
     <Button
-        android:id="@+id/BACK"
+        android:id="@+id/Back"
         android:layout_width="40dp"
         android:layout_height="109dp"
         android:text="BACK" />
