@@ -101,8 +101,8 @@ public class NewAppWidget extends AppWidgetProvider {
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_BUTTON)) {
             Log.v("karmwidgetIFF", "karmawidgetIFF");
             Toast.makeText(context, "HELLO", Toast.LENGTH_SHORT).show();
-            String kate = Wall.kate;
-            Log.v(kate, kate);
+            //String kate = Wall.kate;
+            //Log.v(kate, kate);
             Karma fuck = new Karma();
             fuck.switching();
         }

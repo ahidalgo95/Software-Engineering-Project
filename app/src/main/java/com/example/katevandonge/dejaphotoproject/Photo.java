@@ -27,9 +27,8 @@ public class Photo {
     Karma karma;
     int weight;
 
-    public Photo(){
-
-        karma = new Karma();
+    public Photo(Context context){
+        karma = new Karma(context);
     }
 
     /*
