@@ -3,6 +3,7 @@ package com.example.katevandonge.dejaphotoproject;
 import android.Manifest;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WallpaperManager pared = WallpaperManager.getInstance(getApplicationContext());
-                Wall wally = new Wall();
+                Wall wally = new Wall(getApplicationContext());
                // wally.set(pared);
             }
         });
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WallpaperManager pared2 = WallpaperManager.getInstance(getApplicationContext());
-                Wall wally2 = new Wall();
+                Wall wally2 = new Wall(getApplicationContext());
                 wally2.clear(pared2);
             }
         });
@@ -100,8 +101,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        ContentResolver conR = getApplicationContext().getContentResolver();
-        Gallery list = new Gallery();
+        Context context = getApplicationContext();
+
+        /*Gallery list = new Gallery();
         list.queryGallery(conR); //queries photo uris
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
@@ -112,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bm=popped.toBitmap(conR);
         WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
         Wall wall = new Wall();
-        wall.set(wm, bm);
+        wall.set(wm, bm);*/
+        //Context context= getApplicationContext();
+        Wall wall= new Wall(context);
     }
 
 
