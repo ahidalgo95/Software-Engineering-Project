@@ -23,8 +23,8 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     Gallery pList;
     WallpaperManager myWall;
     Context conR;
-    Photo currPhoto;
-    Iterator<Photo> iter;
+    /*Photo currPhoto;
+    Iterator<Photo> iter;*/
 
 
     public Wall(Context context, Gallery gallery, WallpaperManager wm) {
@@ -52,15 +52,16 @@ public class Wall extends Activity { //android.app.WallpaperManager{
             e.printStackTrace();
         }
     }
+
     public void rotatePhoto() {
-        iter = pList.photoQueue.iterator();
+        /*iter = pList.photoQueue.iterator();
         Bitmap bm;
         if (iter.hasNext()) {
             Photo curr = iter.next();
             currPhoto = curr;
             bm = curr.toBitmap(getContentResolver());
             set(bm);
-        }
+        }*/
     }
 
 
