@@ -23,6 +23,8 @@ import android.widget.Toast;
  */
 public class NewAppWidget extends AppWidgetProvider {
     public static String WIDGET_BUTTON = "MY_PACKAGE_NAME.WIDGET_BUTTON";
+    public static String WIDGET_NEXT = "NEXT_BUTTON";
+    public static String WIDGET_PREV = "PREV_BUTTON";
 
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                          int appWidgetId) {
@@ -48,6 +50,19 @@ public class NewAppWidget extends AppWidgetProvider {
         intentKarma.setAction(WIDGET_BUTTON);
         PendingIntent pendingIntentKarma = PendingIntent.getBroadcast(context, 0, intentKarma, 0);
         views.setOnClickPendingIntent(R.id.Karma, pendingIntentKarma);
+
+        //NEXT BUTTON
+        intentKarma = new Intent(context, NewAppWidget.class);
+        intentKarma.setAction(WIDGET_NEXT);
+        pendingIntentKarma = PendingIntent.getBroadcast(context, 0, intentKarma, 0);
+        views.setOnClickPendingIntent(R.id.Next, pendingIntentKarma);
+
+        //PREV BUTTON
+        intentKarma = new Intent(context, NewAppWidget.class);
+        intentKarma.setAction(WIDGET_PREV);
+        pendingIntentKarma = PendingIntent.getBroadcast(context, 0, intentKarma, 0);
+        views.setOnClickPendingIntent(R.id.Back, pendingIntentKarma);
+
 
 
         // Instruct the widget manager to update the widget
@@ -106,6 +121,15 @@ public class NewAppWidget extends AppWidgetProvider {
             Karma fuck = new Karma();
             fuck.switching();
         }
+        if (intentKarma.getAction().equals(NewAppWidget.WIDGET_NEXT)) {
+            Log.v("NEXTwidgetIFF", "NEXTwidgetIFF");
+            Toast.makeText(context, "NEXT", Toast.LENGTH_SHORT).show();
+        }
+        if (intentKarma.getAction().equals(NewAppWidget.WIDGET_PREV)) {
+            Log.v("BACKwidgetIFF", "BACKwidgetIFF");
+            Toast.makeText(context, "BACK", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

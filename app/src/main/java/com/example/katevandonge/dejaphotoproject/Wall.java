@@ -63,7 +63,18 @@ public class Wall extends Activity { //android.app.WallpaperManager{
         //to do time goes by next photo set
 
 
-        };
+    }
+
+    public void next(){
+        Log.v("next", "next");
+        return;
+    }
+
+    public void prev(){
+        Log.v("prev", "prev");
+        return;
+    }
+
 
 }
 //(WallpaperManager)context.getSystemService(Context.WALLPAPER_SERVICE);
