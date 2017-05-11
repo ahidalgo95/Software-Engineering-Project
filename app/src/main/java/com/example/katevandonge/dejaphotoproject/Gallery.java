@@ -118,7 +118,7 @@ public class Gallery {
             newQueue.add(polled);
         }
         photoQueue=newQueue;
-        queueCopy = new PriorityQueue<>(photoQueue);
+        queueCopy = new PriorityQueue<Photo>(photoQueue);
     }
 
 
