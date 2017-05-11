@@ -24,16 +24,20 @@ import java.util.PriorityQueue;
  */
 
 public class Gallery {
+
+    Context con;
     int size;
     ArrayList<Uri> uriList;
     ArrayList<Long> dateList;
     ArrayList<Double> latList;
     ArrayList<Double> longList;
     PriorityQueue<Photo> photoQueue;
+    PriorityQueue<Photo> queueCopy;
 
     @TargetApi(24)
-    public Gallery(){
+    public Gallery(Context context){
         size = 0;
+        con= context;
         uriList = new ArrayList<Uri>(size);
         dateList = new ArrayList<Long>(size);
         latList = new ArrayList<Double>(size);
@@ -91,17 +95,31 @@ public class Gallery {
     * */
     public void fillQueue (){
         for(int i = 0; i<size ; i++){
-            Photo photo = new Photo();
+            Photo photo = new Photo(con);
             photo.setUri(uriList.get(i));
             photo.setDate(dateList.get(i));
             photo.setLatitude(latList.get(i));
             photo.setLongitude(longList.get(i));
+            photo.setWeight();
             photoQueue.add(photo);
         }
+        queueCopy = new PriorityQueue<Photo>(photoQueue);
+        Log.v("photo 1 weight", Integer.toString(photoQueue.peek().getWeight()));
         Log.v("photo 1 info", ""+ uriList.get(1)+ "  "+ dateList.get(1)+" " +latList.get(1)+ " "+ longList.get(1));
         Log.v("size of photo queue", Integer.toString(photoQueue.size()));
     }
 
+    public void updateQueue(){
+        PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>();
+        Photo polled;
+        while(photoQueue.size()!=0){
+            polled= photoQueue.poll();
+            polled.setWeight();
+            newQueue.add(polled);
+        }
+        photoQueue=newQueue;
+        queueCopy = new PriorityQueue<Photo>(photoQueue);
+    }
 
 
 

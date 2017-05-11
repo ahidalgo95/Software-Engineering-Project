@@ -6,6 +6,8 @@ import android.os.Binder;
 import android.os.IBinder;
 
 
+
+
 public class UserLocation extends Service {
 
     TrackLocation mLocation;
@@ -26,6 +28,24 @@ public class UserLocation extends Service {
         // not sure if this is right
         return null;
     }
+
+
+/*
+    //Define service connection
+    private ServiceConnection m_serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            m_service = ((UserLocation.MyBinder)service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName className){
+            m_service = null;
+        }
+
+    };
+*/
+
 
     public class MyBinder extends Binder {
         public UserLocation getService(){

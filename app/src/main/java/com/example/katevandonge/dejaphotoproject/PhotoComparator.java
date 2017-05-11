@@ -1,5 +1,7 @@
 package com.example.katevandonge.dejaphotoproject;
 
+import android.util.Log;
+
 import java.util.Comparator;
 
 /**
@@ -10,9 +12,12 @@ public class PhotoComparator implements Comparator<Photo>{
 
     @Override
     public int compare(Photo a, Photo b){
-      if(a.weight>b.weight){ //THIS IS WRONG AND NEEDS TO BE CHANGED!!!
-          return 0;
+      if(a.weight>b.weight){
+         // Log.v("weight a>b", a.weight+" "+b.weight);
+          return -1;
+
       }
+       //Log.v("weight b<a", "!");
       return 1;
 
     }

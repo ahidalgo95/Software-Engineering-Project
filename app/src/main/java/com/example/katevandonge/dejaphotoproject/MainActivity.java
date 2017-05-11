@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
@@ -83,20 +84,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         /*Start location service*/
         Intent location = new Intent(this, UserLocation.class);
         startService(location);
-        //mLocation = new TrackLocation(getApplicationContext());
-        //mLocation.trackLocation();
-
-        /*Create an instance of GoogleAPIClient.
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }*/
-
-        /*Intent intent = new Intent(this, UserLocation.class);
-        bindService(location, m_serviceConnection, BIND_AUTO_CREATE);*/
 
 
         btn = (Button) findViewById(R.id.setWall);
@@ -106,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void onClick(View view) {
                 WallpaperManager pared = WallpaperManager.getInstance(getApplicationContext());
-                Wall wally = new Wall();
+                //Wall wally = new Wall(getApplicationContext());
                // wally.set(pared);
             }
         });
@@ -115,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void onClick(View view) {
                 WallpaperManager pared2 = WallpaperManager.getInstance(getApplicationContext());
-                Wall wally2 = new Wall();
-                wally2.clear(pared2);
+                //Wall wally2 = new Wall(getApplicationContext());
+                //wally2.clear(pared2);
             }
         });
 
@@ -151,19 +138,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             return;
         }
 
+        Context context= getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
-        Gallery list = new Gallery();
+        Gallery list = new Gallery(context);
+
+        //Gallery list = new Gallery();
         list.queryGallery(conR); //queries photo uris
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
 
 
         //tests setting wallpaper with photos from our queue
-        Photo popped= list.photoQueue.poll();
-        Bitmap bm=popped.toBitmap(conR);
+        //Photo popped= list.photoQueue.poll();
+        //Bitmap bm=popped.toBitmap(conR);
         WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
-        Wall wall = new Wall();
-        wall.set(wm, bm);
+        Wall wall = new Wall(context, list, wm);
+        //wall.set(bm);
+        //Context context= getApplicationContext();
+        //Wall wall= new Wall(context);
     }
 
     //Define service connection
@@ -206,6 +198,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     @Override
     public void onLocationChanged(Location location) {
 
+    }
+
+    public void testing(){
+        return;
     }
 }
 
