@@ -96,12 +96,24 @@ public class Gallery {
             photo.setDate(dateList.get(i));
             photo.setLatitude(latList.get(i));
             photo.setLongitude(longList.get(i));
+            photo.setWeight();
             photoQueue.add(photo);
         }
+        Log.v("photo 1 weight", Integer.toString(photoQueue.peek().getWeight()));
         Log.v("photo 1 info", ""+ uriList.get(1)+ "  "+ dateList.get(1)+" " +latList.get(1)+ " "+ longList.get(1));
         Log.v("size of photo queue", Integer.toString(photoQueue.size()));
     }
 
+    public void updateQueue(){
+        PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>();
+        Photo polled;
+        while(photoQueue.size()!=0){
+            polled= photoQueue.poll();
+            polled.setWeight();
+            newQueue.add(polled);
+        }
+        photoQueue=newQueue;
+    }
 
 
 

@@ -13,7 +13,7 @@ public class Karma {
 
     public Karma(){
         karma = false;
-        Log.v("kk", "karm message");
+        //Log.v("kk", "karm message");
     }
 
     public void switching(){
