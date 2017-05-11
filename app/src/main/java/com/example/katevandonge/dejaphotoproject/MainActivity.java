@@ -101,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Context context = getApplicationContext();
+        Context context= getApplicationContext();
+        ContentResolver conR = getApplicationContext().getContentResolver();
+        Gallery list = new Gallery(context);
 
         /*Gallery list = new Gallery();
         list.queryGallery(conR); //queries photo uris
@@ -140,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void testing(){
+        return;
     }
 }
 
