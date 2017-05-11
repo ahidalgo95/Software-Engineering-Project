@@ -13,6 +13,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
@@ -20,17 +22,20 @@ import static android.R.id.list;
 
 public class Wall extends Activity { //android.app.WallpaperManager{
 
-    Gallery pList;
+    PriorityQueue<Photo> pList;
     WallpaperManager myWall;
     Context conR;
     Photo currPhoto;
-    Iterator<Photo> iter;
-
+    static Photo [] photoArr;
+    static int currIndex;
+    ///Comparator<Photo> photoComparator;
 
     public Wall(Context context, Gallery gallery, WallpaperManager wm) {
         conR=context;
-        pList = gallery;
+        pList = gallery.photoQueue;
         myWall = wm;
+      // photoComparator = new PhotoComparator();
+       // photoArr = Arrays.sort(pList.toArray(),);
         rotatePhoto();
 
     }
@@ -53,14 +58,22 @@ public class Wall extends Activity { //android.app.WallpaperManager{
         }
     }
     public void rotatePhoto() {
-        iter = pList.photoQueue.iterator();
+       /* iter = pList.photoQueue.iterator();
         Bitmap bm;
         if (iter.hasNext()) {
             Photo curr = iter.next();
-            currPhoto = curr;
-            bm = curr.toBitmap(getContentResolver());
-            set(bm);
-        }
+            while(iter.hasNext() && curr.shown == true){
+                curr = iter.next();
+            }
+            if(curr.shown == false){
+                currPhoto = curr;
+                bm = curr.toBitmap(getContentResolver());
+                set(bm);
+            }
+            if(iter.hasNext() == false){
+
+            }
+        }*/
     }
 
 
