@@ -16,10 +16,7 @@ import java.io.IOException;
 
 import static android.R.id.list;
 
-
 public class Wall extends Activity { //android.app.WallpaperManager{
-<<<<<<< HEAD
-=======
 
     Gallery pList;
     WallpaperManager myWall;
@@ -28,7 +25,6 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     public Wall(Context context) {
         conR=context;
     }
->>>>>>> 6cba19c8e07e3573143eb653ab3ee6bd799e1e2c
 
     /*
     *  Sets input bitmap to wallpaper.
@@ -49,7 +45,7 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     }
     public void rotatePhoto(Bitmap bm) {
 
-        Gallery list = new Gallery();
+        Gallery list = new Gallery(conR);
         list.queryGallery(conR.getContentResolver()); //queries photo uris
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));

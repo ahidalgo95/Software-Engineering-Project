@@ -101,15 +101,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-<<<<<<< HEAD
         Context context= getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
         Gallery list = new Gallery(context);
-=======
-        Context context = getApplicationContext();
 
         /*Gallery list = new Gallery();
->>>>>>> 6cba19c8e07e3573143eb653ab3ee6bd799e1e2c
         list.queryGallery(conR); //queries photo uris
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
