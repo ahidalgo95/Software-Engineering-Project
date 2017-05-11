@@ -2,15 +2,19 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.Manifest;
 import android.app.WallpaperManager;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +29,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.google.android.gms.common.api.GoogleApiActivity;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
 import java.io.IOException;
 import java.lang.*;
 import java.util.ArrayList;
@@ -32,11 +43,15 @@ import java.util.ArrayList;
 import static android.R.attr.button;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener{
+    UserLocation m_service;
+    TrackLocation mLocation;
+
     Button btn;
     Button btn2;
     WallpaperManager myWall;
     @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +59,45 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Start location service
-        Intent intent = new Intent(this, UserLocation.class);
-        startService(intent);
+        /*
+        *  Permissions for accessing fine location
+        * */
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                // Explain to the user why we need to read the contacts
+            }
+
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    57756687);
+
+            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+            // app-defined int constant that should be quite unique
+
+            return;
+        }
+
+        /*Start location service*/
+        Intent location = new Intent(this, UserLocation.class);
+        startService(location);
+        //mLocation = new TrackLocation(getApplicationContext());
+        //mLocation.trackLocation();
+
+        /*Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }*/
+
+        /*Intent intent = new Intent(this, UserLocation.class);
+        bindService(location, m_serviceConnection, BIND_AUTO_CREATE);*/
+
 
         btn = (Button) findViewById(R.id.setWall);
         btn2 = (Button) findViewById(R.id.button2);
@@ -115,6 +166,20 @@ public class MainActivity extends AppCompatActivity {
         wall.set(wm, bm);
     }
 
+    //Define service connection
+    private ServiceConnection m_serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            m_service = ((UserLocation.MyBinder)service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName className){
+
+            m_service = null;
+        }
+
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -136,6 +201,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
     }
 }
 
