@@ -27,6 +27,7 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     static WallpaperManager myWall;
     PriorityQueue<Photo> pList;
     Context conR;
+    static int counter;
     /*Photo currPhoto;
     Iterator<Photo> iter;*/
 
@@ -41,14 +42,21 @@ public class Wall extends Activity { //android.app.WallpaperManager{
         conR=context;
         pList = gallery.photoQueue;
         myWall = wm;
+        counter = 0;
 
         // photoComparator = new PhotoComparator();
        // photoArr = Arrays.sort(pList.toArray(),);
         //rotatePhoto();
-        photoArr = new Photo[pList.size()];
-        for(int i=0; i<pList.size(); i++){
+        int Qsize = pList.size();
+        String QQ = "" + Qsize;
+        Log.v("QQ", "QQ");
+        Log.v(QQ, QQ);
+        photoArr = new Photo[Qsize];
+        for(int i=0; i<Qsize; i++){
             photoArr[i] = pList.poll();
-
+            String ii = "" + i;
+            Log.v(ii, ii);
+            Log.v("LOOP", "LOOP");
         }
 
 
