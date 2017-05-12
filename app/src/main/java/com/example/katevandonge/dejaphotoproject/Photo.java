@@ -29,11 +29,14 @@ public class Photo {
     boolean release;
     int weight;
     boolean shown;
+    Context context1;
+    static String locName;
 
     public Photo(Context context){
         karma = false;//new Karma(context);
         shown = false;
         release = false;
+        context1 = context;
     }
 
     /*
@@ -101,6 +104,15 @@ public class Photo {
     public void setLatitude(Double d){ latitude= d; }
 
     public void setLongitude(Double d){ longitude= d; }
+
+    public void locScreenHelper() {
+        TrackLocation screenTL = new TrackLocation(context1);
+        screenTL.mLatitude = latitude;
+        screenTL.mLongitude = longitude;
+
+        DisplayLocation screenDL = new DisplayLocation(screenTL);
+        locName = screenDL.displayLocation();
+    }
 
     /*
     * Converts uri to bitmap and returns that bitmap.
