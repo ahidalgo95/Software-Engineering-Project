@@ -1,6 +1,7 @@
 package com.example.katevandonge.dejaphotoproject;
 
 import android.Manifest;
+import android.content.Intent;
 import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -27,6 +29,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,12 +47,13 @@ import java.util.ArrayList;
 import static android.R.attr.button;
 
 
+
 public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
+    int rate;
 
-    Button btn;
-    Button btn2;
+
     WallpaperManager myWall;
     @RequiresApi(api = Build.VERSION_CODES.M)
 
@@ -88,26 +92,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         startService(location);
 
 
-        btn = (Button) findViewById(R.id.setWall);
-        btn2 = (Button) findViewById(R.id.button2);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WallpaperManager pared = WallpaperManager.getInstance(getApplicationContext());
-                //Wall wally = new Wall(getApplicationContext());
-               // wally.set(pared);
-            }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WallpaperManager pared2 = WallpaperManager.getInstance(getApplicationContext());
-                //Wall wally2 = new Wall(getApplicationContext());
-                //wally2.clear(pared2);
-            }
-        });
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -158,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //wall.set(bm);
         //Context context= getApplicationContext();
         //Wall wall= new Wall(context);
+
     }
 
     /*//Define service connection
@@ -205,6 +191,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     public void testing(){
         return;
     }
+
+
+
+    public void saveRate(View view){
+        EditText timeRate = (EditText) findViewById(R.id.rate);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("rate", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String rateStr = timeRate.getText().toString();
+        editor.putString("rate", rateStr );
+        TextView rateDisplay = (TextView) findViewById(R.id.display);
+        rateDisplay.setText("Rate: "+rateStr+" minutes");
+        rate = Integer.parseInt(rateStr);
+
+        editor.apply();
+    }
+
 }
 
 

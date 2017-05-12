@@ -33,6 +33,7 @@ public class Gallery {
     ArrayList<Double> longList;
     PriorityQueue<Photo> photoQueue;
     PriorityQueue<Photo> queueCopy;
+    Comparator<Photo> photoComparator;
 
     @TargetApi(24)
     public Gallery(Context context){
@@ -42,8 +43,9 @@ public class Gallery {
         dateList = new ArrayList<Long>(size);
         latList = new ArrayList<Double>(size);
         longList = new ArrayList<Double>(size);
-        Comparator<Photo> photoComparator= new PhotoComparator();
+        photoComparator= new PhotoComparator();
         photoQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
+        queueCopy = new PriorityQueue<Photo>(photoComparator);
     }
 
     public int getSize(){
@@ -101,24 +103,37 @@ public class Gallery {
             photo.setLatitude(latList.get(i));
             photo.setLongitude(longList.get(i));
             photo.setWeight();
-            photoQueue.add(photo);
+            if(photo.release==true){}
+            else {
+                photoQueue.add(photo);
+                queueCopy.add(photo);
+            }
         }
-        queueCopy = new PriorityQueue<Photo>(photoQueue);
+
         Log.v("photo 1 weight", Integer.toString(photoQueue.peek().getWeight()));
         Log.v("photo 1 info", ""+ uriList.get(1)+ "  "+ dateList.get(1)+" " +latList.get(1)+ " "+ longList.get(1));
         Log.v("size of photo queue", Integer.toString(photoQueue.size()));
     }
 
+
+    /*
+    * To be called when we need to update the queue with a service.
+    * */
+    @TargetApi(24)
     public void updateQueue(){
-        PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>();
-        Photo polled;
-        while(photoQueue.size()!=0){
-            polled= photoQueue.poll();
+        PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>(photoComparator);
+        PriorityQueue<Photo> newQcopy = new PriorityQueue<Photo>(photoComparator);
+        Photo polled = photoQueue.poll();
+        while(polled != null){
+
             polled.setWeight();
             newQueue.add(polled);
+            newQcopy.add(polled);
+            polled= photoQueue.poll();
         }
         photoQueue=newQueue;
-        queueCopy = new PriorityQueue<Photo>(photoQueue);
+        queueCopy = newQcopy;
+
     }
 
 

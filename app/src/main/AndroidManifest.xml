@@ -57,24 +57,36 @@
             android:launchMode="singleTop">
         </service>
 
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBw4dHwwILCiH4RzSuYRzBD8UNp9NXh508" />
 
+        <service
+            android:name=".MyIntentService"
+            android:exported="false" />
 
-        <!-- this is to make the app run on startup-->
+        <!-- this is to make the app run on startup -->
         <receiver
+            android:name=".StartOnBoot"
             android:enabled="true"
             android:exported="true"
-            android:name="com.example.katevandonge.dejaphotoproject.StartOnBoot"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </receiver>
+        <receiver android:name=".WidgetLocation">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_location_info" />
         </receiver>
     </application>
 

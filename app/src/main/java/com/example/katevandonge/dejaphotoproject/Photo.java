@@ -24,13 +24,16 @@ public class Photo {
     String time;
     Double latitude;
     Double longitude;
-    Karma karma;
+    //Karma karma;
+    boolean karma;
+    boolean release;
     int weight;
     boolean shown;
 
     public Photo(Context context){
-        karma = new Karma(context);
+        karma = false;//new Karma(context);
         shown = false;
+        release = false;
     }
 
     /*
@@ -44,6 +47,13 @@ public class Photo {
         if(checkTime()==true){
             weight=weight+5;
         }
+        if(release == true){
+                weight = weight*(-1);
+        }
+        if(karma == true){
+            weight=weight+1;
+        }
+
     }
 
     public int getWeight(){
