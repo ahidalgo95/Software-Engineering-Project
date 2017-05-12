@@ -44,6 +44,7 @@ public class Wall extends Activity { //android.app.WallpaperManager{
         myWall = wm;
         counter = 0;
 
+
         // photoComparator = new PhotoComparator();
        // photoArr = Arrays.sort(pList.toArray(),);
         //rotatePhoto();
