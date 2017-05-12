@@ -73,7 +73,7 @@ public class TrackLocation extends MainActivity
         if (mLastLocation != null) {
             mLatitude = mLastLocation.getLatitude();
             mLongitude = mLastLocation.getLongitude();
-            Toast.makeText(mContext, String.valueOf(mLastLocation.getLatitude()) + " " +  String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mContext, String.valueOf(mLastLocation.getLatitude()) + " " +  String.valueOf(mLastLocation.getLongitude()), Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(mContext, "cry", Toast.LENGTH_SHORT).show();
         }

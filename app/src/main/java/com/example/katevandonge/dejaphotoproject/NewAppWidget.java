@@ -131,8 +131,10 @@ public class NewAppWidget extends AppWidgetProvider {
             Photo[] wallArr = Wall.photoArr;
             int counter = Wall.counter;
             Photo thisPhoto = wallArr[counter];
-            thisPhoto.release = true;
-            wallArr[counter].release = true;
+            if(thisPhoto!=null) {
+                thisPhoto.release = true;
+                wallArr[counter].release = true;
+            }
             //get picture away
             wallArr[counter] = null;
             mover(context);
