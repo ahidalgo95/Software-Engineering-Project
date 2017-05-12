@@ -101,7 +101,10 @@ public class Gallery {
             photo.setLatitude(latList.get(i));
             photo.setLongitude(longList.get(i));
             photo.setWeight();
-            photoQueue.add(photo);
+            if(photo.release==true){}
+            else {
+                photoQueue.add(photo);
+            }
         }
         queueCopy = new PriorityQueue<Photo>(photoQueue);
         Log.v("photo 1 weight", Integer.toString(photoQueue.peek().getWeight()));

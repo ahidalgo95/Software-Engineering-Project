@@ -40,7 +40,7 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     public Wall(Context context, Gallery gallery, WallpaperManager wm) {
         galleryK = gallery;
         conR=context;
-        pList = gallery.photoQueue;
+        pList = gallery.queueCopy;
         myWall = wm;
         counter = 0;
 
@@ -58,6 +58,13 @@ public class Wall extends Activity { //android.app.WallpaperManager{
             Log.v(ii, ii);
             Log.v("LOOP", "LOOP");
         }
+
+        /*Bitmap bm = photoArr[0].toBitmap(getContentResolver());
+        try {
+            myWall.setBitmap(bm);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
 
     }

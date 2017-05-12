@@ -25,12 +25,14 @@ public class Photo {
     Double latitude;
     Double longitude;
     Karma karma;
+    boolean release;
     int weight;
     boolean shown;
 
     public Photo(Context context){
         karma = new Karma(context);
         shown = false;
+        release = false;
     }
 
     /*
