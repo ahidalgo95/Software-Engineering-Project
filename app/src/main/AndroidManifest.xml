@@ -55,7 +55,6 @@
             android:enabled="true"
             android:exported="true"
             android:launchMode="singleTop">
-            android:exported="true">
         </service>
 
         <meta-data

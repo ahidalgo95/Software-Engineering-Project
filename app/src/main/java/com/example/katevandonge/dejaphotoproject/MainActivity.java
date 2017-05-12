@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         /*
         *  Permissions for accessing fine location
         * */
