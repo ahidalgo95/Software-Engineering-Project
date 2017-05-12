@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //Wall wall= new Wall(context);
     }
 
-    //Define service connection
+    /*//Define service connection
     private ServiceConnection m_serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             m_service = null;
         }
 
-    };
+    };*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

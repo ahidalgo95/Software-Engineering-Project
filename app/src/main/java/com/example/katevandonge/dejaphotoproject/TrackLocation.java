@@ -45,10 +45,10 @@ public class TrackLocation extends MainActivity implements GoogleApiClient.Conne
         mGoogleApiClient.connect();
     }
 
-    private boolean isGPSEnabled() {
+    /*private boolean isGPSEnabled() {
         LocationManager cm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return cm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
+    }*/
 
 
     public void updateLocation() {
