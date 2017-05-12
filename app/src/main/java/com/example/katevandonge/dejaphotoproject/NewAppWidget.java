@@ -116,9 +116,11 @@ public class NewAppWidget extends AppWidgetProvider {
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_BUTTON)) {
             Log.v("karmwidgetIFF", "karmawidgetIFF");
             Toast.makeText(context, "HELLO", Toast.LENGTH_SHORT).show();
-            //Hey don't turn it in with this this is not good.
-            Karma wholesome = new Karma();
-            wholesome.switching();
+            Photo[] wallArr = Wall.photoArr;
+            int counter = Wall.counter;
+            Photo thisPhoto = wallArr[counter];
+            thisPhoto.karma = true;
+            wallArr[counter].karma = true;
         }
 
         //RELEASE BUTTON
@@ -130,16 +132,12 @@ public class NewAppWidget extends AppWidgetProvider {
             int counter = Wall.counter;
             Photo thisPhoto = wallArr[counter];
             thisPhoto.release = true;
+            wallArr[counter].release = true;
             //get picture away
             wallArr[counter] = null;
-
             mover(context);
-
-
-
             //Wall.photoArr = wallArr;
             //Wall.counter = counter;
-
         }
 
         //NEXT BUTTON
