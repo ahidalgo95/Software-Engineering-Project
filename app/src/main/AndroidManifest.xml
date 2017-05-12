@@ -12,7 +12,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
@@ -31,6 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".MyService"
             android:enabled="true"
@@ -50,14 +53,42 @@
         <service
             android:name=".UserLocation"
             android:enabled="true"
-            android:exported="true">
+
+
+
+            android:exported="true"
+            android:launchMode="singleTop">
+
         </service>
 
-        <!--
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
+
             android:value="AIzaSyBw4dHwwILCiH4RzSuYRzBD8UNp9NXh508"/>
-        -->
+
+        <service
+            android:name=".MyIntentService"
+            android:exported="false"></service>
+
+
+
+
+        <!-- this is to make the app run on startup-->
+        <receiver
+            android:enabled="true"
+            android:exported="true"
+            android:name="com.example.katevandonge.dejaphotoproject.StartOnBoot"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </receiver>
+
     </application>
 
 </manifest>
