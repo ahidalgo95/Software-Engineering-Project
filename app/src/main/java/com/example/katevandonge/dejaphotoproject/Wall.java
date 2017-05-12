@@ -43,7 +43,6 @@ public class Wall extends Activity { //android.app.WallpaperManager{
         pList = gallery.queueCopy;
         myWall = wm;
         counter = 0;
-        gallery.updateQueue();
 
         // photoComparator = new PhotoComparator();
        // photoArr = Arrays.sort(pList.toArray(),);

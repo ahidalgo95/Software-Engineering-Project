@@ -48,7 +48,7 @@ public class Photo {
             weight=weight+5;
         }
         if(release == true){
-            weight=weight*(-1);
+                weight = weight*(-1);
         }
         if(karma == true){
             weight=weight+1;
