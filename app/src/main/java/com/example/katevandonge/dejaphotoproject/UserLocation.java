@@ -31,7 +31,6 @@ public class UserLocation extends Service {
     TrackLocation mLocation;
     DisplayLocation mDisplayLocation;
     int UPDATE_TIME_MILLISECONDS = 3000;
-    boolean locationEnabled;
 
     public UserLocation() {
     }
@@ -83,7 +82,7 @@ public class UserLocation extends Service {
                     e.printStackTrace();
                 }
 
-                if (mLocation != null && locationEnabled) {
+                if (mLocation != null) {
                     mLocation.trackLocation();
                     mLocationString = mDisplayLocation.displayLocation();
                     Log.i("display from UserLoc", mLocationString);

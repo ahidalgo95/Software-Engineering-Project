@@ -28,6 +28,10 @@ public class DisplayLocation {
         myLocation = mTrackLocation;
     }
 
+    public void setLocation(TrackLocation newLocation){
+        myLocation = newLocation;
+    }
+
     public String displayLocation() {
 
         // making url request
