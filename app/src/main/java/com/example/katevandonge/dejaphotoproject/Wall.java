@@ -28,8 +28,7 @@ public class Wall extends Activity { //android.app.WallpaperManager{
     PriorityQueue<Photo> pList;
     Context conR;
     static int counter;
-    /*Photo currPhoto;
-    Iterator<Photo> iter;*/
+
 
 
     Photo currPhoto;
