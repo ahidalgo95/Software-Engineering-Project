@@ -109,6 +109,10 @@ public class Gallery {
         Log.v("size of photo queue", Integer.toString(photoQueue.size()));
     }
 
+
+    /*
+    * To be called when we need to update the queue with a service.
+    * */
     public void updateQueue(){
         PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>();
         Photo polled;

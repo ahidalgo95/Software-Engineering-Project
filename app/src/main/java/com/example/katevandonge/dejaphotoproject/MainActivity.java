@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //wall.set(bm);
         //Context context= getApplicationContext();
         //Wall wall= new Wall(context);
+
     }
 
     /*//Define service connection
