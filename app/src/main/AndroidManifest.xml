@@ -31,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".MyService"
             android:enabled="true"
@@ -50,14 +51,16 @@
         <service
             android:name=".UserLocation"
             android:enabled="true"
-            android:exported="true">
-        </service>
+            android:exported="true"></service>
 
         <!--
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBw4dHwwILCiH4RzSuYRzBD8UNp9NXh508"/>
         -->
+        <service
+            android:name=".MyIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

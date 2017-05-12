@@ -1,11 +1,13 @@
 package com.example.katevandonge.dejaphotoproject;
 
 import android.Manifest;
+import android.content.Intent;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,8 +37,8 @@ import static android.R.attr.button;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button btn;
-    Button btn2;
+
+    int rate;
     WallpaperManager myWall;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -49,26 +52,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UserLocation.class);
         startService(intent);
 
-        btn = (Button) findViewById(R.id.setWall);
-        btn2 = (Button) findViewById(R.id.button2);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WallpaperManager pared = WallpaperManager.getInstance(getApplicationContext());
-                //Wall wally = new Wall(getApplicationContext());
-               // wally.set(pared);
-            }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WallpaperManager pared2 = WallpaperManager.getInstance(getApplicationContext());
-                //Wall wally2 = new Wall(getApplicationContext());
-                //wally2.clear(pared2);
-            }
-        });
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -147,6 +131,23 @@ public class MainActivity extends AppCompatActivity {
     public void testing(){
         return;
     }
+
+
+
+    public void saveRate(View view){
+        EditText timeRate = (EditText) findViewById(R.id.rate);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("rate", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String rateStr = timeRate.getText().toString();
+        editor.putString("rate", rateStr );
+        TextView rateDisplay = (TextView) findViewById(R.id.display);
+        rateDisplay.setText("Rate: "+rateStr+" minutes");
+        rate = Integer.parseInt(rateStr);
+
+        editor.apply();
+    }
+
 }
 
 
