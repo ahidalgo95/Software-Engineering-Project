@@ -91,7 +91,7 @@ public class TrackLocation extends MainActivity
                             // Ignore the error.
                         }*/
 
-                        Toast.makeText(mContext,"Please enable High Accuracy Location", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"Please enable High Accuracy Location and relaunch the app", Toast.LENGTH_SHORT).show();
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                         // Location settings are not satisfied. However, we have no way to fix the
