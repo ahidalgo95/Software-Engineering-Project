@@ -51,7 +51,8 @@ import static android.R.attr.button;
 public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
-    int rate;
+    int rate = 5000;//300000;
+    Intent intentAlpha;
 
 
     WallpaperManager myWall;
@@ -63,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        intentAlpha = new Intent(MainActivity.this, UpdateQueueIntentService.class);
+        //intentAlpha.putExtra("myrate", rate);
+        startService(intentAlpha);
 
 
 
@@ -90,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         /*Start location service*/
         Intent location = new Intent(this, UserLocation.class);
         startService(location);
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -123,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             return;
         }
 
-        Context context= getApplicationContext();
+        Context context = getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
         Gallery list = new Gallery(context);
 
@@ -141,6 +145,36 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //wall.set(bm);
         //Context context= getApplicationContext();
         //Wall wall= new Wall(context);
+
+
+
+
+
+
+        /*final class ThreadK implements Runnable{
+
+            @Override
+            public void run() {
+               // TrackLocation screenTL = new TrackLocation(getApplicationContext());
+                //screenTL.mLatitude = 37.422;//latitude;
+                //screenTL.mLongitude = -122.084;//longitude;
+
+                double mylat = 37.422;
+                double mylong = -122.084;
+                //String latlat = "" + screenTL.mLatitude;
+                //String lonlon = "" + screenTL.mLongitude;
+                //Log.v(latlat, latlat);
+                //Log.v(lonlon, lonlon);
+                Log.v("THREE", "THREE");
+                Other screenDL = new Other();
+                Log.v("FOUR", "FOUR");
+                String locName = screenDL.displayLocation(mylat, mylong);
+                Log.v(locName, locName);
+
+            }
+        }
+        Thread how = new Thread(new ThreadK());
+        how.start();*/
 
     }
 
@@ -203,7 +237,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         rateDisplay.setText("Rate: "+rateStr+" minutes");
         rate = Integer.parseInt(rateStr);
 
+        //stopService(intentAlpha);
+        //intentAlpha.putExtra("myrate", rate);
+        //startService(intentAlpha);
+
         editor.apply();
+
     }
 
 }
