@@ -221,7 +221,7 @@ public class NewAppWidget extends AppWidgetProvider {
             try {
                 String locDisplay = picToSet.locName;
                 Log.v(locDisplay, locDisplay);
-                Log.v("YO LOCDISPLAY", "YO LOCDISPLAY");
+                Log.v("LOCDISPLAY", "LOCDISPLAY");
                 Bitmap bm = picToSet.toBitmap(context.getContentResolver());
                 Bitmap newBm = addLocation(locDisplay, bm);
                 myWall.setBitmap(newBm);
@@ -244,7 +244,7 @@ public class NewAppWidget extends AppWidgetProvider {
         //canvas.drawPaint(paint);
 
         paint.setColor(Color.RED);
-        paint.setTextSize(50);
+        paint.setTextSize(20);
         canvas.drawText(locDisplay, 0, 400, paint);
         canvas.drawBitmap(newBm, 0f, 0f, null);
 
