@@ -119,7 +119,7 @@ public class Photo {
                 double mylong = -122.084; //CHANGE TO PHOTOS LOCATIONS
                 Other screenDL = new Other();
                 Log.v("FOUR", "FOUR");
-                String locName = screenDL.displayLocation(mylat, mylong);
+                locName = screenDL.displayLocation(mylat, mylong);
                 Log.v(locName, locName);
             }
         }
