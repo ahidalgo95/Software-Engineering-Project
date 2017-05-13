@@ -79,6 +79,8 @@ public class DisplayLocation {
                     formatted_address = formatted_address + rec1.getString("short_name");
                 }
 
+             //cityName = formatted_address
+
                 /*if(comp.equals("locality")){
                     System.out.println("city ————-"+rec1.getString("short_name"));
                 }
