@@ -44,7 +44,7 @@ public class NewAppWidget extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-        views.setTextViewText(R.id.appwidget_text, but);
+        //views.setTextViewText(R.id.appwidget_text, but);
 
 
         Intent intentA = new Intent(WIDGET_BUTTON);
