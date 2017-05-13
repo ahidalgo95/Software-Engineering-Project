@@ -62,6 +62,9 @@ public class DisplayLocation {
             // Converting Json formatted string into JSON object
             JSONObject json = (JSONObject) JSONSerializer.toJSON(out);
             JSONArray results=json.getJSONArray("results");
+            if(results == null || results.size() < 1 ){
+                return "";
+            }
             JSONObject rec = results.getJSONObject(0);
             JSONArray address_components=rec.getJSONArray("address_components");
             String formatted_address = "";
