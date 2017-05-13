@@ -37,7 +37,7 @@ public class Photo {
         shown = false;
         release = false;
         context1 = context;
-        locName = "hello!";
+        locName = "waffles";
 
     }
 
