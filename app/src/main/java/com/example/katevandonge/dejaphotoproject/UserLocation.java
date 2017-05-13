@@ -30,7 +30,7 @@ public class UserLocation extends Service {
     static String mLocationString = "";
     TrackLocation mLocation;
     DisplayLocation mDisplayLocation;
-    int UPDATE_TIME_MILLISECONDS = 3000;
+    int UPDATE_TIME_MILLISECONDS = 9999000;
 
     public UserLocation() {
     }
@@ -85,7 +85,7 @@ public class UserLocation extends Service {
                 if (mLocation != null) {
                     mLocation.trackLocation();
                     mLocationString = mDisplayLocation.displayLocation();
-                    Log.i("display from UserLoc", mLocationString);
+                    //Log.i("display from UserLoc", mLocationString);
                 }
 
                 run();

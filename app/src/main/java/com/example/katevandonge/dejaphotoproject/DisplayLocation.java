@@ -20,6 +20,7 @@ import java.net.URL;
 
 
 
+
 public class DisplayLocation {
 
     TrackLocation myLocation;
@@ -46,7 +47,7 @@ public class DisplayLocation {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + conn.getResponseCode());
             }
-            Log.i("displayLocation1", "I get here1");
+            //Log.i("displayLocation1", "I get here1");
             // Reading data's from url
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     (conn.getInputStream())));
@@ -85,7 +86,7 @@ public class DisplayLocation {
                     System.out.println("country ———-"+rec1.getString("short_name"));
                 }*/
             }
-            Log.i("DisplayLocation", rec.getString("formatted_address"));
+            //Log.i("DisplayLocation", rec.getString("formatted_address"));
             conn.disconnect();
             return (""+formatted_address);
 

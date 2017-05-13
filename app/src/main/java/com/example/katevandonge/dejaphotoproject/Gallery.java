@@ -32,7 +32,7 @@ public class Gallery {
     ArrayList<Double> latList;
     ArrayList<Double> longList;
     PriorityQueue<Photo> photoQueue;
-    PriorityQueue<Photo> queueCopy;
+    static PriorityQueue<Photo> queueCopy;
     Comparator<Photo> photoComparator;
 
     @TargetApi(24)
@@ -102,6 +102,7 @@ public class Gallery {
             photo.setDate(dateList.get(i));
             photo.setLatitude(latList.get(i));
             photo.setLongitude(longList.get(i));
+            photo.locScreenHelper();
             photo.setWeight();
             if(photo.release==true){}
             else {

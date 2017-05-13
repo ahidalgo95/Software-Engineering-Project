@@ -120,7 +120,7 @@ public class TrackLocation extends MainActivity
         if (mLastLocation != null) {
             mLatitude = mLastLocation.getLatitude();
             mLongitude = mLastLocation.getLongitude();
-            Log.i("trackLocation", mLatitude + " " + mLongitude );
+            //Log.i("trackLocation", mLatitude + " " + mLongitude );
         }else{
             //Toast.makeText(mContext, "cry", Toast.LENGTH_SHORT).show();
         }
@@ -149,7 +149,7 @@ public class TrackLocation extends MainActivity
     }
 
     private void handleNewLocation(Location location) {
-        Log.d("handleNewLocation", location.toString());
+        //Log.d("handleNewLocation", location.toString());
     }
 
     public void onLocationChanged(Location location){

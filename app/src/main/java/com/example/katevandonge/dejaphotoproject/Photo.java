@@ -30,13 +30,14 @@ public class Photo {
     int weight;
     boolean shown;
     Context context1;
-    static String locName;
+    String locName;
 
     public Photo(Context context){
         karma = false;//new Karma(context);
         shown = false;
         release = false;
         context1 = context;
+        locName = "hello!";
     }
 
     /*
@@ -106,13 +107,21 @@ public class Photo {
     public void setLongitude(Double d){ longitude= d; }
 
     public void locScreenHelper() {
-        TrackLocation screenTL = new TrackLocation(context1);
-        screenTL.mLatitude = latitude;
-        screenTL.mLongitude = longitude;
-
-        DisplayLocation screenDL = new DisplayLocation(screenTL);
-        locName = screenDL.displayLocation();
+        final class ThreadK implements Runnable {
+            @Override
+            public void run() {
+                double mylat = 37.422; //CHANGE TO PHOTOS LOCATIONS
+                double mylong = -122.084; //CHANGE TO PHOTOS LOCATIONS
+                Other screenDL = new Other();
+                Log.v("FOUR", "FOUR");
+                String locName = screenDL.displayLocation(mylat, mylong);
+                Log.v(locName, locName);
+            }
+        }
+        Thread how = new Thread(new ThreadK());
+        how.start();
     }
+
 
     /*
     * Converts uri to bitmap and returns that bitmap.
