@@ -221,11 +221,9 @@ public class NewAppWidget extends AppWidgetProvider {
             try {
                 String locDisplay = picToSet.locName;
                 Log.v(locDisplay, locDisplay);
-                Log.v("YO LOCDISPLAY", "YO LOCDISPLAY");
                 Bitmap bm = picToSet.toBitmap(context.getContentResolver());
                 Bitmap newBm = addLocation(locDisplay, bm);
                 myWall.setBitmap(newBm);
-                Log.v("NEW BM MADE", "NEW BM MADE");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -239,13 +237,10 @@ public class NewAppWidget extends AppWidgetProvider {
         //Canvas stuff to new bm
         Canvas canvas = new Canvas(newBm);
         Paint paint = new Paint();
-        //paint.setColor(Color.WHITE);
-        //paint.setStyle(Paint.Style.);
-        //canvas.drawPaint(paint);
 
         paint.setColor(Color.RED);
-        paint.setTextSize(50);
-        canvas.drawText(locDisplay, 0, 400, paint);
+        paint.setTextSize(15);
+        canvas.drawText(locDisplay, 0, 370, paint);
         canvas.drawBitmap(newBm, 0f, 0f, null);
 
         return newBm;

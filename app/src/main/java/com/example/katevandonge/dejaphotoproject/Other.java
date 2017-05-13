@@ -28,6 +28,7 @@ import java.net.URL;
  */
 
 public class Other {
+        String city;
 
         public Other(){
 
@@ -54,9 +55,7 @@ public class Other {
 
                 String output;
                 String out="";
-                System.out.println("Output from Server .... \n");
                 while ((output = br.readLine()) != null) {
-                    //System.out.println(output);
                     out+=output;
                 }
                 // Converting Json formatted string into JSON object
@@ -65,27 +64,10 @@ public class Other {
                 JSONObject rec = results.getJSONObject(0);
                 JSONArray address_components=rec.getJSONArray("address_components");
                 String formatted_address = "";
-                for(int i=1;i<address_components.size();i++){
-                    JSONObject rec1 = address_components.getJSONObject(i);
-                    JSONArray types=rec1.getJSONArray("types");
-                    String comp=types.getString(0);
 
-                    if(i < address_components.size() - 1) {
-                        formatted_address = formatted_address + rec1.getString("short_name") + ", ";
-                    }else {
-                        formatted_address = formatted_address + rec1.getString("short_name");
-                    }
-
-                /*if(comp.equals("locality")){
-                    System.out.println("city ————-"+rec1.getString("short_name"));
-                }
-                else if(comp.equals("country")){
-                    System.out.println("country ———-"+rec1.getString("short_name"));
-                }*/
-                }
-                //Log.i("DisplayLocation", rec.getString("formatted_address"));
-                conn.disconnect();
-                return (""+formatted_address);
+                JSONObject recOne = address_components.getJSONObject(2);
+                city = recOne.getString("short_name");
+                return city;
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
