@@ -24,20 +24,21 @@ public class Photo {
     String time;
     Double latitude;
     Double longitude;
-    //Karma karma;
-    boolean karma;
-    boolean release;
-    int weight;
-    boolean shown;
     Context context1;
     String locName;
+    boolean karma;
+    boolean release;
+    boolean shown;
+    int weight;
+    long recentTime = 0;
 
     public Photo(Context context){
-        karma = false;//new Karma(context);
+        karma = false;
         shown = false;
         release = false;
         context1 = context;
         locName = "hello!";
+
     }
 
     /*
@@ -100,6 +101,10 @@ public class Photo {
         dayOfWeek=arr[0];
         date= arr[1];
         time=arr[2];
+    }
+
+    public void setRecentTime(long a){
+        recentTime = a;
     }
 
     public void setLatitude(Double d){ latitude= d; }
