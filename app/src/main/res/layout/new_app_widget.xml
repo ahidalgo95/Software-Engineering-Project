@@ -5,41 +5,29 @@
 
     <Button
         android:id="@+id/Back"
-        android:layout_width="40dp"
-        android:layout_height="109dp"
-        android:text="BACK" />
+        android:layout_width="62dp"
+        android:layout_height="60dp"
+        android:text="Back" />
 
     <Button
         android:id="@+id/Karma"
-        android:layout_width="40dp"
-        android:layout_height="111dp"
-        android:text="Karma" />
-
-    <Button
-        android:id="@+id/Next"
-        android:layout_width="40dp"
-        android:layout_height="113dp"
-        android:text="Next" />
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:drawableLeft="@drawable/ic_favorite_black_24dp_2x"
+        android:text="" />
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="40dp"
-        android:layout_height="109dp"
-        android:text="Release" />
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:drawableLeft="@drawable/ic_clear_black_24dp_2x"
+        android:text="" />
 
-    <TextView
-        android:id="@+id/appwidget_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="84dp"
-        android:layout_weight="1"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+    <Button
+        android:id="@+id/Next"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="Next" />
 
 
 </LinearLayout>
