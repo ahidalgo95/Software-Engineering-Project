@@ -58,15 +58,6 @@ public class Wall extends Activity { //android.app.WallpaperManager{
             Log.v(ii, ii);
             Log.v("LOOP", "LOOP");
         }
-
-        /*Bitmap bm = photoArr[0].toBitmap(getContentResolver());
-        try {
-            myWall.setBitmap(bm);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
     }
 
     /*

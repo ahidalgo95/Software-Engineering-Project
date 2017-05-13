@@ -5,6 +5,9 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
@@ -216,8 +219,13 @@ public class NewAppWidget extends AppWidgetProvider {
         else {
             Photo picToSet = wallArr[counter];
             try {
+                String locDisplay = picToSet.locName;
+                Log.v(locDisplay, locDisplay);
+                Log.v("YO LOCDISPLAY", "YO LOCDISPLAY");
                 Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-                myWall.setBitmap(bm);
+                Bitmap newBm = addLocation(locDisplay, bm);
+                myWall.setBitmap(newBm);
+                Log.v("NEW BM MADE", "NEW BM MADE");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -225,6 +233,22 @@ public class NewAppWidget extends AppWidgetProvider {
         }
         Wall.counter = counter;
 
+    }
+    public Bitmap addLocation(String locDisplay, Bitmap bm){
+        Bitmap newBm = bm.copy(Bitmap.Config.ARGB_8888, true);
+        //Canvas stuff to new bm
+        Canvas canvas = new Canvas(newBm);
+        Paint paint = new Paint();
+        //paint.setColor(Color.WHITE);
+        //paint.setStyle(Paint.Style.);
+        //canvas.drawPaint(paint);
+
+        paint.setColor(Color.RED);
+        paint.setTextSize(50);
+        canvas.drawText(locDisplay, 0, 400, paint);
+        canvas.drawBitmap(newBm, 0f, 0f, null);
+
+        return newBm;
     }
 
 }
