@@ -85,7 +85,7 @@ public class UserLocation extends Service {
 
                     // Log results for testing
                     Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + " "+ mLocation.getLongitude());
-                    Log.i("UserLocation", "Location String" + mLocationString);
+                    Log.i("UserLocation", "Location String " + mLocationString);
 
                     if(first){
                         startLat = mLocation.mLatitude;
