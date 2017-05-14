@@ -167,13 +167,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         Thread how = new Thread(new ThreadK());
         how.start();*/
 
-        list.updateQueue();
+        //list.updateQueue();
 
         Timer timer = new Timer();
         TimerTask hourlytask = new TimerTask(){
             @Override
             public void run(){
-                list.updateQueue();
+                //list.updateQueue();
                 Log.v("queue is being updated", "hahaa");
             }
         };
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 Log.v("Wally reset timer", "Wally reset timer");
             }
         };
-        shownTimer.schedule(dayTask, 01, 60000*15);
+        shownTimer.schedule(dayTask, 01, 60000);
 
     }
 
