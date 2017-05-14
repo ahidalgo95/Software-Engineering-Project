@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 Log.v("queue is being updated", "hahaa");
             }
         };
-        timer.schedule(hourlytask,01,5000);
+        timer.schedule(hourlytask,01, 60000*10);
     }
 
     @Override
