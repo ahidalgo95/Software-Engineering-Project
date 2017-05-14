@@ -56,7 +56,8 @@ public class LocationTest {
         Other testOther = new Other();
         String neighbourhood = testOther.displayLocation(testLat, testLon);
 
-        assertEquals("Brickell" , neighbourhood);
+
+        assertEquals("Brickell Avenue, Miami, Florida" , neighbourhood);
     }
 
     // Test if the user is in a location with no address information
