@@ -16,7 +16,7 @@ public class UserLocation extends Service {
     static String mLocationString = "";
     TrackLocation mLocation;
     DisplayLocation mDisplayLocation;
-    int UPDATE_TIME_MILLISECONDS = 990000;
+    int UPDATE_TIME_MILLISECONDS = 1000;
 
     // Emtpy default constructor
     public UserLocation() {
@@ -37,6 +37,7 @@ public class UserLocation extends Service {
         Thread thread = new Thread(new MyThread(startId));
         thread.start();
 
+        // Log to make sure service starts correctly
         Log.i("UserLocation", "UserLocation service started - tracking user location");
 
         return START_STICKY;
@@ -75,8 +76,9 @@ public class UserLocation extends Service {
                     mLocation.trackLocation();
                     mLocationString = mDisplayLocation.displayLocation();
 
-                    Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + " "+ mLocation.getLongitude());
-                    Log.i("UserLocation", "Location String" + mLocationString);
+                    // Log results for testing
+                    Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + ", "+ mLocation.getLongitude());
+                    Log.i("UserLocation", "Location String: " + mLocationString);
                 }
 
                 // Keeps running to update location

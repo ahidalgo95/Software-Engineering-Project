@@ -28,12 +28,13 @@ import java.net.URL;
  */
 
 public class Other {
-        String city;
+        String neighbourhood; // String of location where the photo was taken
 
         public Other(){
 
         }
 
+        // Gets the string of the location of the saved Latitude and Longitude values
         public String displayLocation(double lat, double lon) {
 
             // making url request
@@ -61,13 +62,24 @@ public class Other {
                 // Converting Json formatted string into JSON object
                 JSONObject json = (JSONObject) JSONSerializer.toJSON(out);
                 JSONArray results=json.getJSONArray("results");
+
+                // Check that the url actually returned anything
+                if(results == null || results.size() < 1 ){
+                    // If not, return empty string
+                    //Log.i("Other", "Didn't get good result from reverse geocoding call");
+                    return "Unknown Location";
+                }
+
+                // Get all results
                 JSONObject rec = results.getJSONObject(0);
                 JSONArray address_components=rec.getJSONArray("address_components");
                 String formatted_address = "";
 
+
+                // Get just the city to display
                 JSONObject recOne = address_components.getJSONObject(2);
-                city = recOne.getString("short_name");
-                return city;
+                neighbourhood = recOne.getString("short_name");
+                return neighbourhood;
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
