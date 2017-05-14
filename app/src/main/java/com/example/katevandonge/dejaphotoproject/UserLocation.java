@@ -1,28 +1,14 @@
 package com.example.katevandonge.dejaphotoproject;
 
+/**
+ * Created by Peter on 5/11/2017.
+ */
+
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.content.SharedPreferences;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Binder;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 
 public class UserLocation extends Service {
@@ -30,8 +16,9 @@ public class UserLocation extends Service {
     static String mLocationString = "";
     TrackLocation mLocation;
     DisplayLocation mDisplayLocation;
-    int UPDATE_TIME_MILLISECONDS = 9999000;
+    int UPDATE_TIME_MILLISECONDS = 990000;
 
+    // Emtpy default constructor
     public UserLocation() {
     }
 
@@ -50,12 +37,13 @@ public class UserLocation extends Service {
         Thread thread = new Thread(new MyThread(startId));
         thread.start();
 
+        Log.i("UserLocation", "UserLocation service started - tracking user location");
+
         return START_STICKY;
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        // not sure if this is right
         return null;
     }
 
@@ -83,11 +71,15 @@ public class UserLocation extends Service {
                 }
 
                 if (mLocation != null) {
+                    // Continuously attempts to get new location and saves the string of location
                     mLocation.trackLocation();
                     mLocationString = mDisplayLocation.displayLocation();
-                    //Log.i("display from UserLoc", mLocationString);
+
+                    Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + " "+ mLocation.getLongitude());
+                    Log.i("UserLocation", "Location String" + mLocationString);
                 }
 
+                // Keeps running to update location
                 run();
             }
         }

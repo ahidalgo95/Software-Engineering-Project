@@ -165,21 +165,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     }
 
-    /*//Define service connection
-    private ServiceConnection m_serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            m_service = ((UserLocation.MyBinder)service).getService();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName className){
-
-            m_service = null;
-        }
-
-    };*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -233,6 +218,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         editor.apply();
 
     }
+
+
 
 }
 
