@@ -175,8 +175,11 @@ public class NewAppWidget extends AppWidgetProvider {
             else {
                 Photo picToSet = wallArr[counter];
                 try {
+                    String locDisplay = picToSet.locName;
+                    Log.v(locDisplay, locDisplay);
                     Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-                    myWall.setBitmap(bm);
+                    Bitmap newBm = addLocation(locDisplay, bm);
+                    myWall.setBitmap(newBm);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

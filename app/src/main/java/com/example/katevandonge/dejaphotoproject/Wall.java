@@ -21,109 +21,39 @@ import java.util.PriorityQueue;
 
 import static android.R.id.list;
 
-public class Wall extends Activity { //android.app.WallpaperManager{
+
+/*
+* Wall class for putting wallpaper on user's phone.
+* */
+public class Wall extends Activity {
 
     static Gallery galleryK;
     static WallpaperManager myWall;
     PriorityQueue<Photo> pList;
-    Context conR;
+    Context con;
     static int counter;
-
-
-
-    Photo currPhoto;
     static Photo [] photoArr;
-    static int currIndex;
-    ///Comparator<Photo> photoComparator;
 
+
+    /*
+    * Constructor for our Wall object.
+    * */
     public Wall(Context context, Gallery gallery, WallpaperManager wm) {
         galleryK = gallery;
-        conR=context;
+        con = context;
         pList = gallery.queueCopy;
         myWall = wm;
         counter = 0;
-
-
-        // photoComparator = new PhotoComparator();
-       // photoArr = Arrays.sort(pList.toArray(),);
-        //rotatePhoto();
         int Qsize = pList.size();
         String QQ = "" + Qsize;
         Log.v("QQ", "QQ");
-        Log.v(QQ, QQ);
         photoArr = new Photo[Qsize];
-        for(int i=0; i<Qsize; i++){
+        for (int i = 0; i < Qsize; i++) {
             photoArr[i] = pList.poll();
             String ii = "" + i;
             Log.v(ii, ii);
             Log.v("LOOP", "LOOP");
         }
     }
-
-    /*
-    *  Sets input bitmap to wallpaper.
-    * */
-    public void set(Bitmap bm){
-        try {
-            myWall.setBitmap(bm);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void clear(){
-        try {
-            myWall.clear();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void rotatePhoto() {
-
-        /*iter = pList.photoQueue.iterator();
-        Bitmap bm;
-        if (iter.hasNext()) {
-            Photo curr = iter.next();
-            currPhoto = curr;
-            bm = curr.toBitmap(getContentResolver());
-            set(bm);
-
-       /* iter = pList.photoQueue.iterator();
-        Bitmap bm;
-        if (iter.hasNext()) {
-            Photo curr = iter.next();
-            while(iter.hasNext() && curr.shown == true){
-                curr = iter.next();
-            }
-            if(curr.shown == false){
-                currPhoto = curr;
-                bm = curr.toBitmap(getContentResolver());
-                set(bm);
-            }
-            if(iter.hasNext() == false){
-
-            }
-
-        }*/
-    }
-
-
-        //user set time to update
-
-        //to do time goes
-
-
-    public void next(){
-        Log.v("nextWALL", "nextWALL");
-        return;
-    }
-
-    public void prev(){
-        Log.v("prev", "prev");
-        return;
-    }
-
-
-
 }
-//(WallpaperManager)context.getSystemService(Context.WALLPAPER_SERVICE);
+

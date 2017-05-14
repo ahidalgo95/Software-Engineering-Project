@@ -44,8 +44,10 @@ public class TrackLocation extends MainActivity
     private LocationRequest mLocationRequest;
     Location mLastLocation;
     Context mContext;
-    double mLatitude;
-    double mLongitude;
+    static double mLatitude;
+    static double mLongitude;
+    static Double dLatitude;
+    static Double dLongitude;
 
     public  TrackLocation(Context context){
         mContext = context;
@@ -120,6 +122,8 @@ public class TrackLocation extends MainActivity
         if (mLastLocation != null) {
             mLatitude = mLastLocation.getLatitude();
             mLongitude = mLastLocation.getLongitude();
+            dLatitude= mLastLocation.getLatitude();
+            dLongitude=mLastLocation.getLongitude();
             //Log.i("trackLocation", mLatitude + " " + mLongitude );
         }else{
             //Toast.makeText(mContext, "cry", Toast.LENGTH_SHORT).show();

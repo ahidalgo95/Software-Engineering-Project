@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         startService(intentAlpha);
 
 
-
-
         /*
         *  Permissions for accessing fine location
         * */
@@ -133,25 +131,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         Context context = getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
         Gallery list = new Gallery(context);
-
-        //Gallery list = new Gallery();
         list.queryGallery(conR); //queries photo uris
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
-
-
-        //tests setting wallpaper with photos from our queue
-        //Photo popped= list.photoQueue.poll();
-        //Bitmap bm=popped.toBitmap(conR);
         WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
         Wall wall = new Wall(context, list, wm);
-        //wall.set(bm);
-        //Context context= getApplicationContext();
-        //Wall wall= new Wall(context);
-
-
-
-
 
 
         /*final class ThreadK implements Runnable{
@@ -246,8 +230,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         intentBeta.putExtra("myrate", holder2);
         stopService(intentAlpha);
         startService(intentBeta);
-
-
         editor.apply();
 
     }

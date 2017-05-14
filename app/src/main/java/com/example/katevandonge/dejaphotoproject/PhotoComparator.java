@@ -5,7 +5,7 @@ import android.util.Log;
 import java.util.Comparator;
 
 /**
- * Created by luujfer on 5/9/17.
+ * Comparator class used in our Photo PriorityQueue.
  */
 
 public class PhotoComparator implements Comparator<Photo>{
@@ -19,7 +19,9 @@ public class PhotoComparator implements Comparator<Photo>{
       }
       //Using recent time as a time breaker to help more recent be more likely
       if(a.weight == b.weight){
-          if(a.recentTime>b.recentTime) {return -1;}
+          if(a.timeTotal>b.timeTotal) {
+              return -1;
+          }
       }
       return 1;
     }
