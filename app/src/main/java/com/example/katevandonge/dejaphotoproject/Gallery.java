@@ -93,6 +93,7 @@ public class Gallery {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        Log.v("UPDATE QUEUE", "QUERIED GALLERY");
         return sizeCalledAgain;
         //Log.v("dateList size", Integer.toString(dateList.size()));
         //Log.v("longList size", Integer.toString(longList.size()));
@@ -133,6 +134,7 @@ public class Gallery {
         newQueue= convertToPQ();
         newQcopy= convertToPQ();
         int queriedSize=queryGallery(con.getContentResolver());
+        Log.v("UPDATE QUEUE", "BEFORE THE LOOP");
         if(queriedSize>size){
             for(int i = size; i<queriedSize ; i++){
                 Photo photo = new Photo(con);
@@ -145,6 +147,7 @@ public class Gallery {
                 photo.setWeight();
                 newQueue.add(photo);
                 newQcopy.add(photo);
+                Log.v("UPDATE QUEUE", "IN THE LOOP");
             }
         }
         Wall.photoArr= convertToArray(newQueue);
@@ -162,11 +165,12 @@ public class Gallery {
         Photo currPhoto;
         for(int i=0; i<pArray.length; i++){
             currPhoto= pArray[i];
-            currPhoto.setWeight();
-            if(pArray[i].release==false) {
+            if(pArray[i]!=null) {
+                currPhoto.setWeight();
                 newPQ.add(currPhoto);
             }
         }
+        Log.v("UPDATE QUEUE", "CONVERT TO PQ");
         return newPQ;
     }
 
@@ -175,14 +179,24 @@ public class Gallery {
      * Converts prior
      */
     public Photo[] convertToArray(PriorityQueue<Photo> polledPQ){
-        Photo polled= polledPQ.poll();
+        Photo polled;
         Photo[] newPArray= new Photo[polledPQ.size()];
         int i=0;
-        while(polled!=null){
+        while(polledPQ.size() != 0){
+            polled= polledPQ.poll();
             newPArray[i]=polled;
-            polledPQ.poll();
+            i++;
+            Log.v("UPDATE QUEUE", "CONVERT TO ARRAY");
         }
+       // Log.v("UPDATE QUEUE", "CONVERT TO ARRAY");
         return newPArray;
+    }
+
+    /**
+     * Reset recently shown every 24 hours
+     */
+    public void resetShown (){
+
     }
 
 

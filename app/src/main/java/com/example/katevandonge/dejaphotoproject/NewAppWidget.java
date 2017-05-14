@@ -93,7 +93,6 @@ public class NewAppWidget extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
-            Log.v("for", "gfor");
         }
     }
 
@@ -114,7 +113,6 @@ public class NewAppWidget extends AppWidgetProvider {
 
         //KARMA BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_BUTTON)) {
-            Log.v("karmwidgetIFF", "karmawidgetIFF");
             Photo[] wallArr = Wall.photoArr;
             int counter = Wall.counter;
             Photo thisPhoto = wallArr[counter];
@@ -124,7 +122,6 @@ public class NewAppWidget extends AppWidgetProvider {
 
         //RELEASE BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_RELEASE)) {
-            Log.v("releaseIFF", "releaseIFF");
             Photo[] wallArr = Wall.photoArr;
             int counter = Wall.counter;
             Photo thisPhoto = wallArr[counter];
@@ -138,18 +135,19 @@ public class NewAppWidget extends AppWidgetProvider {
 
         //NEXT BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_NEXT)) {
-            Log.v("NEXTwidgetIFF", "NEXTwidgetIFF");
             mover(context);
         }
 
         //BACK BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_PREV)) {
-            Log.v("BACKwidgetIFF", "BACKwidgetIFF");
             WallpaperManager myWall = Wall.myWall;
             Photo[] wallArr = Wall.photoArr;
             int wallArrSize = wallArr.length;
             int counter = Wall.counter;
             int looper = 0;
+            //changed
+            wallArr[counter].shown=false;
+
             counter--;
             if (counter < 0) {
                 counter = wallArrSize + counter;
@@ -171,20 +169,19 @@ public class NewAppWidget extends AppWidgetProvider {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                return;
             }
-            else {
-                Photo picToSet = wallArr[counter];
-                try {
-                    String locDisplay = picToSet.locName;
-                    Log.v(locDisplay, locDisplay);
-                    Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-                    Bitmap newBm = addLocation(locDisplay, bm);
-                    myWall.setBitmap(newBm);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            Photo picToSet = wallArr[counter];
+            try {
+                String locDisplay = picToSet.locName;
+                //Log.v(locDisplay, locDisplay);
+                Bitmap bm = picToSet.toBitmap(context.getContentResolver());
+                Bitmap newBm = addLocation(locDisplay, bm);
+                myWall.setBitmap(newBm);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            }
             Wall.counter = counter;
         }
     }
@@ -208,7 +205,10 @@ public class NewAppWidget extends AppWidgetProvider {
                     counter = wallArrSize - counter;
                 }
                 if (wallArr[counter] != null) {
-                    break;
+                    if(wallArr[counter].shown == false) {
+                        Log.v("Mover-Breaking", "Mover-Breaking");
+                        break;
+                    }
                 }
             }
         }
@@ -218,19 +218,35 @@ public class NewAppWidget extends AppWidgetProvider {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            Wall.counter = counter;
+            return;
         }
-        else {
-            Photo picToSet = wallArr[counter];
-            try {
-                String locDisplay = picToSet.locName;
-                Log.v(locDisplay, locDisplay);
-                Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-                Bitmap newBm = addLocation(locDisplay, bm);
-                myWall.setBitmap(newBm);
-            } catch (IOException e) {
-                e.printStackTrace();
+        /**
+         * Reset all to false once end reached
+         */
+        //Log.v("before mover if", "before mover if");
+        if(wallArr[counter].shown == true){
+            for(looper=0; looper<wallArrSize; looper++){
+                if(wallArr[looper]!=null){
+                    wallArr[looper].shown=false;
+                    //Log.v("mover, reseting T/f", "mover, reseting T/f");
+                }
             }
+            counter = 0;
+        }
+        Photo picToSet = wallArr[counter];
+        picToSet.shown = true;
+        wallArr[counter].shown = true;
+        try {
+            String locDisplay = picToSet.locName;
+            Log.v(locDisplay, locDisplay);
+            Bitmap bm = picToSet.toBitmap(context.getContentResolver());
+            bm = Bitmap.createScaledBitmap(bm, 411, 670, true);
 
+            Bitmap newBm = addLocation(locDisplay, bm);
+            myWall.setBitmap(newBm);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         Wall.counter = counter;
 
@@ -239,11 +255,12 @@ public class NewAppWidget extends AppWidgetProvider {
         Bitmap newBm = bm.copy(Bitmap.Config.ARGB_8888, true);
         //Canvas stuff to new bm
         Canvas canvas = new Canvas(newBm);
+
         Paint paint = new Paint();
 
         paint.setColor(Color.RED);
-        paint.setTextSize(15);
-        canvas.drawText(locDisplay, 0, 370, paint);
+        paint.setTextSize(25);
+        canvas.drawText(locDisplay, 15, 550, paint);
         canvas.drawBitmap(newBm, 0f, 0f, null);
 
         return newBm;

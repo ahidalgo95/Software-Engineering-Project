@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     Intent intentAlpha;
     Intent intentBeta;
     static Gallery list;
+    Wall wally;
 
 
     WallpaperManager myWall;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
         WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
-        Wall wall = new Wall(context, list, wm);
+        wally = new Wall(context, list, wm);
 
 
         /*final class ThreadK implements Runnable{
@@ -151,12 +152,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         TimerTask hourlytask = new TimerTask(){
             @Override
             public void run(){
-                list.updateQueue();
+                //list.updateQueue();
                 Log.v("queue is being updated", "hahaa");
             }
         };
-        timer.schedule(hourlytask,01, 60000);
+        timer.schedule(hourlytask,01, 60000 * 60);
 
+        Timer shownTimer = new Timer();
+        TimerTask dayTask = new TimerTask(){
+            @Override
+            public void run(){
+                wally.resetShown();
+                Log.v("Wally reset timer", "Wally reset timer");
+            }
+        };
+        shownTimer.schedule(dayTask, 01, 60000);
 
     }
 

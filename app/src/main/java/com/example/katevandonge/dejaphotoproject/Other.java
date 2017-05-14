@@ -39,8 +39,8 @@ public class Other {
 
             // making url request
             try {
-                URL url = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng="
-                        + lat + "," + lon + "&sensor=true");
+                    URL url = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng="
+                            + lat + "," + lon + "&sensor=true");
                 // making connection
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -70,15 +70,51 @@ public class Other {
                     return "Unknown Location";
                 }
 
+
+
                 // Get all results
                 JSONObject rec = results.getJSONObject(0);
                 JSONArray address_components=rec.getJSONArray("address_components");
-                String formatted_address = "";
+
+                //Log.i("Other", "formatted: " + rec.getString("formatted_address"));
+
+                neighbourhood = "";
+
+                for(int i=0;i<address_components.size();i++) {
+                    JSONObject rec1 = address_components.getJSONObject(i);
+                    JSONArray types=rec1.getJSONArray("types");
+                    String comp=types.getString(0);
+
+                    if(comp.equals("street_number")){
+                        continue;
+                    }
+                    if(comp.equals(("route"))){
+                        neighbourhood = neighbourhood + rec1.getString("long_name") + ", ";
+                    }
+                    if(comp.equals("locality")){
+                        neighbourhood = neighbourhood + rec1.getString("long_name") + ", ";
+                    }
+                    if(comp.equals("administrative_area_level_2")){
+                        //neighbourhood = neighbourhood + rec1.getString("short_name") + ", ";
+                        continue;
+                    }
+                    if(comp.equals("administrative_area_level_1")){
+                        neighbourhood = neighbourhood + rec1.getString("long_name");
+                    }
+                    if(comp.equals("country")){
+                        continue;
+                    }
+                    if(comp.equals("postal_code")){
+                        continue;
+                    }
+
+                }
 
 
                 // Get just the city to display
-                JSONObject recOne = address_components.getJSONObject(2);
-                neighbourhood = recOne.getString("short_name");
+                //JSONObject recOne = address_components.getJSONObject(address_components.size() - 1);
+                //neighbourhood = recOne.getString("short_name");
+                Log.i("Other", neighbourhood);
                 return neighbourhood;
 
             } catch (MalformedURLException e) {
