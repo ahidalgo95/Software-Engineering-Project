@@ -192,6 +192,13 @@ public class Gallery {
         return newPArray;
     }
 
+    /**
+     * Reset recently shown every 24 hours
+     */
+    public void resetShown (){
+
+    }
+
 
 
 }

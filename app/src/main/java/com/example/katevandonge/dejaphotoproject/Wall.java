@@ -33,6 +33,7 @@ public class Wall extends Activity {
     Context con;
     static int counter;
     static Photo [] photoArr;
+    int Qsize;
 
 
 
@@ -45,7 +46,7 @@ public class Wall extends Activity {
         pList = gallery.queueCopy;
         myWall = wm;
         counter = 0;
-        int Qsize = pList.size();
+        Qsize = pList.size();
         String QQ = "" + Qsize;
         Log.v("QQ", "QQ");
         photoArr = new Photo[Qsize];
@@ -56,6 +57,16 @@ public class Wall extends Activity {
             Log.v("LOOP", "LOOP");
         }
     }
-
+    /**
+     * Reset recently shown every 24 hours
+     */
+    public void resetShown(){
+        for(int looper=0; looper<Qsize; looper++){
+            if(photoArr[looper]!=null){
+                photoArr[looper].shown=false;
+                //Log.v("WALL WALL reseting T/f", "WALL WALL reseting T/f");
+            }
+        }
+    }
 }
 

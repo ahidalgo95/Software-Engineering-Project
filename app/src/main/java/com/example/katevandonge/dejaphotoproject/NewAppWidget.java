@@ -150,6 +150,10 @@ public class NewAppWidget extends AppWidgetProvider {
             int wallArrSize = wallArr.length;
             int counter = Wall.counter;
             int looper = 0;
+            //changed
+            wallArr[counter].shown=false;
+            Log.v("backreset", "backreset");
+
             counter--;
             if (counter < 0) {
                 counter = wallArrSize + counter;
@@ -171,20 +175,19 @@ public class NewAppWidget extends AppWidgetProvider {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                return;
             }
-            else {
-                Photo picToSet = wallArr[counter];
-                try {
-                    String locDisplay = picToSet.locName;
-                    Log.v(locDisplay, locDisplay);
-                    Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-                    Bitmap newBm = addLocation(locDisplay, bm);
-                    myWall.setBitmap(newBm);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            Photo picToSet = wallArr[counter];
+            try {
+                String locDisplay = picToSet.locName;
+                Log.v(locDisplay, locDisplay);
+                Bitmap bm = picToSet.toBitmap(context.getContentResolver());
+                Bitmap newBm = addLocation(locDisplay, bm);
+                myWall.setBitmap(newBm);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            }
             Wall.counter = counter;
         }
     }
@@ -208,7 +211,10 @@ public class NewAppWidget extends AppWidgetProvider {
                     counter = wallArrSize - counter;
                 }
                 if (wallArr[counter] != null) {
-                    break;
+                    if(wallArr[counter].shown == false) {
+                        Log.v("Mover-Breaking", "Mover-Breaking");
+                        break;
+                    }
                 }
             }
         }
@@ -218,19 +224,33 @@ public class NewAppWidget extends AppWidgetProvider {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            Wall.counter = counter;
+            return;
         }
-        else {
-            Photo picToSet = wallArr[counter];
-            try {
-                String locDisplay = picToSet.locName;
-                Log.v(locDisplay, locDisplay);
-                Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-                Bitmap newBm = addLocation(locDisplay, bm);
-                myWall.setBitmap(newBm);
-            } catch (IOException e) {
-                e.printStackTrace();
+        /**
+         * Reset all to false once end reached
+         */
+        //Log.v("before mover if", "before mover if");
+        if(wallArr[counter].shown == true){
+            for(looper=0; looper<wallArrSize; looper++){
+                if(wallArr[looper]!=null){
+                    wallArr[looper].shown=false;
+                    //Log.v("mover, reseting T/f", "mover, reseting T/f");
+                }
             }
-
+            counter = 0;
+        }
+        Photo picToSet = wallArr[counter];
+        picToSet.shown = true;
+        wallArr[counter].shown = true;
+        try {
+            String locDisplay = picToSet.locName;
+            Log.v(locDisplay, locDisplay);
+            Bitmap bm = picToSet.toBitmap(context.getContentResolver());
+            Bitmap newBm = addLocation(locDisplay, bm);
+            myWall.setBitmap(newBm);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         Wall.counter = counter;
 
