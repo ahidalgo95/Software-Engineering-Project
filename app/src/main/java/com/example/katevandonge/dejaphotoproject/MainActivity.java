@@ -43,6 +43,8 @@ import com.google.android.gms.location.LocationServices;
 import java.io.IOException;
 import java.lang.*;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.R.attr.button;
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     int rate = 5000;//300000;
     Intent intentAlpha;
     Intent intentBeta;
+    Gallery list;
 
 
     WallpaperManager myWall;
@@ -130,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
         Context context = getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
-        Gallery list = new Gallery(context);
+        list = new Gallery(context);
         list.queryGallery(conR); //queries photo uris
         list.fillQueue(); //fills priority queue with picture objs
         Log.v("list size", Integer.toString(list.getSize()));
@@ -163,6 +166,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         Thread how = new Thread(new ThreadK());
         how.start();*/
 
+        Timer timer = new Timer();
+        TimerTask hourlytask = new TimerTask(){
+            @Override
+            public void run(){
+                list.updateQueue();
+                Log.v("queue is being updated", "hahaa");
+            }
+        };
+        timer.schedule(hourlytask,01,5000);
     }
 
     @Override
