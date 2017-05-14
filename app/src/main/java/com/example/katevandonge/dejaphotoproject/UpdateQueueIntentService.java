@@ -16,6 +16,12 @@ import android.widget.Toast;
 public class UpdateQueueIntentService extends IntentService {
 
     int rate;
+    String Srate;
+    int Qrate;
+    Intent intent2;
+    String WIDGET_NEXT;
+    NewAppWidget widget;
+    boolean keepRunning = true;
 
     public UpdateQueueIntentService() {
         super("worker");
@@ -37,22 +43,24 @@ public class UpdateQueueIntentService extends IntentService {
     @Override
     public void onDestroy(){
         Toast.makeText(UpdateQueueIntentService.this, "SERVICE STOPPED", Toast.LENGTH_SHORT).show();
+        keepRunning = false;
         super.onDestroy();
     }
 
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
-            String Srate = (String)intent.getExtras().get("myrate");
+        //onDestroy();
+        if (intent != null && keepRunning) {
+            Srate = (String)intent.getExtras().get("myrate");
             Log.v(Srate, Srate);
             Log.v("HEYY", "HEYY");
-            int Qrate = Integer.parseInt(Srate);
+            Qrate = Integer.parseInt(Srate);
 
-            Intent intent2 = new Intent(UpdateQueueIntentService.this, NewAppWidget.class);
-            String WIDGET_NEXT = "NEXT_BUTTON";
+            intent2 = new Intent(UpdateQueueIntentService.this, NewAppWidget.class);
+            WIDGET_NEXT = "NEXT_BUTTON";
             intent2.setAction(WIDGET_NEXT);
-            NewAppWidget widget = new NewAppWidget();
+            widget = new NewAppWidget();
             widget.onReceive(getApplicationContext(), intent2);
 
             synchronized (this){
@@ -62,6 +70,8 @@ public class UpdateQueueIntentService extends IntentService {
                     e.printStackTrace();
                 }
             }
+
+
             onHandleIntent(intent);
         }
     }

@@ -217,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         startService(intentBeta);
         editor.apply();
 
+
     }
 
 
