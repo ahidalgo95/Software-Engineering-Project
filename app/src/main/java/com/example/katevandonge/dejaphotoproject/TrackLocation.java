@@ -1,23 +1,14 @@
 package com.example.katevandonge.dejaphotoproject;
 
-import android.Manifest;
-import android.app.Activity;
+/**
+ * Created by Peter on 5/11/2017.
+ */
+
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -33,12 +24,10 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
-import static android.util.Log.i;
+// To make this work in the emulator, you must set High Accuracy Location Settings
+// and also send a location from the emulator settings to the emulator
 
-//To make this work in the emulator, you must open the emulator controls, send the location,
-// and then open google maps for it to save the last location
-
-public class TrackLocation extends MainActivity
+public class TrackLocation
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
@@ -47,25 +36,35 @@ public class TrackLocation extends MainActivity
     double mLatitude;
     double mLongitude;
 
+
     public  TrackLocation(Context context){
         mContext = context;
     }
 
+    public TrackLocation(double lat, double lon){
+        mLatitude = lat;
+        mLongitude = lon;
+    }
+
     protected void trackLocation() {
+        // Create a GoogleAPIClient and buld it
         mGoogleApiClient = new GoogleApiClient.Builder(mContext)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
+        // Connect the client
         mGoogleApiClient.connect();
 
-        // Create the LocationRequest object
+        // Create the LocationRequest object and set its values
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(3* 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
+        // This section of code checks if the user has High Accuracy Location Services enabled,
+        // which is required for the application to work
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(mLocationRequest);
         PendingResult<LocationSettingsResult> result =
@@ -79,18 +78,12 @@ public class TrackLocation extends MainActivity
                     case LocationSettingsStatusCodes.SUCCESS:
                         // All location settings are satisfied. The client can initialize location
                         // requests here.
+                        Log.i("TrackLocation", "Location settings check passed");
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         // Location settings are not satisfied. But could be fixed by showing the user
                         // a dialog.
-                        /*try {
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
-                            //status.startResolutionForResult (Activity) mContext, 1000);
-                        } catch (IntentSender.SendIntentExceptione) {
-                            // Ignore the error.
-                        }*/
-
+                        Log.i("TrackLocation", "High Accuracy Location settings need to be enabled");
                         Toast.makeText(mContext,"Please enable High Accuracy Location and relaunch the app", Toast.LENGTH_LONG).show();
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
@@ -103,26 +96,21 @@ public class TrackLocation extends MainActivity
     }
 
 
-    /*private boolean isGPSEnabled() {
-        LocationManager cm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        return cm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }*/
-
-
     public void updateLocation() {
 
+        // Tries to get the location, has check incase user does not have location services enabled
         try{
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         }catch ( SecurityException e){
-            //hmm
+            //If not enabled, then do nothing
         }
         if (mLastLocation != null) {
             mLatitude = mLastLocation.getLatitude();
             mLongitude = mLastLocation.getLongitude();
             //Log.i("trackLocation", mLatitude + " " + mLongitude );
         }else{
-            //Toast.makeText(mContext, "cry", Toast.LENGTH_SHORT).show();
+            //Log.i("trackLocation, "mLastLocation was null", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -133,6 +121,11 @@ public class TrackLocation extends MainActivity
     public double getLongitude() {
         return mLongitude;
     }
+
+    public void setLongitude(double longitude){mLongitude = longitude;}
+
+    public void setLatitude(double latitude){mLatitude = latitude;}
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         updateLocation();
