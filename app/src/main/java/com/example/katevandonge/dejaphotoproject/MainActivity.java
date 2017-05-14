@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     int rate = 5000;//300000;
     Intent intentAlpha;
     Intent intentBeta;
-    Gallery list;
+    static Gallery list;
 
 
     WallpaperManager myWall;
@@ -175,6 +175,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             }
         };
         timer.schedule(hourlytask,01, 60000*10);
+
+
     }
 
     @Override

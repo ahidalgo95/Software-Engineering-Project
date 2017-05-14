@@ -16,10 +16,17 @@ public class UserLocation extends Service {
     static String mLocationString = "";
     TrackLocation mLocation;
     DisplayLocation mDisplayLocation;
-    int UPDATE_TIME_MILLISECONDS = 1000;
+    int UPDATE_TIME_MILLISECONDS = 990000;
+    double startLat;
+    double startLong;
+    boolean first = true;
+    Gallery locList;
 
-    // Emtpy default constructor
+
+    // Empty default constructor
     public UserLocation() {
+        locList = MainActivity.list;
+        Log.v("CONSTRUCTOR-UL", "CONSTRUCTOR-UL");
     }
 
     //Start the service
@@ -77,13 +84,38 @@ public class UserLocation extends Service {
                     mLocationString = mDisplayLocation.displayLocation();
 
                     // Log results for testing
-                    Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + ", "+ mLocation.getLongitude());
-                    Log.i("UserLocation", "Location String: " + mLocationString);
+                    Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + " "+ mLocation.getLongitude());
+                    Log.i("UserLocation", "Location String" + mLocationString);
+
+                    if(first){
+                        startLat = mLocation.mLatitude;
+                        startLong = mLocation.mLongitude;
+                        first = false;
+                        compareLoc();
+                    }
+
                 }
 
                 // Keeps running to update location
                 run();
             }
+        }
+
+        public void compareLoc(){
+            double trackedLat= TrackLocation.mLatitude;
+            double trackedLong= TrackLocation.mLongitude;
+            double diffInRad= 2 *
+                    (double)Math.sin(Math.sqrt(Math.pow((double)Math.sin((trackedLat-startLat)/2),2)+
+                            (double)Math.cos(trackedLat)* (double)Math.cos(startLat)*
+                                    (double) Math.pow((double)Math.sin((trackedLong-startLong)/2),2)));
+            double diffInKm=6371* diffInRad;
+            double diffInFt= 3280 * diffInKm;
+            if(diffInFt>=500){
+                locList.updateQueue();
+                startLat = trackedLat;
+                startLong = trackedLong;
+            }
+            return;
         }
     }
 
