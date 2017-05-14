@@ -35,6 +35,7 @@ public class Wall extends Activity {
     static Photo [] photoArr;
 
 
+
     /*
     * Constructor for our Wall object.
     * */
@@ -55,5 +56,6 @@ public class Wall extends Activity {
             Log.v("LOOP", "LOOP");
         }
     }
+
 }
 
