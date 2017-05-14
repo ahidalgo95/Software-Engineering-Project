@@ -36,6 +36,7 @@ public class Wall extends Activity {
     int Qsize;
 
 
+
     /*
     * Constructor for our Wall object.
     * */
