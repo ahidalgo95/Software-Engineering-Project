@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         Thread how = new Thread(new ThreadK());
         how.start();*/
 
-        list.updateQueue();
+        //list.updateQueue();
 
         Timer timer = new Timer();
         TimerTask hourlytask = new TimerTask(){
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 Log.v("queue is being updated", "hahaa");
             }
         };
-        timer.schedule(hourlytask,01, 60000);
+        timer.schedule(hourlytask,01, 60000 * 60);
 
 
     }
