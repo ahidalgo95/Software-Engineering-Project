@@ -81,7 +81,7 @@ public class Photo {
                         (double) Math.pow((double)Math.sin((trackedLong-longitude)/2),2)));
         double diffInKm=6371* diffInRad;
         double diffInFt= 3280 * diffInKm;
-        if(diffInFt<=500){
+        if(diffInFt<=1000){
             return true;
         }
         return false;
