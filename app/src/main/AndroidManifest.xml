@@ -89,7 +89,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".WidgetLocation">
+        <!--<receiver android:name=".WidgetLocation">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -97,7 +97,7 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_location_info" />
-        </receiver>
+        </receiver>-->
 
         <service
             android:name=".UpdateQueueIntentService"

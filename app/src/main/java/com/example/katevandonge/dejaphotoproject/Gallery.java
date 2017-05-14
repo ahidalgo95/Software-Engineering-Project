@@ -34,6 +34,7 @@ public class Gallery {
     PriorityQueue<Photo> photoQueue;
     static PriorityQueue<Photo> queueCopy;
     Comparator<Photo> photoComparator;
+    int queryCall;
 
 
     /*
@@ -42,6 +43,7 @@ public class Gallery {
     @TargetApi(24)
     public Gallery(Context context){
         size = 0;
+        queryCall=0;
         con= context;
         uriList = new ArrayList<Uri>(size);
         dateList = new ArrayList<Long>(size);
@@ -60,12 +62,16 @@ public class Gallery {
     /*
     * Queries photos from Camera roll on Android, fills uriList with Uris of our photos.
     * */
-    public void queryGallery(ContentResolver cr){
+    public int queryGallery(ContentResolver cr){
         Uri imagesURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String [] proj = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATE_TAKEN, MediaStore.Images.Media.LATITUDE, MediaStore.Images.Media.LONGITUDE};
         Cursor cursor;
         cursor = cr.query(imagesURI,proj, null, null, MediaStore.Images.Media._ID);
-        size = cursor.getCount();
+        if(queryCall==0) {
+            size = cursor.getCount();
+        }
+        queryCall++;
+        int sizeCalledAgain= cursor.getCount();
         Log.v("cursor size", Integer.toString(size));
 
         if (cursor.moveToFirst()) {
@@ -87,6 +93,8 @@ public class Gallery {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        Log.v("UPDATE QUEUE", "QUERIED GALLERY");
+        return sizeCalledAgain;
         //Log.v("dateList size", Integer.toString(dateList.size()));
         //Log.v("longList size", Integer.toString(longList.size()));
         //Log.v("latList size", Integer.toString(latList.size()));
@@ -107,11 +115,8 @@ public class Gallery {
             photo.setLongitude(longList.get(i));
             photo.locScreenHelper();
             photo.setWeight();
-            if(photo.release==true){}
-            else {
-                photoQueue.add(photo);
-                queueCopy.add(photo);
-            }
+            photoQueue.add(photo);
+            queueCopy.add(photo);
         }
         //Log.v("photo 1 weight", Integer.toString(photoQueue.peek().getWeight()));
         //Log.v("photo 1 info", ""+ uriList.get(1)+ "  "+ dateList.get(1)+" " +latList.get(1)+ " "+ longList.get(1));
@@ -126,16 +131,71 @@ public class Gallery {
     public void updateQueue(){
         PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>(photoComparator);
         PriorityQueue<Photo> newQcopy = new PriorityQueue<Photo>(photoComparator);
-        Photo polled = photoQueue.poll();
-        while(polled != null){
-
-            polled.setWeight();
-            newQueue.add(polled);
-            newQcopy.add(polled);
-            polled= photoQueue.poll();
+        newQueue= convertToPQ();
+        newQcopy= convertToPQ();
+        int queriedSize=queryGallery(con.getContentResolver());
+        Log.v("UPDATE QUEUE", "BEFORE THE LOOP");
+        if(queriedSize>size){
+            for(int i = size; i<queriedSize ; i++){
+                Photo photo = new Photo(con);
+                photo.setUri(uriList.get(i));
+                photo.setTimeTotal(dateList.get(i));
+                photo.setDate(dateList.get(i));
+                photo.setLatitude(latList.get(i));
+                photo.setLongitude(longList.get(i));
+                photo.locScreenHelper();
+                photo.setWeight();
+                newQueue.add(photo);
+                newQcopy.add(photo);
+                Log.v("UPDATE QUEUE", "IN THE LOOP");
+            }
         }
+        Wall.photoArr= convertToArray(newQueue);
         photoQueue=newQueue;
-        queueCopy = newQcopy;
+        queueCopy=newQcopy;
+    }
+
+    /*
+    * Converts photo array in wall to priority queue.
+    * */
+    @TargetApi(24)
+    public PriorityQueue<Photo> convertToPQ(){
+        PriorityQueue<Photo> newPQ= new PriorityQueue<Photo>(photoComparator);
+        Photo[] pArray= Wall.photoArr;
+        Photo currPhoto;
+        for(int i=0; i<pArray.length; i++){
+            currPhoto= pArray[i];
+            if(pArray[i]!=null) {
+                currPhoto.setWeight();
+                newPQ.add(currPhoto);
+            }
+        }
+        Log.v("UPDATE QUEUE", "CONVERT TO PQ");
+        return newPQ;
+    }
+
+
+    /*
+     * Converts prior
+     */
+    public Photo[] convertToArray(PriorityQueue<Photo> polledPQ){
+        Photo polled;
+        Photo[] newPArray= new Photo[polledPQ.size()];
+        int i=0;
+        while(polledPQ.size() != 0){
+            polled= polledPQ.poll();
+            newPArray[i]=polled;
+            i++;
+            Log.v("UPDATE QUEUE", "CONVERT TO ARRAY");
+        }
+       // Log.v("UPDATE QUEUE", "CONVERT TO ARRAY");
+        return newPArray;
+    }
+
+    /**
+     * Reset recently shown every 24 hours
+     */
+    public void resetShown (){
 
     }
 
