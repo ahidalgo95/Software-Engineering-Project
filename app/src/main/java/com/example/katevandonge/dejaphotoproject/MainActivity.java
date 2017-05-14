@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         Thread how = new Thread(new ThreadK());
         how.start();*/
 
-        list.updateQueue();
+        //list.updateQueue();
 
         Timer timer = new Timer();
         TimerTask hourlytask = new TimerTask(){

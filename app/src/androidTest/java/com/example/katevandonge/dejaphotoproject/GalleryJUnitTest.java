@@ -1,26 +1,22 @@
 package com.example.katevandonge.dejaphotoproject;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
-import org.junit.Test;
-
-import com.example.katevandonge.dejaphotoproject.*;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by adriancordovayquiroz on 5/12/17.
  */
 
+
+
+
 public class GalleryJUnitTest extends Activity{
+
+    @Rule
+    public ActivityTestRule<MainActivity> mainActivity = new ActivityTestRule<MainActivity>(MainActivity.class);
+
 
     /*@Rule
     Context context;
