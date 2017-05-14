@@ -39,10 +39,12 @@ public class TrackLocation
     static Double dLongitude;
 
 
+    // Constructor that takes in context
     public  TrackLocation(Context context){
         mContext = context;
     }
 
+    // Constructor taking in doubles - useful for testing
     public TrackLocation(double lat, double lon){
         mLatitude = lat;
         mLongitude = lon;
@@ -76,6 +78,8 @@ public class TrackLocation
             public void onResult(LocationSettingsResult result) {
                 final Status status = result.getStatus();
                 final LocationSettingsStates state = result.getLocationSettingsStates();
+
+                // Actions in each case of status code return
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         // All location settings are satisfied. The client can initialize location
@@ -85,7 +89,11 @@ public class TrackLocation
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         // Location settings are not satisfied. But could be fixed by showing the user
                         // a dialog.
+
+                        // Log telling us that location checks have failed
                         Log.i("TrackLocation", "High Accuracy Location settings need to be enabled");
+
+                        // Inform the user of what needs to be done to make the app work
                         Toast.makeText(mContext,"Please enable High Accuracy Location and relaunch the app", Toast.LENGTH_LONG).show();
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
@@ -99,6 +107,11 @@ public class TrackLocation
 
 
     public void updateLocation() {
+
+        if(! (mGoogleApiClient.isConnected())){
+            // If not connected do nothing
+            return;
+        }
 
         // Tries to get the location, has check incase user does not have location services enabled
         try{
@@ -118,37 +131,46 @@ public class TrackLocation
         }
     }
 
+    // Getter method for latitude
     public double getLatitude(){
         return mLatitude;
     }
 
+    // Getter method for longitude
     public double getLongitude() {
         return mLongitude;
     }
 
+    // Setter method - useful for testing functionality
     public void setLongitude(double longitude){mLongitude = longitude;}
 
+    // Setter method - useful for testing
     public void setLatitude(double latitude){mLatitude = latitude;}
 
+    // Update our location
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         updateLocation();
     }
 
+    // If suspended, do nothing
     @Override
     public void onConnectionSuspended(int i) {
 
     }
 
+    // If failed, do nothing
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
 
+    // We update from User location, do not need to handle this
     private void handleNewLocation(Location location) {
         //Log.d("handleNewLocation", location.toString());
     }
 
+    // We update from User location
     public void onLocationChanged(Location location){
         handleNewLocation(location);
     }

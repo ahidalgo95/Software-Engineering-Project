@@ -24,7 +24,7 @@ import java.net.URL;
 
 public class DisplayLocation {
 
-    TrackLocation myLocation;
+    TrackLocation myLocation;  // Current location
 
     // Constructor taking in TrackLocation object
     public DisplayLocation(TrackLocation mTrackLocation){
@@ -42,6 +42,8 @@ public class DisplayLocation {
 
         // Making url request
         try {
+            Log.i("DisplayLocation" , "Passed in lat and long" + myLocation.getLatitude() +
+             ", " + myLocation.getLongitude());
             URL url = new URL("http://maps.googleapis.com/maps/api/geocode/json?latlng="
                     + myLocation.getLatitude() + "," + myLocation.getLongitude() + "&sensor=true");
             // Making connection
@@ -75,7 +77,8 @@ public class DisplayLocation {
             // Check that the url actually returned anything
             if(results == null || results.size() < 1 ){
                 // If not, return empty string
-                return "";
+                //Log.i("DisplayLocation", "Didn't get good result from reverse geocoding call");
+                return "Unknown Location";
             }
 
             JSONObject rec = results.getJSONObject(0);
@@ -102,7 +105,7 @@ public class DisplayLocation {
             // Disconnect the HTTP object
             conn.disconnect();
 
-
+            // return the formatted current location
             return (""+formatted_address);
 
         } catch (MalformedURLException e) {

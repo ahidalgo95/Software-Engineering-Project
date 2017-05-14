@@ -23,7 +23,7 @@ public class UserLocation extends Service {
     Gallery locList;
 
 
-    // Emtpy default constructor
+    // Empty default constructor
     public UserLocation() {
         locList = MainActivity.list;
         Log.v("CONSTRUCTOR-UL", "CONSTRUCTOR-UL");
@@ -44,6 +44,7 @@ public class UserLocation extends Service {
         Thread thread = new Thread(new MyThread(startId));
         thread.start();
 
+        // Log to make sure service starts correctly
         Log.i("UserLocation", "UserLocation service started - tracking user location");
 
         return START_STICKY;
@@ -82,8 +83,9 @@ public class UserLocation extends Service {
                     mLocation.trackLocation();
                     mLocationString = mDisplayLocation.displayLocation();
 
+                    // Log results for testing
                     Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + " "+ mLocation.getLongitude());
-                    Log.i("UserLocation", "Location String" + mLocationString);
+                    Log.i("UserLocation", "Location String " + mLocationString);
 
                     if(first){
                         startLat = mLocation.mLatitude;
@@ -91,7 +93,6 @@ public class UserLocation extends Service {
                         first = false;
                         compareLoc();
                     }
-
 
                 }
 
