@@ -5,6 +5,9 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +47,7 @@ public class NewAppWidget extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-        views.setTextViewText(R.id.appwidget_text, but);
+        //views.setTextViewText(R.id.appwidget_text, but);
 
 
         Intent intentA = new Intent(WIDGET_BUTTON);
@@ -216,8 +219,11 @@ public class NewAppWidget extends AppWidgetProvider {
         else {
             Photo picToSet = wallArr[counter];
             try {
+                String locDisplay = picToSet.locName;
+                Log.v(locDisplay, locDisplay);
                 Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-                myWall.setBitmap(bm);
+                Bitmap newBm = addLocation(locDisplay, bm);
+                myWall.setBitmap(newBm);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -225,6 +231,19 @@ public class NewAppWidget extends AppWidgetProvider {
         }
         Wall.counter = counter;
 
+    }
+    public Bitmap addLocation(String locDisplay, Bitmap bm){
+        Bitmap newBm = bm.copy(Bitmap.Config.ARGB_8888, true);
+        //Canvas stuff to new bm
+        Canvas canvas = new Canvas(newBm);
+        Paint paint = new Paint();
+
+        paint.setColor(Color.RED);
+        paint.setTextSize(15);
+        canvas.drawText(locDisplay, 0, 370, paint);
+        canvas.drawBitmap(newBm, 0f, 0f, null);
+
+        return newBm;
     }
 
 }

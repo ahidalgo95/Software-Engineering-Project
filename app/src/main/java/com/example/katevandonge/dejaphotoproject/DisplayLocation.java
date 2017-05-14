@@ -6,6 +6,8 @@ package com.example.katevandonge.dejaphotoproject;
  */
 
 
+import android.util.Log;
+
 import net.sf.json.JSONSerializer;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -95,7 +97,7 @@ public class DisplayLocation {
                     formatted_address = formatted_address + rec1.getString("short_name");
                 }
             }
-            //Log.i("DisplayLocation", rec.getString("formatted_address"));
+            Log.i("DisplayLocation", rec.getString("formatted_address"));
 
             // Disconnect the HTTP object
             conn.disconnect();

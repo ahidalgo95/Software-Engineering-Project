@@ -24,20 +24,21 @@ public class Photo {
     String time;
     Double latitude;
     Double longitude;
-    //Karma karma;
-    boolean karma;
-    boolean release;
-    int weight;
-    boolean shown;
     Context context1;
     String locName;
+    boolean karma;
+    boolean release;
+    boolean shown;
+    int weight;
+    long recentTime = 0;
 
     public Photo(Context context){
-        karma = false;//new Karma(context);
+        karma = false;
         shown = false;
         release = false;
         context1 = context;
-        locName = "hello!";
+        locName = "waffles";
+
     }
 
     /*
@@ -102,6 +103,10 @@ public class Photo {
         time=arr[2];
     }
 
+    public void setRecentTime(long a){
+        recentTime = a;
+    }
+
     public void setLatitude(Double d){ latitude= d; }
 
     public void setLongitude(Double d){ longitude= d; }
@@ -114,7 +119,7 @@ public class Photo {
                 double mylong = -122.084; //CHANGE TO PHOTOS LOCATIONS
                 Other screenDL = new Other();
                 Log.v("FOUR", "FOUR");
-                String locName = screenDL.displayLocation(mylat, mylong);
+                locName = screenDL.displayLocation(mylat, mylong);
                 Log.v(locName, locName);
             }
         }

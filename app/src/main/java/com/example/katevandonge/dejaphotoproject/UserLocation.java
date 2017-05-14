@@ -16,7 +16,7 @@ public class UserLocation extends Service {
     static String mLocationString = "";
     TrackLocation mLocation;
     DisplayLocation mDisplayLocation;
-    int UPDATE_TIME_MILLISECONDS = 3000;
+    int UPDATE_TIME_MILLISECONDS = 990000;
 
     // Emtpy default constructor
     public UserLocation() {

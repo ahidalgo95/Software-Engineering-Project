@@ -43,10 +43,11 @@ public class UpdateQueueIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        while (intent != null) {
-            //String Srate = (String) intent.getExtras().get("rate");
-            //Log.v(Srate, Srate);
-            //int Qrate = Integer.parseInt((String)Srate);
+        if (intent != null) {
+            String Srate = (String)intent.getExtras().get("myrate");
+            Log.v(Srate, Srate);
+            Log.v("HEYY", "HEYY");
+            int Qrate = Integer.parseInt(Srate);
 
             Intent intent2 = new Intent(UpdateQueueIntentService.this, NewAppWidget.class);
             String WIDGET_NEXT = "NEXT_BUTTON";
@@ -56,11 +57,12 @@ public class UpdateQueueIntentService extends IntentService {
 
             synchronized (this){
                 try {
-                    wait(5000);
+                    wait(Qrate);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            onHandleIntent(intent);
         }
     }
 }

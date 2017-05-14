@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     TrackLocation mLocation;
     int rate = 5000;//300000;
     Intent intentAlpha;
+    Intent intentBeta;
 
 
     WallpaperManager myWall;
@@ -66,8 +67,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         setSupportActionBar(toolbar);
 
         intentAlpha = new Intent(MainActivity.this, UpdateQueueIntentService.class);
-        //intentAlpha.putExtra("myrate", rate);
+        String holder = "" + rate;
+        intentAlpha.putExtra("myrate", holder);
         startService(intentAlpha);
+
 
 
 
@@ -223,8 +226,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         rate = Integer.parseInt(rateStr);
 
         //stopService(intentAlpha);
-        //intentAlpha.putExtra("myrate", rate);
-        //startService(intentAlpha);
+        intentBeta = new Intent(MainActivity.this, UpdateQueueIntentService.class);
+        String holder2 = "" + rate;
+        intentBeta.putExtra("myrate", holder2);
+        stopService(intentAlpha);
+        startService(intentBeta);
+
 
         editor.apply();
 

@@ -99,6 +99,7 @@ public class Gallery {
         for(int i = 0; i<size ; i++){
             Photo photo = new Photo(con);
             photo.setUri(uriList.get(i));
+            photo.setRecentTime(dateList.get(i));
             photo.setDate(dateList.get(i));
             photo.setLatitude(latList.get(i));
             photo.setLongitude(longList.get(i));
