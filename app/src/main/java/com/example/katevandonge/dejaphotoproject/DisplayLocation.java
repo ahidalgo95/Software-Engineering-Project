@@ -22,6 +22,9 @@ import java.net.URL;
 
 
 
+/*
+ * Display location class used for checking user's location
+ */
 public class DisplayLocation {
 
     TrackLocation myLocation;  // Current location
