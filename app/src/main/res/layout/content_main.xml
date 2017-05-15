@@ -9,21 +9,21 @@
     tools:showIn="@layout/activity_main">
 
 
-
-
     <EditText
         android:id="@+id/rate"
         android:layout_width="148dp"
         android:layout_height="60dp"
-        android:text="Enter Rate"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        app:layout_constraintRight_toRightOf="@+id/display"
-        tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="23dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:text="Enter Rate"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/display"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintRight_toRightOf="@+id/display"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/submit"
@@ -59,15 +59,15 @@
         android:id="@+id/mins"
         android:layout_width="78dp"
         android:layout_height="27dp"
-        android:text="minutes"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        android:layout_marginTop="33dp"
-        tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="23dp"
+        android:layout_marginTop="33dp"
+        android:text="in ms"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintLeft_toRightOf="@+id/rate"
         app:layout_constraintTop_toTopOf="@+id/rate"
-        app:layout_constraintLeft_toRightOf="@+id/rate" />
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
 
 </android.support.constraint.ConstraintLayout>

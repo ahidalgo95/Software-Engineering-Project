@@ -163,7 +163,11 @@ public class Photo {
         Date n= new Date(d);
         DateFormat format= new SimpleDateFormat("EEE MM/dd/yyyy HH:mm");
         String formatted= format.format(n);
+
         // split the date format by day of week, date, time
+
+        //Log.i("Photo Date", formatted);
+
         String[] arr= formatted.split(" ");
         dayOfWeek=arr[0];
         date= arr[1];
@@ -194,12 +198,12 @@ public class Photo {
         final class ThreadK implements Runnable {
             @Override
             public void run() {
-                 double mylat = 37.422; //CHANGE TO PHOTOS LOCATIONS
-                 double mylong = -122.084; //CHANGE TO PHOTOS LOCATIONS
+                 double mylat = latitude; //CHANGE TO PHOTOS LOCATIONS
+                 double mylong = longitude; //CHANGE TO PHOTOS LOCATIONS
                 Other screenDL = new Other();
                 Log.v("FOUR", "FOUR");
                 locName = screenDL.displayLocation(mylat, mylong);
-                Log.v(locName, locName);
+                Log.v("Photo Location", mylat + ", " + mylong);
             }
         }
         Thread how = new Thread(new ThreadK());

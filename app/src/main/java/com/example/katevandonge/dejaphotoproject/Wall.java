@@ -53,7 +53,7 @@ public class Wall extends Activity {
         for (int i = 0; i < Qsize; i++) {
             photoArr[i] = pList.poll();
             String ii = "" + i;
-            Log.v(ii, ii);
+            //Log.v("Photo Array", ii);
             Log.v("LOOP", "LOOP");
         }
     }
