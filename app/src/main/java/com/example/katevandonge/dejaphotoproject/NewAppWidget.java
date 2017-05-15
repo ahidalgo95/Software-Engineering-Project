@@ -177,6 +177,7 @@ public class NewAppWidget extends AppWidgetProvider {
                 String locDisplay = picToSet.locName;
                 //Log.v(locDisplay, locDisplay);
                 Bitmap bm = picToSet.toBitmap(context.getContentResolver());
+                bm = Bitmap.createScaledBitmap(bm, 411, 670, true);
                 Bitmap newBm = addLocation(locDisplay, bm);
                 myWall.setBitmap(newBm);
             } catch (IOException e) {
@@ -243,7 +244,6 @@ public class NewAppWidget extends AppWidgetProvider {
             Log.v(locDisplay, locDisplay);
             Bitmap bm = picToSet.toBitmap(context.getContentResolver());
             bm = Bitmap.createScaledBitmap(bm, 411, 670, true);
-
             Bitmap newBm = addLocation(locDisplay, bm);
             myWall.setBitmap(newBm);
         } catch (IOException e) {
