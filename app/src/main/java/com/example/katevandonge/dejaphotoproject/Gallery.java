@@ -155,8 +155,11 @@ public class Gallery {
             }
         }
         Wall.photoArr= convertToArray(newQueue);
+
+        Wall.pList = newQcopy;
         photoQueue=newQueue; //set new queues to class queues
         queueCopy=newQcopy;
+        Wall.counter=-1;
     }
 
     /*

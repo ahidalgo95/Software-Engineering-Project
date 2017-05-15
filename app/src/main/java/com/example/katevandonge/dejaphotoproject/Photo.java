@@ -62,7 +62,7 @@ public class Photo {
         }
         // if within location, add weight
         if(compareLoc()==true){
-            weight=weight+5;
+            weight=weight+50;
         }
         // if released, negative weight
         if(release == true) {
@@ -72,6 +72,7 @@ public class Photo {
         if(karma == true){
             weight=weight+1;
         }
+
     }
 
     /*

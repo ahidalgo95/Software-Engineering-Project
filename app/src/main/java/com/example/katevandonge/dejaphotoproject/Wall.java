@@ -30,7 +30,7 @@ public class Wall extends Activity {
 
     static Gallery galleryK;            //our gallery object
     static WallpaperManager myWall;     //our wall object
-    PriorityQueue<Photo> pList;         //priorityqueue of photos to make photoArr
+    static PriorityQueue<Photo> pList;         //priorityqueue of photos to make photoArr
     Context con;
     static int counter;                 //counter to be used in widget
     static Photo [] photoArr;           //photoArr to be used in widget
