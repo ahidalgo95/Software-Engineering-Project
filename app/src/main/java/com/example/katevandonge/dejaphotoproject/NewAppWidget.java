@@ -55,11 +55,6 @@ public class NewAppWidget extends AppWidgetProvider {
         // This button launches the app
         intentA.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 
-        //OPEN APP BUTTON
-        //Intent intent = new Intent(context, MainActivity.class);
-        //PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        //views.setOnClickPendingIntent(R.id.button6, pendingIntent);
-
         //KARMA BUTTON
         Intent intentKarma = new Intent(context, NewAppWidget.class);
         intentKarma.setAction(WIDGET_BUTTON);
@@ -188,6 +183,9 @@ public class NewAppWidget extends AppWidgetProvider {
         }
     }
 
+    /**
+     * uses counter to keep track of current photo and iterate through the array list
+     */
     public void mover(Context context){
         WallpaperManager myWall = Wall.myWall;
         Photo[] wallArr = Wall.photoArr;
@@ -196,10 +194,16 @@ public class NewAppWidget extends AppWidgetProvider {
         int looper = 0;
         counter++;
 
+        /**
+         * update counter when counter is greater than or equal to arraySize
+         */
         if (counter >= wallArrSize) {
             counter = wallArrSize - counter;
             //or just make counter = 0 if this breaks!
         }
+        /**
+         * if the array at the counter is null, then break when the picture was removed
+         */
         if (wallArr[counter] == null) {
             for (looper = 0; looper <= wallArrSize; looper++) {
                 counter++;
@@ -236,9 +240,16 @@ public class NewAppWidget extends AppWidgetProvider {
             }
             counter = 0;
         }
+        /**
+         * set the wallpaper to the current photo
+         */
         Photo picToSet = wallArr[counter];
         picToSet.shown = true;
         wallArr[counter].shown = true;
+
+        /**
+         * pulling the current bitmap, adding location, and setting it to a new bitmap
+         */
         try {
             String locDisplay = picToSet.locName;
             Log.v(locDisplay, locDisplay);
@@ -252,6 +263,11 @@ public class NewAppWidget extends AppWidgetProvider {
         Wall.counter = counter;
 
     }
+
+    /**
+     * add location string to bitmap and display on the screen on top of the photo
+     */
+
     public Bitmap addLocation(String locDisplay, Bitmap bm){
         Bitmap newBm = bm.copy(Bitmap.Config.ARGB_8888, true);
         //Canvas stuff to new bm
