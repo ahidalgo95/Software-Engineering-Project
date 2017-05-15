@@ -166,9 +166,10 @@ public class Photo {
         DateFormat format= new SimpleDateFormat("EEE MM/dd/yyyy HH:mm");
         String formatted= format.format(n);
 
+
         // split the date format by day of week, date, time
 
-        //Log.i("Photo Date", formatted);
+        Log.i("Photo Date", formatted);
 
         String[] arr= formatted.split(" ");
         dayOfWeek=arr[0];
