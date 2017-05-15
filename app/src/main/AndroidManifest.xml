@@ -46,11 +46,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true" />
-
         <receiver android:name=".NewAppWidget">
             <intent-filter>
                 <action android:name="MY_PACKAGE_NAME.WIDGET_BUTTON" />
@@ -71,10 +66,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBw4dHwwILCiH4RzSuYRzBD8UNp9NXh508" />
-
-        <service
-            android:name=".MyIntentService"
-            android:exported="false" />
 
         <!-- this is to make the app run on startup -->
         <receiver
