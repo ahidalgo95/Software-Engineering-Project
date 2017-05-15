@@ -198,8 +198,8 @@ public class Photo {
         final class ThreadK implements Runnable {
             @Override
             public void run() {
-                 double mylat = latitude; //CHANGE TO PHOTOS LOCATIONS
-                 double mylong = longitude; //CHANGE TO PHOTOS LOCATIONS
+                double mylat = latitude; //CHANGE TO PHOTOS LOCATIONS
+                double mylong = longitude; //CHANGE TO PHOTOS LOCATIONS
                 WriteLocation screenDL = new WriteLocation();
                 locName = screenDL.displayLocation(mylat, mylong);
                 Log.i("HELLO", "HELLO");

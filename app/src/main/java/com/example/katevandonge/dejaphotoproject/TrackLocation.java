@@ -55,7 +55,8 @@ public class TrackLocation
     }
 
     protected void trackLocation() {
-        // Create a GoogleAPIClient and buld it
+        // Create a GoogleAPIClient and build it
+        // onConnected will be called
         mGoogleApiClient = new GoogleApiClient.Builder(mContext)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -154,6 +155,7 @@ public class TrackLocation
     // Update our location
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        // Everytime we call TrackLocation, this is called when connected
         updateLocation();
     }
 

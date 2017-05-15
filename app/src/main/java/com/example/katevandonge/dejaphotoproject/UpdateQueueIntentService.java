@@ -36,7 +36,7 @@ public class UpdateQueueIntentService extends IntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        Toast.makeText(UpdateQueueIntentService.this, "SERVICE STARED", Toast.LENGTH_SHORT).show();
+        Toast.makeText(UpdateQueueIntentService.this, "SERVICE STARTED", Toast.LENGTH_SHORT).show();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -53,7 +53,7 @@ public class UpdateQueueIntentService extends IntentService {
         //onDestroy();
         if (intent != null && keepRunning) {
             Srate = (String)intent.getExtras().get("myrate");
-            Qrate = Integer.parseInt(Srate);
+            Qrate = 1000*60*(Integer.parseInt(Srate));
 
             intent2 = new Intent(UpdateQueueIntentService.this, NewAppWidget.class);
             WIDGET_NEXT = "NEXT_BUTTON";

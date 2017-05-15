@@ -56,6 +56,8 @@ public class GalleryTest {
     public void testFillQueue(){
         Context context= mainActivity.getActivity().getApplicationContext();
         Gallery galleryConst = new Gallery(context);
+        galleryConst.queryGallery(context.getContentResolver());
+        galleryConst.fillQueue();
         assertEquals(galleryConst.photoQueue.size(), 10);
         assertEquals(galleryConst.queueCopy.size(), 10);
     }
