@@ -203,6 +203,7 @@ public class Photo {
                 double mylong = longitude; //CHANGE TO PHOTOS LOCATIONS
                 WriteLocation screenDL = new WriteLocation();
                 locName = screenDL.displayLocation(mylat, mylong);
+                Log.i("HELLO", "HELLO");
                 Log.i("Photo:" ,"photo location"+ mylat + ", " + mylong);
             }
         }
