@@ -36,7 +36,7 @@ public class UpdateQueueIntentService extends IntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        Toast.makeText(UpdateQueueIntentService.this, "SERVICE STARED", Toast.LENGTH_SHORT).show();
+        Toast.makeText(UpdateQueueIntentService.this, "SERVICE STARTED", Toast.LENGTH_SHORT).show();
         return super.onStartCommand(intent, flags, startId);
     }
 
