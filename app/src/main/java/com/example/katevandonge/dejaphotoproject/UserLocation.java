@@ -32,7 +32,6 @@ public class UserLocation extends Service {
     public int onStartCommand(Intent intent, int flags, int startId){
 
 
-        //Toast.makeText(UserLocation.this, "Location Service Started", Toast.LENGTH_SHORT).show();
         mLocation = new TrackLocation(getApplicationContext());
         mLocation.trackLocation();
 

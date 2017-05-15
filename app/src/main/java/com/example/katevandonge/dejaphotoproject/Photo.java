@@ -200,8 +200,7 @@ public class Photo {
             public void run() {
                  double mylat = latitude; //CHANGE TO PHOTOS LOCATIONS
                  double mylong = longitude; //CHANGE TO PHOTOS LOCATIONS
-                Other screenDL = new Other();
-                Log.v("FOUR", "FOUR");
+                WriteLocation screenDL = new WriteLocation();
                 locName = screenDL.displayLocation(mylat, mylong);
                 Log.v("Photo Location", mylat + ", " + mylong);
             }

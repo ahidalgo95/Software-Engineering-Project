@@ -27,10 +27,10 @@ import java.net.URL;
  * Created by katevandonge on 5/12/17.
  */
 
-public class Other {
+public class WriteLocation {
         String neighbourhood; // String of location where the photo was taken
 
-        public Other(){
+        public WriteLocation(){
 
         }
 

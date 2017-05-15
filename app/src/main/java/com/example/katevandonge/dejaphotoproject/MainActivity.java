@@ -121,38 +121,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         wally = new Wall(context, list, wm);
 
 
-        /*final class ThreadK implements Runnable{
-
-            @Override
-            public void run() {
-               // TrackLocation screenTL = new TrackLocation(getApplicationContext());
-                //screenTL.mLatitude = 37.422;//latitude;
-                //screenTL.mLongitude = -122.084;//longitude;
-
-                double mylat = 37.422;
-                double mylong = -122.084;
-                //String latlat = "" + screenTL.mLatitude;
-                //String lonlon = "" + screenTL.mLongitude;
-                //Log.v(latlat, latlat);
-                //Log.v(lonlon, lonlon);
-                Log.v("THREE", "THREE");
-                Other screenDL = new Other();
-                Log.v("FOUR", "FOUR");
-                String locName = screenDL.displayLocation(mylat, mylong);
-                Log.v(locName, locName);
-
-            }
-        }
-        Thread how = new Thread(new ThreadK());
-        how.start();*/
-
-        //list.updateQueue();
-
         Timer timer = new Timer();
         TimerTask hourlytask = new TimerTask(){
             @Override
             public void run(){
-                //list.updateQueue();
+                list.updateQueue();
                 Log.v("MainActivity", "Queue being updated");
             }
         };
