@@ -25,6 +25,7 @@ import static android.R.id.list;
 /*
 * Wall class for putting wallpaper on user's phone.
 * */
+
 public class Wall extends Activity {
 
     static Gallery galleryK;

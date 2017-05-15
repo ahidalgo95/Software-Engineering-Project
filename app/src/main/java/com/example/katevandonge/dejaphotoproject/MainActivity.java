@@ -32,14 +32,14 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
-    static int rate = 5000;//300000;
+    static int rate = 5000;
     Intent intentAlpha;
     Intent intentBeta;
     static Gallery list;
     Wall wally;
-
-
     WallpaperManager myWall;
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
 
     @Override
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         wally = new Wall(context, list, wm);
 
 
+        //timer to update queue every hour
         Timer timer = new Timer();
         TimerTask hourlytask = new TimerTask(){
             @Override
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             }
         };
         timer.schedule(hourlytask,01, 60000 * 60);
+
 
         Timer shownTimer = new Timer();
         TimerTask dayTask = new TimerTask(){

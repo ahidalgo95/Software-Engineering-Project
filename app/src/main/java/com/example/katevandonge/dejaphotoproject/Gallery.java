@@ -1,8 +1,5 @@
 package com.example.katevandonge.dejaphotoproject;
 
-/**
- * Gallery class for
- */
 
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
