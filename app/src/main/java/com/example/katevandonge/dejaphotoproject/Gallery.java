@@ -147,6 +147,7 @@ public class Gallery {
                 photo.setWeight();
                 newQueue.add(photo);
                 newQcopy.add(photo);
+                size = queriedSize;
                 Log.v("UPDATE QUEUE", "IN THE LOOP");
             }
         }
