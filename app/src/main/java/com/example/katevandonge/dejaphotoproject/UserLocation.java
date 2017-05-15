@@ -10,7 +10,9 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-
+/*
+ * UserLocation that tracks where the user currently is
+ */
 public class UserLocation extends Service {
 
     static String mLocationString = "";
@@ -32,7 +34,6 @@ public class UserLocation extends Service {
     public int onStartCommand(Intent intent, int flags, int startId){
 
 
-        //Toast.makeText(UserLocation.this, "Location Service Started", Toast.LENGTH_SHORT).show();
         mLocation = new TrackLocation(getApplicationContext());
         mLocation.trackLocation();
 

@@ -53,7 +53,7 @@ public class LocationTest {
         double testLat = 25.761680;
         double testLon = -80.191790;
 
-        Other testOther = new Other();
+        WriteLocation testOther = new WriteLocation();
         String neighbourhood = testOther.displayLocation(testLat, testLon);
 
 
@@ -81,7 +81,7 @@ public class LocationTest {
         double testLat = 34;
         double testLon = 34;
 
-        Other testOther = new Other();
+        WriteLocation testOther = new WriteLocation();
         String neighbourhood = testOther.displayLocation(testLat, testLon);
 
         assertEquals("Unknown Location" , neighbourhood);

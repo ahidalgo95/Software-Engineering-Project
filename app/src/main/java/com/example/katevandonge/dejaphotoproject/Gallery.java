@@ -1,7 +1,7 @@
 package com.example.katevandonge.dejaphotoproject;
 
 /**
- * Created by luujfer on 5/8/17.
+ * Gallery class for
  */
 
 import android.annotation.TargetApi;
@@ -25,16 +25,16 @@ import java.util.PriorityQueue;
 
 public class Gallery {
 
-    Context con;
-    int size;
-    ArrayList<Uri> uriList;
-    ArrayList<Long> dateList;
-    ArrayList<Double> latList;
-    ArrayList<Double> longList;
-    PriorityQueue<Photo> photoQueue;
-    static PriorityQueue<Photo> queueCopy;
-    Comparator<Photo> photoComparator;
-    int queryCall;
+    Context con;                            //context variable
+    int size;                               //size of our gallery
+    ArrayList<Uri> uriList;                 //list of uris read in when queried
+    ArrayList<Long> dateList;               //list of dates read in when queried
+    ArrayList<Double> latList;              //list of latitudes read in when queried
+    ArrayList<Double> longList;             //list of longitudes read in when queried
+    PriorityQueue<Photo> photoQueue;        //queue for displaying highest priority pics
+    static PriorityQueue<Photo> queueCopy;  //copy of our queue to be used in wall
+    Comparator<Photo> photoComparator;      //comparator for our photo queue
+    int queryCall;                          //number of times query has been called
 
 
     /*
@@ -51,9 +51,12 @@ public class Gallery {
         longList = new ArrayList<Double>(size);
         photoComparator= new PhotoComparator();
         photoQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
-        queueCopy = new PriorityQueue<Photo>(photoComparator);
+        queueCopy = new PriorityQueue<Photo>(photoComparator);  //@TargetApi(24) used and fixes
     }
 
+    /*
+    * Getter method for our size variable.
+    * */
     public int getSize(){
         return size;
     }
@@ -63,24 +66,28 @@ public class Gallery {
     * Queries photos from Camera roll on Android, fills uriList with Uris of our photos.
     * */
     public int queryGallery(ContentResolver cr){
-        Uri imagesURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Uri imagesURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI; //uri to have access gallery
+
+        //array that we use to store data types during query
         String [] proj = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DATE_TAKEN, MediaStore.Images.Media.LATITUDE, MediaStore.Images.Media.LONGITUDE};
-        Cursor cursor;
-        cursor = cr.query(imagesURI,proj, null, null, MediaStore.Images.Media._ID);
+        Cursor cursor; //cursor to go through array
+        cursor = cr.query(imagesURI,proj, null, null, MediaStore.Images.Media._ID); //query photos by ID
         if(queryCall==0) {
-            size = cursor.getCount();
+            size = cursor.getCount(); //set size if query hasnt been called before
         }
         queryCall++;
-        int sizeCalledAgain= cursor.getCount();
+        int sizeCalledAgain= cursor.getCount(); //var we return
         Log.v("cursor size", Integer.toString(size));
 
-        if (cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) { //move to first row of array
+            //gets column indices
             final int dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
             final int longColumn= cursor.getColumnIndexOrThrow(MediaStore.Images.Media.LONGITUDE);
             final int latColumn= cursor.getColumnIndexOrThrow(MediaStore.Images.Media.LATITUDE);
             //Log.v("latColumn", Integer.toString(latColumn));
             final int dateColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN);
             do {
+                //gets data from columns and adds to corresponding list
                 final String data = cursor.getString(dataColumn);
                 final Double lon= cursor.getDouble(longColumn);
                 final Double lat= cursor.getDouble(latColumn);
@@ -90,15 +97,10 @@ public class Gallery {
                 latList.add(lat);
                 longList.add(lon);
                 uriList.add(uri);
-            } while (cursor.moveToNext());
+            } while (cursor.moveToNext()); //move to next
         }
         cursor.close();
-        Log.v("UPDATE QUEUE", "QUERIED GALLERY");
         return sizeCalledAgain;
-        //Log.v("dateList size", Integer.toString(dateList.size()));
-        //Log.v("longList size", Integer.toString(longList.size()));
-        //Log.v("latList size", Integer.toString(latList.size()));
-        //Log.v("uriList size", Integer.toString(uriList.size()));
     }
 
 
@@ -107,23 +109,20 @@ public class Gallery {
     * */
     public void fillQueue (){
         for(int i = 0; i<size ; i++){
-            Photo photo = new Photo(con);
+            Photo photo = new Photo(con); //make new photo
+            //set fields in photo
             photo.setUri(uriList.get(i));
             photo.setTimeTotal(dateList.get(i));
             photo.setDate(dateList.get(i));
-            //Log.i("GalleryfillQueue", "date: " + dateList.get(i));
             photo.setLatitude(latList.get(i));
-            //Log.i("GalleryfillQueue","latitude: " + latList.get(i));
             photo.setLongitude(longList.get(i));
-            //Log.i("GalleryfillQueue","longitude: " + longList.get(i));
             photo.locScreenHelper();
-            photo.setWeight();
+            photo.setWeight(); //set photo weight
+            //add photos to queue
             photoQueue.add(photo);
             queueCopy.add(photo);
         }
-        //Log.v("photo 1 weight", Integer.toString(photoQueue.peek().getWeight()));
-        //Log.v("photo 1 info", ""+ uriList.get(1)+ "  "+ dateList.get(1)+" " +latList.get(1)+ " "+ longList.get(1));
-        //Log.v("size of photo queue", Integer.toString(photoQueue.size()));
+
     }
 
 
@@ -135,30 +134,32 @@ public class Gallery {
         Log.v("update queue was called", "!");
         PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>(photoComparator);
         PriorityQueue<Photo> newQcopy = new PriorityQueue<Photo>(photoComparator);
-        newQueue= convertToPQ();
-        newQcopy= convertToPQ();
-        int queriedSize=queryGallery(con.getContentResolver());
+        newQueue= convertToPQ(); //convert wall array to pq
+        newQcopy= convertToPQ(); //convert wall array to pq
+        int queriedSize=queryGallery(con.getContentResolver()); //requery gallery
         Log.v("size of orig gallery", Integer.toString(size));
-        if(queriedSize>size){
+        if(queriedSize>size){ //if requeried size greater (more photos taken)
             Log.v("new size of gallery", Integer.toString(queriedSize));
             Log.v("adding", Integer.toString(queriedSize-size)+" new photos to gallery");
             for(int i = size; i<queriedSize ; i++){
                 Log.v("photos being added to", " gallery");
-                Photo photo = new Photo(con);
+                Photo photo = new Photo(con); //make new photo
+                //set fields of photo
                 photo.setUri(uriList.get(i));
                 photo.setTimeTotal(dateList.get(i));
                 photo.setDate(dateList.get(i));
                 photo.setLatitude(latList.get(i));
                 photo.setLongitude(longList.get(i));
                 photo.locScreenHelper();
-                photo.setWeight();
+                photo.setWeight(); //set weight
+                //add photo to queues
                 newQueue.add(photo);
                 newQcopy.add(photo);
                 size = queriedSize;
             }
         }
         Wall.photoArr= convertToArray(newQueue);
-        photoQueue=newQueue;
+        photoQueue=newQueue; //set new queues to class queues
         queueCopy=newQcopy;
     }
 
@@ -171,13 +172,13 @@ public class Gallery {
         Photo[] pArray= Wall.photoArr;
         Photo currPhoto;
         Log.v("convert to PQ called"," ");
-        for(int i=0; i<pArray.length; i++){
+        for(int i=0; i<pArray.length; i++){ //for length of array
             Log.v("from array to pq", Integer.toString(i));
             currPhoto= pArray[i];
             int j=1;
             if(pArray[i]!=null) {
                 currPhoto.setWeight();
-                newPQ.add(currPhoto);
+                newPQ.add(currPhoto); //add photos to priority queue
                 Log.v("adding from array to pq", Integer.toString(j)+"times");
                 j++;
             }
@@ -195,9 +196,9 @@ public class Gallery {
         int i=0;
         while(polledPQ.size() != 0){
             Log.v("pq convertToArray", Integer.toString(i));
-            polled= polledPQ.poll();
+            polled= polledPQ.poll(); //poll photo from queue
             //Log.i("Gallery Convert2Array" , polled.locName);
-            newPArray[i]=polled;
+            newPArray[i]=polled; //add photo to array
             i++;
         }
         return newPArray;

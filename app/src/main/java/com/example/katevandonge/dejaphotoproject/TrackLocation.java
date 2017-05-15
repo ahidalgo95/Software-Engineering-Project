@@ -27,6 +27,10 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 // To make this work in the emulator, you must set High Accuracy Location Settings
 // and also send a location from the emulator settings to the emulator
 
+/*
+ * TrackLocation is responsible for getting a location
+ */
+
 public class TrackLocation
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private GoogleApiClient mGoogleApiClient;
