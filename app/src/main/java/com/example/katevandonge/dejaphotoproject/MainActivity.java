@@ -33,7 +33,9 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
-    static int rate = 5000;
+
+    static int rate = 300000; //set at 5000ms for testing at 5 seconds
+
     Intent intentAlpha;
     Intent intentBeta;
     static Gallery list;
@@ -97,24 +99,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (shouldShowRequestPermissionRationale(
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Explain to the user why we need to read the contacts
             }
 
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     57756687);
 
-            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-            // app-defined int constant that should be quite unique
-
             return;
         }
 
+        //context resolver and context getters
         Context context = getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
+
+        //list of photos from the Gallery class
         list = new Gallery(context);
+
         int listSize= list.queryGallery(conR); //queries photo uris
         if(listSize==0){
             Toast.makeText(context, "Please put photos in gallery!", Toast.LENGTH_LONG).show();
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 @Override
                 public void run() {
                     list.updateQueue();
-                    Log.v("MainActivity", "Queue being updated");
+                    Log.i("MainActivity", "Queue being updated");
                 }
             };
             timer.schedule(hourlytask, 01, 60000 * 60);
@@ -144,10 +145,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 @Override
                 public void run() {
                     wally.resetShown();
-                    Log.v("MainActivity", "Wally reset timer");
+                    Log.i("MainActivity", "Wally reset timer");
                 }
             };
-            shownTimer.schedule(dayTask, 01, 60000 * 60);
+            shownTimer.schedule(dayTask, 01, 86400000);
 
 
     }
@@ -184,10 +185,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     }
 
 
-
+       /*
+       *  saving the user specified rate for rotating the photos
+       * */
     public void saveRate(View view){
         EditText timeRate = (EditText) findViewById(R.id.rate);
 
+
+        //Text view for display and rate to rotate the photos at
         SharedPreferences sharedPreferences = getSharedPreferences("rate", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String rateStr = timeRate.getText().toString();
@@ -196,19 +201,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         rateDisplay.setText("Rate: "+rateStr+" minutes");
         rate = Integer.parseInt(rateStr);
 
-        //stopService(intentAlpha);
+
         intentBeta = new Intent(MainActivity.this, UpdateQueueIntentService.class);
         String holder2 = "" + rate;
         intentBeta.putExtra("myrate", holder2);
+
+        //stops the servive when the app opens at a default rate
         stopService(intentAlpha);
+        //starts an intent with the user specified rate
         startService(intentBeta);
         editor.apply();
-
-
     }
-
-
-
 }
 
 

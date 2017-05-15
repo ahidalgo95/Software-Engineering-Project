@@ -10,7 +10,9 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-
+/*
+ * UserLocation that tracks where the user currently is
+ */
 public class UserLocation extends Service {
 
     static String mLocationString = "";

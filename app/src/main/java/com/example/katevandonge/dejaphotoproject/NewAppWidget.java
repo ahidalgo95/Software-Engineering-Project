@@ -33,8 +33,8 @@ import java.io.IOException;
  * Implementation of App Widget functionality.
  */
 public class NewAppWidget extends AppWidgetProvider {
-    Gallery pList;
-    WallpaperManager myWall;
+    //Gallery pList;
+    //WallpaperManager myWall;
     public static String WIDGET_BUTTON = "MY_PACKAGE_NAME.WIDGET_BUTTON";
     public static String WIDGET_NEXT = "NEXT_BUTTON";
     public static String WIDGET_PREV = "PREV_BUTTON";
@@ -43,12 +43,10 @@ public class NewAppWidget extends AppWidgetProvider {
 
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                          int appWidgetId) {
-        String but = "hello world!";
         CharSequence widgetText = context.getString(R.string.appwidget_text);
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-        //views.setTextViewText(R.id.appwidget_text, but);
 
 
         Intent intentA = new Intent(WIDGET_BUTTON);
@@ -114,6 +112,11 @@ public class NewAppWidget extends AppWidgetProvider {
             Photo thisPhoto = wallArr[counter];
             thisPhoto.karma = true;
             wallArr[counter].karma = true;
+
+            //Log test
+            String logger = ""+wallArr[counter].karma;
+            Log.v("Karma: should be true:", logger);
+
         }
 
         //RELEASE BUTTON
@@ -126,12 +129,20 @@ public class NewAppWidget extends AppWidgetProvider {
                 wallArr[counter].release = true;
             }
             wallArr[counter] = null;
+            //Calls mover method to iterate through photo array
             mover(context);
+
+            //Log test
+            String logger = ""+wallArr[counter].release;
+            Log.v("Release should be true:", logger);
+
        }
 
         //NEXT BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_NEXT)) {
+            //Calls mover method to iterate through photo array
             mover(context);
+
         }
 
         //BACK BUTTON
@@ -141,9 +152,7 @@ public class NewAppWidget extends AppWidgetProvider {
             int wallArrSize = wallArr.length;
             int counter = Wall.counter;
             int looper = 0;
-            //changed
             wallArr[counter].shown=false;
-
             counter--;
             if (counter < 0) {
                 counter = wallArrSize + counter;
@@ -159,6 +168,7 @@ public class NewAppWidget extends AppWidgetProvider {
                     }
                 }
             }
+            //Clears wallpaper if entire array is null
             if (wallArr[counter] == null) {
                 try {
                     myWall.clear();
@@ -167,10 +177,12 @@ public class NewAppWidget extends AppWidgetProvider {
                 }
                 return;
             }
+            //set wallpaper otherwise
             Photo picToSet = wallArr[counter];
             try {
                 String locDisplay = picToSet.locName;
-                //Log.v(locDisplay, locDisplay);
+                Log.v(locDisplay, locDisplay);
+                //Creates bitmap of proper screen ratio
                 Bitmap bm = picToSet.toBitmap(context.getContentResolver());
                 bm = Bitmap.createScaledBitmap(bm, 411, 670, true);
                 Bitmap newBm = addLocation(locDisplay, bm);
@@ -189,6 +201,8 @@ public class NewAppWidget extends AppWidgetProvider {
     public void mover(Context context){
         WallpaperManager myWall = Wall.myWall;
         Photo[] wallArr = Wall.photoArr;
+        String wall = "" + wallArr.length;
+        Log.v(wall, wall);
         int wallArrSize = wallArr.length;
         int counter = Wall.counter;
         int looper = 0;
