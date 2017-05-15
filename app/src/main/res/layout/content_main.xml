@@ -61,7 +61,7 @@
         android:layout_height="27dp"
         android:layout_marginBottom="23dp"
         android:layout_marginTop="33dp"
-        android:text="in ms"
+        android:text="in mins"
         app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintLeft_toRightOf="@+id/rate"
         app:layout_constraintTop_toTopOf="@+id/rate"
