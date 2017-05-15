@@ -20,6 +20,7 @@ import android.widget.RemoteViews;
 import static android.R.attr.button;
 import static android.R.attr.content;
 import static android.support.v4.content.ContextCompat.startActivity;
+import static java.lang.Thread.sleep;
 
 import android.Manifest;
 

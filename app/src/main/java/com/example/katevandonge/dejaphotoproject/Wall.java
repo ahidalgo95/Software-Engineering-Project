@@ -47,14 +47,12 @@ public class Wall extends Activity {
         myWall = wm;
         counter = 0;
         Qsize = pList.size();
-        String QQ = "" + Qsize;
-        Log.v("QQ", "QQ");
+        Log.v("Qsize initialized", Integer.toString(Qsize));
         photoArr = new Photo[Qsize];
         for (int i = 0; i < Qsize; i++) {
             photoArr[i] = pList.poll();
-            String ii = "" + i;
-            //Log.v("Photo Array", ii);
-            Log.v("LOOP", "LOOP");
+            Log.v("filling plist in const",Integer.toString(i));
+
         }
     }
     /**
@@ -64,7 +62,7 @@ public class Wall extends Activity {
         for(int looper=0; looper<Qsize; looper++){
             if(photoArr[looper]!=null){
                 photoArr[looper].shown=false;
-                //Log.v("WALL WALL reseting T/f", "WALL WALL reseting T/f");
+                Log.v("resetting shown", Integer.toString(looper));
             }
         }
     }

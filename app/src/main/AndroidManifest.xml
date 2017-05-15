@@ -35,17 +35,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".GalleryJUnitTest"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.GalleryJUnitTest" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
         <receiver android:name=".NewAppWidget">
             <intent-filter>
                 <action android:name="MY_PACKAGE_NAME.WIDGET_BUTTON" />

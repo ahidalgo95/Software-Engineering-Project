@@ -53,8 +53,6 @@ public class UpdateQueueIntentService extends IntentService {
         //onDestroy();
         if (intent != null && keepRunning) {
             Srate = (String)intent.getExtras().get("myrate");
-            //Log.v(Srate, Srate);
-            //Log.v("HEYY", "HEYY");
             Qrate = Integer.parseInt(Srate);
 
             intent2 = new Intent(UpdateQueueIntentService.this, NewAppWidget.class);
