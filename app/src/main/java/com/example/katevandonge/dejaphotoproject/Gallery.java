@@ -111,8 +111,11 @@ public class Gallery {
             photo.setUri(uriList.get(i));
             photo.setTimeTotal(dateList.get(i));
             photo.setDate(dateList.get(i));
+            //Log.i("GalleryfillQueue", "date: " + dateList.get(i));
             photo.setLatitude(latList.get(i));
+            //Log.i("GalleryfillQueue","latitude: " + latList.get(i));
             photo.setLongitude(longList.get(i));
+            //Log.i("GalleryfillQueue","longitude: " + longList.get(i));
             photo.locScreenHelper();
             photo.setWeight();
             photoQueue.add(photo);
@@ -151,6 +154,7 @@ public class Gallery {
                 photo.setWeight();
                 newQueue.add(photo);
                 newQcopy.add(photo);
+                size = queriedSize;
             }
         }
         Wall.photoArr= convertToArray(newQueue);
@@ -192,6 +196,7 @@ public class Gallery {
         while(polledPQ.size() != 0){
             Log.v("pq convertToArray", Integer.toString(i));
             polled= polledPQ.poll();
+            //Log.i("Gallery Convert2Array" , polled.locName);
             newPArray[i]=polled;
             i++;
         }

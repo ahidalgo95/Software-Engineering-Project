@@ -12,28 +12,29 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Photo object class used to represent each photo we've queried from the Camera roll.
  */
 
 public class Photo {
-    Uri photouri;
-    String dayOfWeek;
-    String date;
-    String time;
-    double latitude;
-    double longitude;
-    Context context1;
-    String locName;
-    boolean karma;
-    boolean release;
-    boolean shown;
-    int weight;
-    long timeTotal;
+    Uri photouri;           // stores photo URI
+    String dayOfWeek;       // stores day photo was taken
+    String date;            // stores date photo was taken
+    String time;            // stores time photo was taken
+    double latitude;        // stores location latitude
+    double longitude;       // stores location longitude
+    Context context1;       // stores application context
+    String locName;         // stores location name
+    boolean karma;          // has been karma'd boolean
+    boolean release;        // released boolean
+    boolean shown;          // recently shown boolean
+    int weight;             // stores photo's weight
+    long timeTotal;         // holds time to know if recently taken
 
     /*
-    * Constructor for photo class.
+    * Constructor for photo class. Initialize some variables
     * */
     public Photo(Context context){
         karma = false;
@@ -51,18 +52,23 @@ public class Photo {
     * */
     public void setWeight(){
         weight=0;
+        // if current days match, add weight
         if(checkDay()==true){
             weight=weight+5;
         }
+        // if current times match, add weight
         if(checkTime()==true) {
             weight = weight + 5;
         }
+        // if within location, add weight
         if(compareLoc()==true){
             weight=weight+5;
         }
+        // if released, negative weight
         if(release == true) {
             weight = weight * (-1);
         }
+        // if karma'd, add weight
         if(karma == true){
             weight=weight+1;
         }
@@ -91,11 +97,19 @@ public class Photo {
    * Check if picture was taken on same day of the week as current day.
    * */
     public boolean checkDay(){
+        // get the current day of the week
         DateFormat format= new SimpleDateFormat("EEE");
         String date = format.format(Calendar.getInstance().getTime());
+        // compare the current day of the week with photo's day of week
         if(date.equals(dayOfWeek)){
+            Log.v("Comparing days",": TRUE");
+            Log.v("photoDay: "+dayOfWeek, "curr: "+date);
+            // return true if they are equal
             return true;
         }
+        Log.v("Comparing days",": FALSE");
+        Log.v("photoDay: "+dayOfWeek, "curr: "+date);
+        //return false if they are not equal
         return false;
     }
 
@@ -104,15 +118,26 @@ public class Photo {
     * Check if picture was taken on same day of the week as current time.
     * */
     public boolean checkTime(){
+        // get the current time
         DateFormat format= new SimpleDateFormat("HH:mm");
         String currDate = format.format(Calendar.getInstance().getTime());
+        //split the time from hour and minutes
         String[] arr= currDate.split(":");
+        //convert the time to minutes for current time
         int currMin= (Integer.parseInt(arr[0])*60)+ (Integer.parseInt(arr[1]));
         String[] saved= time.split(":");
+        // convert time to minutes for photo time
         int savedMin= (Integer.parseInt(saved[0])*60)+ (Integer.parseInt(saved[1]));
+        // compare the two times to see they are within 2 hours of each other
         if(savedMin<=currMin && currMin <= savedMin+120 || currMin<=savedMin && currMin >= savedMin-120){
+            Log.v("Comparing times in mins",": TRUE");
+            Log.v("photo mins: "+ savedMin, "curr mins: "+currMin);
+            // if within two hours, return true
             return true;
         }
+        // if not within two hours, return false
+        Log.v("Comparing times in mins",": FALSE");
+        Log.v("photo mins: "+ savedMin, "curr mins: "+currMin);
         return false;
     }
 
@@ -134,9 +159,15 @@ public class Photo {
     * Sets the day of week, date and time of the picture.
     * */
     public void setDate(long d){
+        // populate the fields for the date the photo was taken
         Date n= new Date(d);
         DateFormat format= new SimpleDateFormat("EEE MM/dd/yyyy HH:mm");
         String formatted= format.format(n);
+
+        // split the date format by day of week, date, time
+
+        //Log.i("Photo Date", formatted);
+
         String[] arr= formatted.split(" ");
         dayOfWeek=arr[0];
         date= arr[1];
@@ -167,12 +198,12 @@ public class Photo {
         final class ThreadK implements Runnable {
             @Override
             public void run() {
-                 double mylat = 37.422; //CHANGE TO PHOTOS LOCATIONS
-                 double mylong = -122.084; //CHANGE TO PHOTOS LOCATIONS
+                 double mylat = latitude; //CHANGE TO PHOTOS LOCATIONS
+                 double mylong = longitude; //CHANGE TO PHOTOS LOCATIONS
                 Other screenDL = new Other();
                 Log.v("FOUR", "FOUR");
                 locName = screenDL.displayLocation(mylat, mylong);
-                Log.v(locName, locName);
+                Log.v("Photo Location", mylat + ", " + mylong);
             }
         }
         Thread how = new Thread(new ThreadK());

@@ -52,6 +52,7 @@ public class Wall extends Activity {
         for (int i = 0; i < Qsize; i++) {
             photoArr[i] = pList.poll();
             Log.v("filling plist in const",Integer.toString(i));
+
         }
     }
     /**
