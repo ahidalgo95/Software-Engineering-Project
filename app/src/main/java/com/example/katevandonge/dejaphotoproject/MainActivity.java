@@ -1,52 +1,31 @@
 package com.example.katevandonge.dejaphotoproject;
 
 import android.Manifest;
-import android.content.Intent;
 import android.app.WallpaperManager;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-
-import com.google.android.gms.common.api.GoogleApiActivity;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 
-import java.io.IOException;
-import java.lang.*;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static android.R.attr.button;
 
 
 
@@ -173,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         TimerTask hourlytask = new TimerTask(){
             @Override
             public void run(){
-                list.updateQueue();
+                //list.updateQueue();
                 Log.v("queue is being updated", "hahaa");
             }
         };
@@ -187,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 Log.v("Wally reset timer", "Wally reset timer");
             }
         };
-        shownTimer.schedule(dayTask, 01, 60000*15);
+        shownTimer.schedule(dayTask, 01, 60000);
 
     }
 

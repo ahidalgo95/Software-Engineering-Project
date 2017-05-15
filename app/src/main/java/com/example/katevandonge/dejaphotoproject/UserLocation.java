@@ -26,7 +26,6 @@ public class UserLocation extends Service {
     // Empty default constructor
     public UserLocation() {
         locList = MainActivity.list;
-        Log.v("CONSTRUCTOR-UL", "CONSTRUCTOR-UL");
     }
 
     //Start the service
