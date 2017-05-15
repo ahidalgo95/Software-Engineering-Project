@@ -137,15 +137,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             timer.schedule(hourlytask, 01, 60000 * 60);
 
 
-            Timer shownTimer = new Timer();
-            TimerTask dayTask = new TimerTask() {
-                @Override
-                public void run() {
-                    wally.resetShown();
-                    Log.i("MainActivity", "Wally reset timer");
-                }
-            };
-            shownTimer.schedule(dayTask, 01, 86400000);
 
 
     }

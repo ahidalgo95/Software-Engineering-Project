@@ -57,16 +57,6 @@ public class Wall extends Activity {
         }
     }
 
-    /**
-     * Reset recently shown every 24 hours
-     */
-    public void resetShown(){
-        for(int looper=0; looper<Qsize; looper++){
-            if(photoArr[looper]!=null){ //if photo not null
-                photoArr[looper].shown=false;
-                Log.i("Wall:", "reset shown "+Integer.toString(looper));
-            }
-        }
-    }
+
 }
 
