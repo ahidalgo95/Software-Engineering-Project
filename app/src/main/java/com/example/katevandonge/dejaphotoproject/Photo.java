@@ -41,7 +41,7 @@ public class Photo {
         shown = false;
         release = false;
         context1 = context;
-        locName = "waffles";
+        locName = "Location";
         timeTotal=0;
     }
 
