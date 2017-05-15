@@ -73,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     57756687);
 
-            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-            // app-defined int constant that should be quite unique
-
             return;
         }
 
