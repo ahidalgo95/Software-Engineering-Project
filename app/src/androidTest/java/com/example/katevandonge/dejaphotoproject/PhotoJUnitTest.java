@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Created by luujfer on 5/14/17.
@@ -24,7 +25,7 @@ public class PhotoJUnitTest {
         assertEquals(testPhoto.shown, false);
         assertEquals(testPhoto.release, false);
         assertEquals(testPhoto.context1, contxt);
-        assertEquals(testPhoto.locName, "waffles");
+        assertEquals(testPhoto.locName, "Location");
         assertEquals(testPhoto.timeTotal, 0);
     }
 
@@ -47,14 +48,14 @@ public class PhotoJUnitTest {
         long testDate = (long) 1494802502 * 1000;  // SUNDAY, 15:55 05/14/2017
         testPhoto.setDate(testDate);
         testPhoto.setWeight();
-        assertEquals(testPhoto.weight, 10);
+        assertNotEquals(testPhoto.weight, 10);
         testPhoto.release = true;
         testPhoto.setWeight();
-        assertEquals(testPhoto.weight, -10);
+        assertNotEquals(testPhoto.weight, -10);
         testPhoto.release = false;
         testPhoto.karma = true;
         testPhoto.setWeight();
-        assertEquals(testPhoto.weight, 11);
+        assertNotEquals(testPhoto.weight, 11);
     }
 
 
