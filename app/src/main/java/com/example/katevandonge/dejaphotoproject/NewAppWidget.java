@@ -29,8 +29,6 @@ import java.io.IOException;
  * Implementation of App Widget functionality.
  */
 public class NewAppWidget extends AppWidgetProvider {
-    //Gallery pList;
-    //WallpaperManager myWall;
     public static String WIDGET_BUTTON = "MY_PACKAGE_NAME.WIDGET_BUTTON";
     public static String WIDGET_NEXT = "NEXT_BUTTON";
     public static String WIDGET_PREV = "PREV_BUTTON";
@@ -40,13 +38,11 @@ public class NewAppWidget extends AppWidgetProvider {
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                          int appWidgetId) {
         CharSequence widgetText = context.getString(R.string.appwidget_text);
-
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
 
-
-        Intent intentA = new Intent(WIDGET_BUTTON);
         // This button launches the app
+        Intent intentA = new Intent(WIDGET_BUTTON);
         intentA.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 
         //KARMA BUTTON
@@ -100,7 +96,6 @@ public class NewAppWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intentKarma) {
         super.onReceive(context, intentKarma);
 
-
         //KARMA BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_BUTTON)) {
             Photo[] wallArr = Wall.photoArr;
@@ -108,11 +103,6 @@ public class NewAppWidget extends AppWidgetProvider {
             Photo thisPhoto = wallArr[counter];
             thisPhoto.karma = true;
             wallArr[counter].karma = true;
-
-            //Log test
-            String logger = ""+wallArr[counter].karma;
-            Log.v("Karma: should be true:", logger);
-
         }
 
         //RELEASE BUTTON
@@ -128,15 +118,12 @@ public class NewAppWidget extends AppWidgetProvider {
             Log.v("Released", "Released");
             //Calls mover method to iterate through photo array
             mover(context);
-
-
        }
 
         //NEXT BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_NEXT)) {
             //Calls mover method to iterate through photo array
             mover(context);
-
         }
 
         //BACK BUTTON
@@ -219,10 +206,13 @@ public class NewAppWidget extends AppWidgetProvider {
                     counter = wallArrSize - counter;
                 }
                 if (wallArr[counter] != null) {
-                    if(wallArr[counter].shown == false) {
+                    //This is commented out because we will want it after this milestone
+                    // This is commented out because we will want it after this milestone
+                    /*if(wallArr[counter].shown == false) {
                         Log.v("Mover-Breaking", "Mover-Breaking");
                         break;
-                    }
+                    }*/
+                    break;
                 }
             }
         }
@@ -236,10 +226,13 @@ public class NewAppWidget extends AppWidgetProvider {
             return;
         }
         /**
+         * This is commented out because we will want it after this milestone
+         * This is commented out because we will want it after this milestone
+         * This is commented out because we will want it after this milestone
          * Reset all to false once end reached
          */
         //Log.v("before mover if", "before mover if");
-        if(wallArr[counter].shown == true){
+        /*if(wallArr[counter].shown == true){
             boolean first = true;
             for(looper=0; looper<wallArrSize; looper++){
                 if(wallArr[looper]!=null){
@@ -256,7 +249,7 @@ public class NewAppWidget extends AppWidgetProvider {
                     }
                 }
             }
-        }
+        }*/
         /**
          * set the wallpaper to the current photo
          */
@@ -284,21 +277,16 @@ public class NewAppWidget extends AppWidgetProvider {
     /**
      * add location string to bitmap and display on the screen on top of the photo
      */
-
     public Bitmap addLocation(String locDisplay, Bitmap bm){
         Bitmap newBm = bm.copy(Bitmap.Config.ARGB_8888, true);
         //Canvas stuff to new bm
         Canvas canvas = new Canvas(newBm);
-
         Paint paint = new Paint();
-
         paint.setColor(Color.RED);
         paint.setTextSize(25);
         canvas.drawText(locDisplay, 15, 550, paint);
         canvas.drawBitmap(newBm, 0f, 0f, null);
-
         return newBm;
     }
-
 }
 
