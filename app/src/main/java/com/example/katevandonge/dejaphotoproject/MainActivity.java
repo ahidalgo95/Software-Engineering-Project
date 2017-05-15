@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void run(){
                 //list.updateQueue();
-                Log.v("queue is being updated", "hahaa");
+                Log.v("MainActivity", "Queue being updated");
             }
         };
         timer.schedule(hourlytask,01, 60000 * 60);
@@ -163,10 +163,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void run(){
                 wally.resetShown();
-                Log.v("Wally reset timer", "Wally reset timer");
+                Log.v("MainActivity", "Wally reset timer");
             }
         };
-        shownTimer.schedule(dayTask, 01, 60000);
+        shownTimer.schedule(dayTask, 01, 60000 * 60);
 
     }
 

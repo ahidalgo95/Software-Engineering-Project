@@ -16,7 +16,7 @@ public class UserLocation extends Service {
     static String mLocationString = "";
     TrackLocation mLocation;               // Current location of user
     DisplayLocation mDisplayLocation;      // Used to display location of user
-    int UPDATE_TIME_MILLISECONDS = 900000; // Time between updates
+    int UPDATE_TIME_MILLISECONDS = 5000; // Time between updates
     double startLat;                       // Starting latitude for comparing
     double startLong;                      // Starting longitude for comparing
     boolean first = true;                  // Checking for first set location
