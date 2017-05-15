@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
 
@@ -114,34 +115,40 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         Context context = getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
         list = new Gallery(context);
-        list.queryGallery(conR); //queries photo uris
-        list.fillQueue(); //fills priority queue with picture objs
-        Log.v("list size", Integer.toString(list.getSize()));
-        WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
-        wally = new Wall(context, list, wm);
+        int listSize= list.queryGallery(conR); //queries photo uris
+        if(listSize==0){
+            Toast.makeText(context, "Please put photos in gallery!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+            list.fillQueue(); //fills priority queue with picture objs
+            Log.v("list size", Integer.toString(list.getSize()));
+            WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
+            wally = new Wall(context, list, wm);
 
 
-        //timer to update queue every hour
-        Timer timer = new Timer();
-        TimerTask hourlytask = new TimerTask(){
-            @Override
-            public void run(){
-                list.updateQueue();
-                Log.v("MainActivity", "Queue being updated");
-            }
-        };
-        timer.schedule(hourlytask,01, 60000 * 60);
+            //timer to update queue every hour
+            Timer timer = new Timer();
+            TimerTask hourlytask = new TimerTask() {
+                @Override
+                public void run() {
+                    list.updateQueue();
+                    Log.v("MainActivity", "Queue being updated");
+                }
+            };
+            timer.schedule(hourlytask, 01, 60000 * 60);
 
 
-        Timer shownTimer = new Timer();
-        TimerTask dayTask = new TimerTask(){
-            @Override
-            public void run(){
-                wally.resetShown();
-                Log.v("MainActivity", "Wally reset timer");
-            }
-        };
-        shownTimer.schedule(dayTask, 01, 60000 * 60);
+            Timer shownTimer = new Timer();
+            TimerTask dayTask = new TimerTask() {
+                @Override
+                public void run() {
+                    wally.resetShown();
+                    Log.v("MainActivity", "Wally reset timer");
+                }
+            };
+            shownTimer.schedule(dayTask, 01, 60000 * 60);
+
 
     }
 

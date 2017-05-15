@@ -28,13 +28,13 @@ import static android.R.id.list;
 
 public class Wall extends Activity {
 
-    static Gallery galleryK;
-    static WallpaperManager myWall;
-    PriorityQueue<Photo> pList;
+    static Gallery galleryK;            //our gallery object
+    static WallpaperManager myWall;     //our wall object
+    PriorityQueue<Photo> pList;         //priorityqueue of photos to make photoArr
     Context con;
-    static int counter;
-    static Photo [] photoArr;
-    int Qsize;
+    static int counter;                 //counter to be used in widget
+    static Photo [] photoArr;           //photoArr to be used in widget
+    int Qsize;                          //size of pqueue
 
 
 
@@ -42,28 +42,29 @@ public class Wall extends Activity {
     * Constructor for our Wall object.
     * */
     public Wall(Context context, Gallery gallery, WallpaperManager wm) {
-        galleryK = gallery;
+        galleryK = gallery; //set gallery
         con = context;
-        pList = gallery.queueCopy;
-        myWall = wm;
+        pList = gallery.queueCopy;  //set queue
+        myWall = wm; //set wallpapermanager
         counter = 0;
         Qsize = pList.size();
-        Log.v("Qsize initialized", Integer.toString(Qsize));
+        Log.i("Wall: ", "size "+Integer.toString(Qsize));
         photoArr = new Photo[Qsize];
-        for (int i = 0; i < Qsize; i++) {
+        for (int i = 0; i < Qsize; i++) { //poll photos length of input pqueue
             photoArr[i] = pList.poll();
-            Log.v("filling plist in const",Integer.toString(i));
+            Log.i("Wall: ","adding to photo array "+Integer.toString(i));
 
         }
     }
+
     /**
      * Reset recently shown every 24 hours
      */
     public void resetShown(){
         for(int looper=0; looper<Qsize; looper++){
-            if(photoArr[looper]!=null){
+            if(photoArr[looper]!=null){ //if photo not null
                 photoArr[looper].shown=false;
-                Log.v("resetting shown", Integer.toString(looper));
+                Log.i("Wall:", "reset shown "+Integer.toString(looper));
             }
         }
     }

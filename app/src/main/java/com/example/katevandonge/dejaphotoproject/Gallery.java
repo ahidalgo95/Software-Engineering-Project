@@ -74,7 +74,7 @@ public class Gallery {
         }
         queryCall++;
         int sizeCalledAgain= cursor.getCount(); //var we return
-        Log.v("cursor size", Integer.toString(size));
+        Log.i("Gallery:", "cursor size" + Integer.toString(size));
 
         if (cursor.moveToFirst()) { //move to first row of array
             //gets column indices
@@ -128,18 +128,17 @@ public class Gallery {
     * */
     @TargetApi(24)
     public void updateQueue(){
-        Log.v("update queue was called", "!");
         PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>(photoComparator);
         PriorityQueue<Photo> newQcopy = new PriorityQueue<Photo>(photoComparator);
         newQueue= convertToPQ(); //convert wall array to pq
         newQcopy= convertToPQ(); //convert wall array to pq
         int queriedSize=queryGallery(con.getContentResolver()); //requery gallery
-        Log.v("size of orig gallery", Integer.toString(size));
+        Log.i("Gallery:", "gallery size "+ Integer.toString(size));
         if(queriedSize>size){ //if requeried size greater (more photos taken)
-            Log.v("new size of gallery", Integer.toString(queriedSize));
-            Log.v("adding", Integer.toString(queriedSize-size)+" new photos to gallery");
+            Log.i("Gallery:", "requeried size "+Integer.toString(queriedSize));
+            Log.i("Gallery:", "photos to add "+Integer.toString(queriedSize-size));
             for(int i = size; i<queriedSize ; i++){
-                Log.v("photos being added to", " gallery");
+                Log.i("Gallery:", "adding photo");
                 Photo photo = new Photo(con); //make new photo
                 //set fields of photo
                 photo.setUri(uriList.get(i));
@@ -168,15 +167,13 @@ public class Gallery {
         PriorityQueue<Photo> newPQ= new PriorityQueue<Photo>(photoComparator);
         Photo[] pArray= Wall.photoArr;
         Photo currPhoto;
-        Log.v("convert to PQ called"," ");
         for(int i=0; i<pArray.length; i++){ //for length of array
-            Log.v("from array to pq", Integer.toString(i));
             currPhoto= pArray[i];
             int j=1;
             if(pArray[i]!=null) {
                 currPhoto.setWeight();
                 newPQ.add(currPhoto); //add photos to priority queue
-                Log.v("adding from array to pq", Integer.toString(j)+"times");
+                Log.i("Gallery", "from array to pq "+Integer.toString(j));
                 j++;
             }
         }
@@ -192,7 +189,7 @@ public class Gallery {
         Photo[] newPArray= new Photo[polledPQ.size()];
         int i=0;
         while(polledPQ.size() != 0){
-            Log.v("pq convertToArray", Integer.toString(i));
+            Log.i("Gallery:", "convert to array "+Integer.toString(i));
             polled= polledPQ.poll(); //poll photo from queue
             //Log.i("Gallery Convert2Array" , polled.locName);
             newPArray[i]=polled; //add photo to array
