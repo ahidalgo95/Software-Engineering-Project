@@ -32,7 +32,7 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
-    static int rate = 5000;//300000;
+    static int rate = 300000; //set at 5000ms for testing at 5 seconds
     Intent intentAlpha;
     Intent intentBeta;
     static Gallery list;
