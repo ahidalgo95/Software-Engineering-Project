@@ -129,14 +129,18 @@ public class Gallery {
     * */
     @TargetApi(24)
     public void updateQueue(){
+        Log.v("update queue was called", "!");
         PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>(photoComparator);
         PriorityQueue<Photo> newQcopy = new PriorityQueue<Photo>(photoComparator);
         newQueue= convertToPQ();
         newQcopy= convertToPQ();
         int queriedSize=queryGallery(con.getContentResolver());
-        Log.v("UPDATE QUEUE", "BEFORE THE LOOP");
+        Log.v("size of orig gallery", Integer.toString(size));
         if(queriedSize>size){
+            Log.v("new size of gallery", Integer.toString(queriedSize));
+            Log.v("adding", Integer.toString(queriedSize-size)+" new photos to gallery");
             for(int i = size; i<queriedSize ; i++){
+                Log.v("photos being added to", " gallery");
                 Photo photo = new Photo(con);
                 photo.setUri(uriList.get(i));
                 photo.setTimeTotal(dateList.get(i));
@@ -147,7 +151,6 @@ public class Gallery {
                 photo.setWeight();
                 newQueue.add(photo);
                 newQcopy.add(photo);
-                Log.v("UPDATE QUEUE", "IN THE LOOP");
             }
         }
         Wall.photoArr= convertToArray(newQueue);
@@ -163,42 +166,37 @@ public class Gallery {
         PriorityQueue<Photo> newPQ= new PriorityQueue<Photo>(photoComparator);
         Photo[] pArray= Wall.photoArr;
         Photo currPhoto;
+        Log.v("convert to PQ called"," ");
         for(int i=0; i<pArray.length; i++){
+            Log.v("from array to pq", Integer.toString(i));
             currPhoto= pArray[i];
+            int j=1;
             if(pArray[i]!=null) {
                 currPhoto.setWeight();
                 newPQ.add(currPhoto);
+                Log.v("adding from array to pq", Integer.toString(j)+"times");
+                j++;
             }
         }
-        Log.v("UPDATE QUEUE", "CONVERT TO PQ");
         return newPQ;
     }
 
 
     /*
-     * Converts prior
+     * Converts input priority queue to array.
      */
     public Photo[] convertToArray(PriorityQueue<Photo> polledPQ){
         Photo polled;
         Photo[] newPArray= new Photo[polledPQ.size()];
         int i=0;
         while(polledPQ.size() != 0){
+            Log.v("pq convertToArray", Integer.toString(i));
             polled= polledPQ.poll();
             newPArray[i]=polled;
             i++;
-            Log.v("UPDATE QUEUE", "CONVERT TO ARRAY");
         }
-       // Log.v("UPDATE QUEUE", "CONVERT TO ARRAY");
         return newPArray;
     }
-
-    /**
-     * Reset recently shown every 24 hours
-     */
-    public void resetShown (){
-
-    }
-
 
 
 }

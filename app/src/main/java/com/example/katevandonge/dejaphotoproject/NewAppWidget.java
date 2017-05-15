@@ -20,6 +20,7 @@ import android.widget.RemoteViews;
 import static android.R.attr.button;
 import static android.R.attr.content;
 import static android.support.v4.content.ContextCompat.startActivity;
+import static java.lang.Thread.sleep;
 
 import android.Manifest;
 
@@ -139,8 +140,8 @@ public class NewAppWidget extends AppWidgetProvider {
         //NEXT BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_NEXT)) {
             Log.v("NEXTwidgetIFF", "NEXTwidgetIFF");
-            mover(context);
-        }
+                mover(context);
+            }
 
         //BACK BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_PREV)) {

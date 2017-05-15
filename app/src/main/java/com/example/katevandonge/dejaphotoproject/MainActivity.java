@@ -53,7 +53,7 @@ import static android.R.attr.button;
 public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
-    int rate = 5000;//300000;
+    static int rate = 5000;//300000;
     Intent intentAlpha;
     Intent intentBeta;
     static Gallery list;
