@@ -22,10 +22,6 @@ import static android.R.attr.content;
 import static android.support.v4.content.ContextCompat.startActivity;
 import static java.lang.Thread.sleep;
 
-import android.Manifest;
-
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -129,12 +125,10 @@ public class NewAppWidget extends AppWidgetProvider {
                 wallArr[counter].release = true;
             }
             wallArr[counter] = null;
+            Log.v("Released", "Released");
             //Calls mover method to iterate through photo array
             mover(context);
 
-            //Log test
-            String logger = ""+wallArr[counter].release;
-            Log.v("Release should be true:", logger);
 
        }
 
@@ -157,6 +151,7 @@ public class NewAppWidget extends AppWidgetProvider {
             if (counter < 0) {
                 counter = wallArrSize + counter;
             }
+            //Checks that the new photo is not null
             if (wallArr[counter] == null) {
                 for (looper = 0; looper <= wallArrSize; looper++) {
                     counter--;
@@ -190,7 +185,6 @@ public class NewAppWidget extends AppWidgetProvider {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             Wall.counter = counter;
         }
     }
@@ -246,13 +240,22 @@ public class NewAppWidget extends AppWidgetProvider {
          */
         //Log.v("before mover if", "before mover if");
         if(wallArr[counter].shown == true){
+            boolean first = true;
             for(looper=0; looper<wallArrSize; looper++){
                 if(wallArr[looper]!=null){
                     wallArr[looper].shown=false;
-                    //Log.v("mover, reseting T/f", "mover, reseting T/f");
+                    if(first) {
+                        counter = looper;
+                        first = false;
+                        String countval = "" + counter;
+                        String looperval = "" + looper;
+                        String firstval = "" + first;
+                        Log.v(countval, countval);
+                        Log.v("should = countval", looperval);
+                        Log.v("should be false", firstval);
+                    }
                 }
             }
-            counter = 0;
         }
         /**
          * set the wallpaper to the current photo
