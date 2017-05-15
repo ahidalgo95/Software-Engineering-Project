@@ -93,12 +93,7 @@ public class Gallery {
             } while (cursor.moveToNext());
         }
         cursor.close();
-        Log.v("UPDATE QUEUE", "QUERIED GALLERY");
         return sizeCalledAgain;
-        //Log.v("dateList size", Integer.toString(dateList.size()));
-        //Log.v("longList size", Integer.toString(longList.size()));
-        //Log.v("latList size", Integer.toString(latList.size()));
-        //Log.v("uriList size", Integer.toString(uriList.size()));
     }
 
 
@@ -111,19 +106,14 @@ public class Gallery {
             photo.setUri(uriList.get(i));
             photo.setTimeTotal(dateList.get(i));
             photo.setDate(dateList.get(i));
-            //Log.i("GalleryfillQueue", "date: " + dateList.get(i));
             photo.setLatitude(latList.get(i));
-            //Log.i("GalleryfillQueue","latitude: " + latList.get(i));
             photo.setLongitude(longList.get(i));
-            //Log.i("GalleryfillQueue","longitude: " + longList.get(i));
             photo.locScreenHelper();
             photo.setWeight();
             photoQueue.add(photo);
             queueCopy.add(photo);
         }
-        //Log.v("photo 1 weight", Integer.toString(photoQueue.peek().getWeight()));
-        //Log.v("photo 1 info", ""+ uriList.get(1)+ "  "+ dateList.get(1)+" " +latList.get(1)+ " "+ longList.get(1));
-        //Log.v("size of photo queue", Integer.toString(photoQueue.size()));
+
     }
 
 
@@ -137,7 +127,6 @@ public class Gallery {
         newQueue= convertToPQ();
         newQcopy= convertToPQ();
         int queriedSize=queryGallery(con.getContentResolver());
-        Log.v("UPDATE QUEUE", "BEFORE THE LOOP");
         if(queriedSize>size){
             for(int i = size; i<queriedSize ; i++){
                 Photo photo = new Photo(con);
@@ -151,7 +140,6 @@ public class Gallery {
                 newQueue.add(photo);
                 newQcopy.add(photo);
                 size = queriedSize;
-                Log.v("UPDATE QUEUE", "IN THE LOOP");
             }
         }
         Wall.photoArr= convertToArray(newQueue);
