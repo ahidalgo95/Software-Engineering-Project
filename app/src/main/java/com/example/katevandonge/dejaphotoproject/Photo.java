@@ -88,9 +88,9 @@ public class Photo {
                         (double) Math.pow((double)Math.sin((trackedLong-longitude)/2),2)));
         double diffInKm=6371* diffInRad;
         double diffInFt= 3280 * diffInKm;
-        Log.i("Photo:" ,"comparing locations");
+        //Log.i("Photo:" ,"comparing locations");
         if(diffInFt<=1000){
-            Log.i("Photo:" ,"1000 ft or less away");
+            //Log.i("Photo:" ,"1000 ft or less away");
             return true;
         }
         return false;
@@ -105,13 +105,13 @@ public class Photo {
         String date = format.format(Calendar.getInstance().getTime());
         // compare the current day of the week with photo's day of week
         if(date.equals(dayOfWeek)){
-            Log.i("Photo","Comparing day: TRUE");
-            Log.i("Photo:", dayOfWeek + "curr: "+date);
+            //Log.i("Photo","Comparing day: TRUE");
+            //Log.i("Photo:", dayOfWeek + "curr: "+date);
             // return true if they are equal
             return true;
         }
-        Log.i("Photo","comparing days : FALSE");
-        Log.i("Photo", "photoDay:"+ dayOfWeek +"curr: "+date);
+        //Log.i("Photo","comparing days : FALSE");
+        //Log.i("Photo", "photoDay:"+ dayOfWeek +"curr: "+date);
         //return false if they are not equal
         return false;
     }
@@ -133,14 +133,14 @@ public class Photo {
         int savedMin= (Integer.parseInt(saved[0])*60)+ (Integer.parseInt(saved[1]));
         // compare the two times to see they are within 2 hours of each other
         if(savedMin<=currMin && currMin <= savedMin+120 || currMin<=savedMin && currMin >= savedMin-120){
-            Log.i("Photo:","comparing time in mins: TRUE");
-            Log.i("Photo: ", + savedMin +"curr mins: "+currMin);
+            //Log.i("Photo:","comparing time in mins: TRUE");
+            //Log.i("Photo: ", + savedMin +"curr mins: "+currMin);
             // if within two hours, return true
             return true;
         }
         // if not within two hours, return false
-        Log.i("Photo:", "Comparing times in min : FALSE");
-        Log.i("Photo: ",  savedMin+ "curr mins: "+currMin);
+        //Log.i("Photo:", "Comparing times in min : FALSE");
+        //Log.i("Photo: ",  savedMin+ "curr mins: "+currMin);
         return false;
     }
 
@@ -170,7 +170,7 @@ public class Photo {
 
         // split the date format by day of week, date, time
 
-        Log.i("Photo Date", formatted);
+        //Log.i("Photo Date", formatted);
 
         String[] arr= formatted.split(" ");
         dayOfWeek=arr[0];
@@ -204,8 +204,8 @@ public class Photo {
                 double mylong = longitude; //CHANGE TO PHOTOS LOCATIONS
                 WriteLocation screenDL = new WriteLocation();
                 locName = screenDL.displayLocation(mylat, mylong);
-                Log.i("HELLO", "HELLO");
-                Log.i("Photo:" ,"photo location"+ mylat + ", " + mylong);
+                //Log.i("HELLO", "HELLO");
+                //Log.i("Photo:" ,"photo location"+ mylat + ", " + mylong);
             }
         }
         Thread how = new Thread(new ThreadK());
@@ -217,7 +217,7 @@ public class Photo {
     * */
     public Bitmap toBitmap(ContentResolver cr){
         Bitmap bm = null;
-        Log.i("Photo:" ,"getting bitmap");
+        //Log.i("Photo:" ,"getting bitmap");
         try {
             bm = MediaStore.Images.Media.getBitmap(cr,photouri);
         } catch (IOException e) {

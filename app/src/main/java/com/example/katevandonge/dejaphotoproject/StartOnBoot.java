@@ -26,7 +26,7 @@ public class StartOnBoot extends BroadcastReceiver {
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
 
-            Log.i("StartOnBoot" , "Application Launched on phone bootup");
+            //Log.i("StartOnBoot" , "Application Launched on phone bootup");
         }
     }
 

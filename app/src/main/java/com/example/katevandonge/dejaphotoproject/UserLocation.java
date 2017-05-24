@@ -45,7 +45,7 @@ public class UserLocation extends Service {
         thread.start();
 
         // Log to make sure service starts correctly
-        Log.i("UserLocation", "UserLocation service started - tracking user location");
+        //Log.i("UserLocation", "UserLocation service started - tracking user location");
 
         return START_STICKY;
     }
@@ -109,7 +109,7 @@ public class UserLocation extends Service {
         }
 
         public void compareLoc(){
-            Log.i("UserLocation CompareLoc", "Comparing location");
+            //Log.i("UserLocation CompareLoc", "Comparing location");
             double trackedLat= TrackLocation.mLatitude;
             double trackedLong= TrackLocation.mLongitude;
 
@@ -127,6 +127,10 @@ public class UserLocation extends Service {
                 startLat = trackedLat;
                 startLong = trackedLong;
                 Log.i("userCompareLoc", "Location difference exceeded 500, update");
+
+            }
+            else{
+                Log.v("NOT 500", "NOT 500");
             }
             return;
         }

@@ -11,7 +11,6 @@ import android.util.Log;
 import net.sf.json.JSONSerializer;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,8 +44,8 @@ public class DisplayLocation {
 
         // Making url request
         try {
-            Log.i("DisplayLocation" , "Passed in lat and long" + myLocation.getLatitude() +
-             ", " + myLocation.getLongitude());
+            //Log.i("DisplayLocation" , "Passed in lat and long" + myLocation.getLatitude() +
+             //", " + myLocation.getLongitude());
             URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng="
                     + myLocation.getLatitude() + "," + myLocation.getLongitude() + "&key=AIzaSyBw4dHwwILCiH4RzSuYRzBD8UNp9NXh508");
             // Making connection
@@ -103,7 +102,7 @@ public class DisplayLocation {
                     formatted_address = formatted_address + rec1.getString("short_name");
                 }
             }
-            Log.i("DisplayLocation", rec.getString("formatted_address"));
+            //Log.i("DisplayLocation", rec.getString("formatted_address"));
 
             // Disconnect the HTTP object
             conn.disconnect();

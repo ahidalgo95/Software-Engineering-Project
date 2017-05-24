@@ -22,6 +22,7 @@ public class UpdateQueueIntentService extends IntentService {
     String WIDGET_NEXT;
     NewAppWidget widget;
     boolean keepRunning = true;
+    UpdateQueueIntentService updateQueueIntentService = this;
 
     public UpdateQueueIntentService() {
         super("worker");
@@ -37,7 +38,9 @@ public class UpdateQueueIntentService extends IntentService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         Toast.makeText(UpdateQueueIntentService.this, "SERVICE STARTED", Toast.LENGTH_SHORT).show();
+        keepRunning = true;
         return super.onStartCommand(intent, flags, startId);
+
     }
 
     @Override
@@ -53,7 +56,7 @@ public class UpdateQueueIntentService extends IntentService {
         //onDestroy();
         if (intent != null && keepRunning) {
             Srate = (String)intent.getExtras().get("myrate");
-            Qrate = 1000*60*(Integer.parseInt(Srate));
+            Qrate = (Integer.parseInt(Srate));
 
             intent2 = new Intent(UpdateQueueIntentService.this, NewAppWidget.class);
             WIDGET_NEXT = "NEXT_BUTTON";
@@ -68,8 +71,6 @@ public class UpdateQueueIntentService extends IntentService {
                     e.printStackTrace();
                 }
             }
-
-
             onHandleIntent(intent);
         }
     }

@@ -115,7 +115,7 @@ public class NewAppWidget extends AppWidgetProvider {
                 wallArr[counter].release = true;
             }
             wallArr[counter] = null;
-            Log.v("Released", "Released");
+            //Log.v("Released", "Released");
             //Calls mover method to iterate through photo array
             mover(context);
        }
@@ -163,7 +163,7 @@ public class NewAppWidget extends AppWidgetProvider {
             Photo picToSet = wallArr[counter];
             try {
                 String locDisplay = picToSet.locName;
-                Log.v(locDisplay, locDisplay);
+                //Log.v(locDisplay, locDisplay);
                 //Creates bitmap of proper screen ratio
                 Bitmap bm = picToSet.toBitmap(context.getContentResolver());
                 bm = Bitmap.createScaledBitmap(bm, 411, 670, true);
@@ -183,7 +183,7 @@ public class NewAppWidget extends AppWidgetProvider {
         WallpaperManager myWall = Wall.myWall;
         Photo[] wallArr = Wall.photoArr;
         String wall = "" + wallArr.length;
-        Log.v(wall, wall);
+        //Log.v(wall, wall);
         int wallArrSize = wallArr.length;
         int counter = Wall.counter;
         int looper = 0;
@@ -262,7 +262,7 @@ public class NewAppWidget extends AppWidgetProvider {
          */
         try {
             String locDisplay = picToSet.locName;
-            Log.v(locDisplay, locDisplay);
+            //Log.v(locDisplay, locDisplay);
             Bitmap bm = picToSet.toBitmap(context.getContentResolver());
             bm = Bitmap.createScaledBitmap(bm, 411, 670, true);
             Bitmap newBm = addLocation(locDisplay, bm);

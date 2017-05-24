@@ -121,7 +121,7 @@ public class WriteLocation {
 
 
                 // Return the location of the photo
-                Log.i("Other", neighbourhood);
+                //Log.i("Other", neighbourhood);
                 return neighbourhood;
 
             } catch (MalformedURLException e) {

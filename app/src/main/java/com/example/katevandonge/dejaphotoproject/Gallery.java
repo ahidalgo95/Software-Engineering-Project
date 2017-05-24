@@ -2,12 +2,15 @@ package com.example.katevandonge.dejaphotoproject;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.net.URI;
@@ -32,6 +35,9 @@ public class Gallery {
     static PriorityQueue<Photo> queueCopy;  //copy of our queue to be used in wall
     Comparator<Photo> photoComparator;      //comparator for our photo queue
     int queryCall;                          //number of times query has been called
+    Intent intentGamma;
+    boolean first;
+    UpdateQueueIntentService upQ = new UpdateQueueIntentService();
 
 
     /*
@@ -49,6 +55,8 @@ public class Gallery {
         photoComparator= new PhotoComparator();
         photoQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
         queueCopy = new PriorityQueue<Photo>(photoComparator);  //@TargetApi(24) used and fixes
+        intentGamma = new Intent(context, UpdateQueueIntentService.class);
+        first = true;
     }
 
     /*
@@ -74,7 +82,7 @@ public class Gallery {
         }
         queryCall++;
         int sizeCalledAgain= cursor.getCount(); //var we return
-        Log.i("Gallery:", "cursor size" + Integer.toString(size));
+        //Log.i("Gallery:", "cursor size" + Integer.toString(size));
 
         if (cursor.moveToFirst()) { //move to first row of array
             //gets column indices
@@ -133,12 +141,12 @@ public class Gallery {
         newQueue= convertToPQ(); //convert wall array to pq
         newQcopy= convertToPQ(); //convert wall array to pq
         int queriedSize=queryGallery(con.getContentResolver()); //requery gallery
-        Log.i("Gallery:", "gallery size "+ Integer.toString(size));
-        if(queriedSize>size){ //if requeried size greater (more photos taken)
-            Log.i("Gallery:", "requeried size "+Integer.toString(queriedSize));
-            Log.i("Gallery:", "photos to add "+Integer.toString(queriedSize-size));
+        //Log.i("Gallery:", "gallery size "+ Integer.toString(size));
+        /*if(queriedSize>size){ //if requeried size greater (more photos taken)
+            //Log.i("Gallery:", "requeried size "+Integer.toString(queriedSize));
+            //Log.i("Gallery:", "photos to add "+Integer.toString(queriedSize-size));
             for(int i = size; i<queriedSize ; i++){
-                Log.i("Gallery:", "adding photo");
+                //Log.i("Gallery:", "adding photo");
                 Photo photo = new Photo(con); //make new photo
                 //set fields of photo
                 photo.setUri(uriList.get(i));
@@ -153,13 +161,23 @@ public class Gallery {
                 newQcopy.add(photo);
                 size = queriedSize;
             }
-        }
-        Wall.photoArr= convertToArray(newQueue);
+        }*/
+        convertToArray(newQueue);
 
-        Wall.pList = newQcopy;
         photoQueue=newQueue; //set new queues to class queues
         queueCopy=newQcopy;
+        Wall.pList = newQcopy;
         Wall.counter=-1;
+
+        if(first){
+            first = false;
+        }
+        else {
+            con.stopService(MainActivity.intentAlpha);
+            Log.v("KILLED SELF", "KILLED SELF");
+            con.startService(MainActivity.intentAlpha);
+
+        }
     }
 
     /*
@@ -176,7 +194,7 @@ public class Gallery {
             if(pArray[i]!=null) {
                 currPhoto.setWeight();
                 newPQ.add(currPhoto); //add photos to priority queue
-                Log.i("Gallery", "from array to pq "+Integer.toString(j));
+                Log.i("Gallery", "from array to pq "+Integer.toString(i));
                 j++;
             }
         }
@@ -187,18 +205,18 @@ public class Gallery {
     /*
      * Converts input priority queue to array.
      */
-    public Photo[] convertToArray(PriorityQueue<Photo> polledPQ){
+    public void convertToArray(PriorityQueue<Photo> polledPQ){
         Photo polled;
-        Photo[] newPArray= new Photo[polledPQ.size()];
+        //Photo[] newPArray= new Photo[polledPQ.size()];
         int i=0;
         while(polledPQ.size() != 0){
-            Log.i("Gallery:", "convert to array "+Integer.toString(i));
+            //Log.i("Gallery:", "convert to array "+Integer.toString(i));
             polled= polledPQ.poll(); //poll photo from queue
             //Log.i("Gallery Convert2Array" , polled.locName);
-            newPArray[i]=polled; //add photo to array
+            Wall.photoArr[i]=polled; //add photo to array
             i++;
         }
-        return newPArray;
+        return;
     }
 
 

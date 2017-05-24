@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
 
-    static int rate = 300000; //set at 5000ms for testing at 5 seconds
+    static int rate = 5000; //set at 5000ms for testing at 5 seconds
 
-    Intent intentAlpha;
-    Intent intentBeta;
+    static Intent intentAlpha;
+    //static Intent intentBeta;
     static Gallery list;
     Wall wally;
     WallpaperManager myWall;
-
+    boolean first = true;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         }
 
             list.fillQueue(); //fills priority queue with picture objs
-            Log.v("list size", Integer.toString(list.getSize()));
+            //Log.v("list size", Integer.toString(list.getSize()));
             WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
             wally = new Wall(context, list, wm);
 
@@ -131,15 +131,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 @Override
                 public void run() {
                     list.updateQueue();
-                    Log.i("MainActivity", "Queue being updated");
+                    //Log.i("MainActivity", "Queue being updated");
                 }
             };
             timer.schedule(hourlytask, 01, 60000 * 60);
-
-
-
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,29 +173,27 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
        /*
        *  saving the user specified rate for rotating the photos
        * */
-    public void saveRate(View view){
+    public void saveRate(View view) {
         EditText timeRate = (EditText) findViewById(R.id.rate);
-
-
         //Text view for display and rate to rotate the photos at
         SharedPreferences sharedPreferences = getSharedPreferences("rate", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String rateStr = timeRate.getText().toString();
-        editor.putString("rate", rateStr );
+        editor.putString("rate", rateStr);
         TextView rateDisplay = (TextView) findViewById(R.id.display);
-        rateDisplay.setText("Rate: "+rateStr+" minutes");
+        rateDisplay.setText("Rate: " + rateStr + " minutes");
         rate = Integer.parseInt(rateStr);
-
-
-        intentBeta = new Intent(MainActivity.this, UpdateQueueIntentService.class);
-        String holder2 = "" + rate;
-        intentBeta.putExtra("myrate", holder2);
-
-        //stops the servive when the app opens at a default rate
-        stopService(intentAlpha);
-        //starts an intent with the user specified rate
-        startService(intentBeta);
         editor.apply();
+
+        //stops the service when the app opens at a default rate
+        stopService(intentAlpha);
+
+        intentAlpha = new Intent(MainActivity.this, UpdateQueueIntentService.class);
+        String holder2 = "" + rate;
+        intentAlpha.putExtra("myrate", holder2);
+
+        //starts an intent with the user specified rate
+        startService(intentAlpha);
     }
 }
 

@@ -48,11 +48,11 @@ public class Wall extends Activity {
         myWall = wm; //set wallpapermanager
         counter = 0;
         Qsize = pList.size();
-        Log.i("Wall: ", "size "+Integer.toString(Qsize));
+        //Log.i("Wall: ", "size "+Integer.toString(Qsize));
         photoArr = new Photo[Qsize];
         for (int i = 0; i < Qsize; i++) { //poll photos length of input pqueue
             photoArr[i] = pList.poll();
-            Log.i("Wall: ","adding to photo array "+Integer.toString(i));
+            //Log.i("Wall: ","adding to photo array "+Integer.toString(i));
 
         }
     }
