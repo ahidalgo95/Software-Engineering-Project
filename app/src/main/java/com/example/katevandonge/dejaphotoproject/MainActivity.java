@@ -19,7 +19,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         String holder = "" + rate;
         intentAlpha.putExtra("myrate", holder);
         startService(intentAlpha);
+
+        Button launchProfileActivity = (Button) findViewById(R.id.button3);
+        launchProfileActivity.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                launchActivity();
+            }
+        });
+
 
 
         /*
@@ -135,6 +146,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 }
             };
             timer.schedule(hourlytask, 01, 60000 * 60);
+    }
+
+    public void launchActivity(){
+        Intent intent = new Intent(this, ScrollingActivity.class);
+        intent.putExtra("kate", "myString");
+        startActivity(intent);
     }
 
 
