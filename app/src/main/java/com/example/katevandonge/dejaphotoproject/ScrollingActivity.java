@@ -21,6 +21,9 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private static final int SELECTED_PIC =1;
     ImageView imageView;
+    ImageView imageView2;
+    ImageView imageView3;
+    int counter = 1;
 
 
     @Override
@@ -31,6 +34,8 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         imageView = (ImageView)findViewById(R.id.imageView);
+        imageView2 = (ImageView)findViewById(R.id.imageView2);
+        imageView3 = (ImageView)findViewById(R.id.imageView3);
 
         Button switchScreen= (Button) findViewById(R.id.button2);
         switchScreen.setOnClickListener(new View.OnClickListener(){
@@ -62,7 +67,17 @@ public class ScrollingActivity extends AppCompatActivity {
 
                     Bitmap bitmap = BitmapFactory.decodeFile(filepath);
                     Drawable drawable = new BitmapDrawable(bitmap);
-                    imageView.setBackground(drawable);
+                    if(counter==1){
+                        imageView.setBackground(drawable);
+                    }
+                    if(counter==2){
+                        imageView2.setBackground(drawable);
+                    }
+                    if(counter==3){
+                        imageView3.setBackground(drawable);
+                    }
+                    counter++;
+
                 }
                 break;
             default:

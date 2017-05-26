@@ -11,38 +11,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="198dp"
-            android:layout_height="wrap_content"
-            android:text="Back" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/galleryClick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="btnClick"
-            android:text="Gallery" />
+            <Button
+                android:id="@+id/galleryClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="btnClick"
+                android:text="Gallery" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Back" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
