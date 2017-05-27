@@ -35,15 +35,14 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
-
+    static boolean sharingMode = false; //false Means sharing is off
+    static boolean
+            friendMode = false;
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
-
     static Intent intentAlpha;
-    //static Intent intentBeta;
     static Gallery list;
     Wall wally;
     WallpaperManager myWall;
-    boolean first = true;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
 
@@ -186,6 +185,32 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         return;
     }
 
+    /**
+     * Changes the mode the user is in for sharing. It determines if their photos are being shared
+     * with friends or not.
+     * @param view
+     */
+    public void sharingChange(View view){ //tested and works!
+        String thing1 = "" + sharingMode;
+        Log.v("SHARING", thing1);
+        sharingMode = !sharingMode;
+        String thing2 = "" + sharingMode;
+        Log.v("SHARING", thing2);
+    }
+
+    /**
+     * Changes the mode the user is in for photo views. It determines if they are seeing their own
+     * photos or their friends' as the background
+     * @param view
+     */
+    public void friendModeChange(View view){
+        String thing1 = "" + friendMode;
+        Log.v("SHARING", thing1);
+        friendMode = !friendMode;
+        String thing2 = "" + friendMode;
+        Log.v("SHARING", thing2);
+
+    }
 
        /*
        *  saving the user specified rate for rotating the photos

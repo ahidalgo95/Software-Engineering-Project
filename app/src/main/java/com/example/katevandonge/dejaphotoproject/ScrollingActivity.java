@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -67,6 +68,21 @@ public class ScrollingActivity extends AppCompatActivity {
 
                     Bitmap bitmap = BitmapFactory.decodeFile(filepath);
                     Drawable drawable = new BitmapDrawable(bitmap);
+                    int k=1000;
+                    String me = "hello";
+                    for(int i=0; i<Wall.photoArr.length; i++){
+                        Log.v("Scrolling", "In the for");
+                        if(Wall.photoArr[i].photouri.equals(uri)){
+                            Log.v("Scrolling", "URI MATch");
+                            Wall.photoArr[i].DJP=true;
+                            me = Wall.photoArr[i].DJP + "";
+                            k = i;
+                            break;
+                        }
+                    }
+                    String sstring = "" + k;
+                    Log.v(sstring, me);
+                    Log.v("Scrolling", "scrolling");
                     if(counter==1){
                         imageView.setBackground(drawable);
                     }

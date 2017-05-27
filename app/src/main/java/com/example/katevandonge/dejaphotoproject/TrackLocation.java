@@ -89,7 +89,7 @@ public class TrackLocation
                     case LocationSettingsStatusCodes.SUCCESS:
                         // All location settings are satisfied. The client can initialize location
                         // requests here.
-                        Log.i("TrackLocation", "Location settings check passed");
+                        //Log.i("TrackLocation", "Location settings check passed");
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         // Location settings are not satisfied. But could be fixed by showing the user

@@ -88,7 +88,7 @@ public class UserLocation extends Service {
                     //mLocationString = mDisplayLocation.displayLocation();
 
                     // Log results for testing
-                    Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + " "+ mLocation.getLongitude());
+                    //Log.i("UserLocation", "Latitude and Longitude " + mLocation.getLatitude() + " "+ mLocation.getLongitude());
                     //Log.i("UserLocation", "Location String " + mLocationString);
 
                     // If its the first location, set the starting location to check distances
@@ -130,7 +130,7 @@ public class UserLocation extends Service {
 
             }
             else{
-                Log.v("NOT 500", "NOT 500");
+                //Log.v("NOT 500", "NOT 500");
             }
             return;
         }
