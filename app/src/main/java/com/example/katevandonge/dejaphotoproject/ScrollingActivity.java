@@ -47,7 +47,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     public void btnClick(View view){
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, SELECTED_PIC);
     }
 
@@ -58,7 +58,7 @@ public class ScrollingActivity extends AppCompatActivity {
             case SELECTED_PIC:
                 if(resultCode == RESULT_OK){
                     Uri uri = data.getData();
-                    String[] projection = {MediaStore.Images.Media.DATA};
+                    String[] projection = {MediaStore.Images.Thumbnails.DATA};
                     Cursor cursor = getContentResolver().query(uri,projection,null,null,null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(projection[0]);
