@@ -1,6 +1,7 @@
 package com.example.katevandonge.dejaphotoproject;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -10,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +34,7 @@ import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements LocationListener{
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     UserLocation m_service;
     TrackLocation mLocation;
 
@@ -195,6 +199,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //starts an intent with the user specified rate
         startService(intentAlpha);
     }
+
+    @TargetApi(25)
+    public void accessCamera(View view){
+         /*
+        *  Permissions for reading from Camera.
+        * */
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.CAMERA)) {
+            }
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    785654);
+
+
+        }
+        Intent intent= new Intent(this, AccessCamera.class);
+        startActivity(intent);
+
+    }
+
 }
 
 
