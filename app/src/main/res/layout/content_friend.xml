@@ -1,0 +1,82 @@
+<!--
+  ~ Copyright (c) 2015-present, Parse, LLC.
+  ~ All rights reserved.
+  ~
+  ~ This source code is licensed under the BSD-style license found in the
+  ~ LICENSE file in the root directory of this source tree. An additional grant
+  ~ of patent rights can be found in the PATENTS file in the same directory.
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    tools:context="com.example.katevandonge.dejaphotoproject.FriendActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_marginTop="50dp"
+            android:id="@+id/TextViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friend Add"
+            android:textSize="10pt">
+        </TextView>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Type user's email"
+            android:ems="10"
+            android:id="@+id/UserEmailSearch" />
+        <Button
+            android:id="@+id/Search"
+            android:layout_height="wrap_content"
+            android:text="Add user as friend"
+            android:onClick="search"
+            android:layout_width="fill_parent">
+        </Button>
+
+        <EditText
+            android:id="@+id/myName"
+            android:layout_marginTop="100dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter your name"
+            android:inputType="textPersonName"
+            android:layout_width="fill_parent">
+        </EditText>
+
+        <EditText
+            android:id="@+id/myEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Enter your gmail address"
+            android:ems="10"/>
+
+        <Button
+            android:id="@+id/Submit"
+            android:layout_height="wrap_content"
+            android:text="Submit my data"
+            android:onClick="submit"
+            android:layout_width="fill_parent">
+        </Button>
+
+        <Button
+            android:id="@+id/FriendBack"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Go back"></Button>
+    </LinearLayout>
+</RelativeLayout>

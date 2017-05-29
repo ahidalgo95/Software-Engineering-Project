@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
 
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     UserLocation m_service;
     TrackLocation mLocation;
+
+    User user;
 
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
 
@@ -68,6 +71,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void onClick(View view){
                 launchActivity();
+            }
+        });
+
+        Button launchFriendActivity = (Button) findViewById(R.id.FriendActivity);
+        launchFriendActivity.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                launchFriendActivity();
             }
         });
 
@@ -158,6 +169,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         startActivity(intent);
     }
 
+    public void launchFriendActivity(){
+        Intent intent = new Intent(this, FriendActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -216,6 +232,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //starts an intent with the user specified rate
         startService(intentAlpha);
     }
+
 
     @TargetApi(25)
     public void accessCamera(View view){
