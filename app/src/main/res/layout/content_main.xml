@@ -68,6 +68,29 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
+    <ImageView
+        android:layout_width="135dp"
+        android:layout_height="95dp"
+        android:id="@+id/testPhoto"
+        tools:layout_editor_absoluteY="390dp"
+        tools:layout_editor_absoluteX="125dp" />
+
+    <Button
+        android:id="@+id/camButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:onClick="accessCamera"
+        android:text="Camera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/rate"
+        app:layout_constraintRight_toRightOf="@+id/rate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.697"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/button3"

@@ -1,6 +1,7 @@
 package com.example.katevandonge.dejaphotoproject;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -10,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,8 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,6 +37,7 @@ import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements LocationListener{
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     UserLocation m_service;
     TrackLocation mLocation;
 
@@ -230,27 +233,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         startService(intentAlpha);
     }
 
-    // For submitting a user's email
-    public void submit(View button) {
-        /*
-        EditText etName = (EditText) findViewById(R.id.EditTextName);
-        EditText etId = (EditText) findViewById(R.id.EditTextId);
-        String name = etName.getText().toString();
-        String id = etId.getText().toString();
 
-        User user = new User();
-        student.setName(name);
-        student.setStudentId(id);
+    @TargetApi(25)
+    public void accessCamera(View view){
+         /*
+        *  Permissions for reading from Camera.
+        * */
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myFirebaseRef = database.getReference();
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.CAMERA)) {
+            }
 
-        myFirebaseRef.child(student.getStudentId()).setValue(student);
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    785654);
 
 
-        Intent output = new Intent();
-        setResult(RESULT_OK, output);*/
+        }
+        Intent intent= new Intent(this, AccessCamera.class);
+        startActivity(intent);
+
     }
+
 }
 
 
