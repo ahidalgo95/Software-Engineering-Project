@@ -8,9 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.net.Uri;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RemoteViews;
 import android.app.PendingIntent;
@@ -33,6 +36,9 @@ public class NewAppWidget extends AppWidgetProvider {
     public static String WIDGET_NEXT = "NEXT_BUTTON";
     public static String WIDGET_PREV = "PREV_BUTTON";
     public static String WIDGET_RELEASE = "RELEASE_BUTTON";
+    public int resWidth;
+    public int resHeight;
+
 
 
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -40,6 +46,7 @@ public class NewAppWidget extends AppWidgetProvider {
         CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+
 
         // This button launches the app
         Intent intentA = new Intent(WIDGET_BUTTON);
@@ -264,7 +271,8 @@ public class NewAppWidget extends AppWidgetProvider {
             String locDisplay = picToSet.locName;
             //Log.v(locDisplay, locDisplay);
             Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-            bm = Bitmap.createScaledBitmap(bm, 411, 670, true);
+            setResolution(context);
+            bm = Bitmap.createScaledBitmap(bm, resWidth, resHeight, true);
             Bitmap newBm = addLocation(locDisplay, bm);
             myWall.setBitmap(newBm);
         } catch (IOException e) {
@@ -283,10 +291,19 @@ public class NewAppWidget extends AppWidgetProvider {
         Canvas canvas = new Canvas(newBm);
         Paint paint = new Paint();
         paint.setColor(Color.RED);
-        paint.setTextSize(25);
-        canvas.drawText(locDisplay, 15, 550, paint);
+        paint.setTextSize(70);
+        canvas.drawText(locDisplay, 15, resHeight-(resHeight/6), paint);
         canvas.drawBitmap(newBm, 0f, 0f, null);
         return newBm;
+    }
+
+    public void setResolution(Context context){
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point screen = new Point();
+        display.getSize(screen);
+        resWidth = screen.x;
+        resHeight = screen.y;
     }
 }
 
