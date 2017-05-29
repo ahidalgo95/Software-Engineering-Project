@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,6 +37,8 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
+
+    User user;
 
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
 
@@ -64,6 +68,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void onClick(View view){
                 launchActivity();
+            }
+        });
+
+        Button launchFriendActivity = (Button) findViewById(R.id.FriendActivity);
+        launchFriendActivity.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                launchFriendActivity();
             }
         });
 
@@ -154,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         startActivity(intent);
     }
 
+    public void launchFriendActivity(){
+        Intent intent = new Intent(this, FriendActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -211,6 +228,28 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
         //starts an intent with the user specified rate
         startService(intentAlpha);
+    }
+
+    // For submitting a user's email
+    public void submit(View button) {
+        /*
+        EditText etName = (EditText) findViewById(R.id.EditTextName);
+        EditText etId = (EditText) findViewById(R.id.EditTextId);
+        String name = etName.getText().toString();
+        String id = etId.getText().toString();
+
+        User user = new User();
+        student.setName(name);
+        student.setStudentId(id);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myFirebaseRef = database.getReference();
+
+        myFirebaseRef.child(student.getStudentId()).setValue(student);
+
+
+        Intent output = new Intent();
+        setResult(RESULT_OK, output);*/
     }
 }
 
