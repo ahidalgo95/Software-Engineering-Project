@@ -1,6 +1,7 @@
 package com.example.katevandonge.dejaphotoproject;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -10,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,16 +30,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
 
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 
 
 public class MainActivity extends AppCompatActivity implements LocationListener{
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     UserLocation m_service;
     TrackLocation mLocation;
     static boolean sharingMode = false; //false Means sharing is off
     static boolean friendMode = false;
+    User user;
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
     static Intent intentAlpha;
     static Gallery list;
@@ -62,6 +68,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void onClick(View view){
                 launchActivity();
+            }
+        });
+
+        Button launchFriendActivity = (Button) findViewById(R.id.FriendActivity);
+        launchFriendActivity.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                launchFriendActivity();
             }
         });
 
@@ -152,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         startActivity(intent);
     }
 
+    public void launchFriendActivity(){
+        Intent intent = new Intent(this, FriendActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -236,6 +255,35 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //starts an intent with the user specified rate
         startService(intentAlpha);
     }
+
+
+    @TargetApi(25)
+    public void accessCamera(View view){
+         /*
+        *  Permissions for reading from Camera.
+        * */
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.CAMERA)) {
+            }
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    785654);
+
+
+        }
+        Intent intent= new Intent(this, AccessCamera.class);
+        startActivity(intent);
+
+    }
+
+    public void viewDejaVuPhotos(View view){
+        Intent intent = new Intent(this, DejaPhotoActivity.class);
+        startActivity(intent);
+    }
+
 }
 
 

@@ -43,7 +43,7 @@ public class Gallery {
     /*
     * Constructor for Gallery class.
     * */
-    @TargetApi(24)
+    @TargetApi(25)
     public Gallery(Context context){
         size = 0;
         queryCall=0;
@@ -134,7 +134,7 @@ public class Gallery {
     /*
     * To be called when we need to update the queue with a service.
     * */
-    @TargetApi(24)
+    @TargetApi(25)
     public void updateQueue(){
         PriorityQueue<Photo> newQueue= new PriorityQueue<Photo>(photoComparator);
         PriorityQueue<Photo> newQcopy = new PriorityQueue<Photo>(photoComparator);
@@ -183,7 +183,7 @@ public class Gallery {
     /*
     * Converts photo array in wall to priority queue.
     * */
-    @TargetApi(24)
+    @TargetApi(25)
     public PriorityQueue<Photo> convertToPQ(){
         PriorityQueue<Photo> newPQ= new PriorityQueue<Photo>(photoComparator);
         Photo[] pArray= Wall.photoArr;
