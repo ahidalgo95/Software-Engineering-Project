@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     UserLocation m_service;
     TrackLocation mLocation;
     static boolean sharingMode = false; //false Means sharing is off
-    static boolean
-            friendMode = false;
+    static boolean friendMode = false;
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
     static Intent intentAlpha;
     static Gallery list;
