@@ -256,6 +256,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     }
 
+    public void viewDejaVuPhotos(View view){
+        Intent intent = new Intent(this, DejaPhotoActivity.class);
+        startActivity(intent);
+    }
+
 }
 
 

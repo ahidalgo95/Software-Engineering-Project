@@ -72,8 +72,8 @@
         android:layout_width="135dp"
         android:layout_height="95dp"
         android:id="@+id/testPhoto"
-        tools:layout_editor_absoluteY="390dp"
-        tools:layout_editor_absoluteX="125dp" />
+        tools:layout_editor_absoluteY="400dp"
+        tools:layout_editor_absoluteX="-1dp" />
 
     <Button
         android:id="@+id/camButton"
@@ -84,11 +84,11 @@
         android:onClick="accessCamera"
         android:text="Camera"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintLeft_toLeftOf="@+id/rate"
         app:layout_constraintRight_toRightOf="@+id/rate"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.697"
+        app:layout_constraintVertical_bias="0.65"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1" />
 
@@ -103,7 +103,7 @@
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="124dp" />
+        android:layout_marginBottom="92dp" />
 
     <Button
         android:id="@+id/FriendActivity"
@@ -116,7 +116,21 @@
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="43dp" />
+        android:layout_marginBottom="44dp" />
+
+    <Button
+        android:id="@+id/DejaVuPhotos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="432dp"
+        android:onClick="viewDejaVuPhotos"
+        android:text="DejaVu Photos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
 
 </android.support.constraint.ConstraintLayout>

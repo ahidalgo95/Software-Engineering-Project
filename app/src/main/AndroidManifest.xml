@@ -41,6 +41,11 @@
             android:name=".AccessCamera"
             android:label="CameraAccess" >
         </activity>
+        <activity
+            android:name=".DejaPhotoActivity"
+            android:label="getting photos" >
+        </activity>
+
 
         <receiver android:name=".NewAppWidget">
             <intent-filter>
