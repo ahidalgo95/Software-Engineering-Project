@@ -251,11 +251,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
 
         }
-        Intent intent= new Intent(this, AccessCamera.class);
-        startActivity(intent);
+        Button btn = (Button)findViewById(R.id.camButton);
+        btn.setOnClickListener(camListener);
 
     }
 
+    private View.OnClickListener camListener = new View.OnClickListener()
+    {
+
+        public void onClick(View v)
+        {
+            Intent intent= new Intent(getApplicationContext(), AccessCamera.class);
+            startActivity(intent);
+        }
+
+    };
     public void viewDejaVuPhotos(View view){
         Intent intent = new Intent(this, DejaPhotoActivity.class);
         startActivity(intent);

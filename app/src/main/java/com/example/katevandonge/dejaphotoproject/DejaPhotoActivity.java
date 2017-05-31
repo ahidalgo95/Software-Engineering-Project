@@ -28,9 +28,8 @@ public class DejaPhotoActivity extends Activity{
 
     public void queryTakenPhotos(){
        // Uri imagesURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI; //uri to have access gallery
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File [] files = storageDir.listFiles();
+        File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
+        File [] files = fileDir.listFiles();
         for(int i = 0; i < files.length; i++)
         {
            // Bitmap photo = BitmapFactory.decodeFile(files[i].getAbsolutePath());
