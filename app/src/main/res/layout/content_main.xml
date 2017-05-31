@@ -93,7 +93,7 @@
         android:text="Camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.602"
+        app:layout_constraintVertical_bias="0.6"
         tools:layout_constraintRight_creator="1"
         android:layout_marginRight="12dp"
         app:layout_constraintRight_toRightOf="parent" />
@@ -108,7 +108,8 @@
         android:layout_marginEnd="23dp"
         android:layout_marginRight="23dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FriendActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/FriendActivity"
+        android:layout_marginTop="20dp" />
 
     <Switch
         android:id="@+id/switch1"
@@ -161,14 +162,14 @@
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="136dp"
+        android:layout_marginBottom="118dp"
         app:layout_constraintHorizontal_bias="0.94" />
 
     <Button
         android:id="@+id/DejaVuPhotos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="232dp"
+        android:layout_marginBottom="254dp"
         android:onClick="viewDejaVuPhotos"
         android:text="DejaVu Photos"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -177,7 +178,7 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        app:layout_constraintHorizontal_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.991" />
 
     <Switch
         android:id="@+id/cameraSwitch"
