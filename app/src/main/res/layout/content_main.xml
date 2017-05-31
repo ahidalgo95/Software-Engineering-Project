@@ -179,5 +179,13 @@
         android:layout_marginTop="11dp"
         app:layout_constraintTop_toBottomOf="@+id/cameraSwitch" />
 
+    <Button
+        android:id="@+id/customLocBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom Location"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="431dp" />
+
 
 </android.support.constraint.ConstraintLayout>
