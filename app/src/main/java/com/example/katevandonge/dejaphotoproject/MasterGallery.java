@@ -13,18 +13,26 @@ import static com.example.katevandonge.dejaphotoproject.CopiedGallery.copiedQueu
  */
 
 public class MasterGallery {
-
+    Comparator<Photo> photoComparator;
+    static PriorityQueue<Photo> MasterQueue;
     static CopiedGallery copied = new CopiedGallery();
-    static PriorityQueue<Photo> masterQueue;
+    static PriorityQueue<Photo> copiedSet;
+    static PriorityQueue<Photo> dj;
+    static PriorityQueue<Photo> friendSet;
 
-    public void MasterGallery(Context context){
+    public void MasterGallery(){
         //copied = new CopiedGallery(context);
-    }
+        MasterQueue = new PriorityQueue<Photo>(photoComparator);
+        copiedSet = copied.getPQ();
 
-    public void copyToMasterGall(Context context){
-        Log.v("made it into copytomasterGAll", "made it into copytomasterGall");
-        masterQueue = new PriorityQueue<>(copiedQueue);
-        Log.v("COPIEDQUEUE copied to MASTERQUEUE", "COPIEDQUEUE copied to MASTERQUEUE");
 
     }
+
+    public void createPQ(){
+        while(copiedSet.size()>=0){
+            Photo curr = copiedSet.poll();
+            MasterQueue.add(curr);
+        }
+    }
+
 }

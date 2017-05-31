@@ -80,7 +80,7 @@ public class ScrollingActivity extends AppCompatActivity {
                             break;
                         }
                     }*/
-                    MasterGallery.copied.addPhoto(uri);
+
 
                     String sstring = "" + k;
                     Log.v(sstring, me);
