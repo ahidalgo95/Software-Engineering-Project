@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static Gallery list;
     Wall wally;
     WallpaperManager myWall;
+    int accessCameraCounter=0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
 
@@ -278,6 +279,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         Button btn = (Button)findViewById(R.id.camButton);
         btn.setOnClickListener(camListener);
 
+        if(accessCameraCounter==0) {
+            accessCameraCounter++;
+            Intent intent = new Intent(getApplicationContext(), AccessCamera.class);
+            startActivity(intent);
+        }
+
+
     }
 
     private View.OnClickListener camListener = new View.OnClickListener()
@@ -290,10 +298,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         }
 
     };
-    public void viewDejaVuPhotos(View view){
-        Intent intent = new Intent(this, DejaPhotoActivity.class);
-        startActivity(intent);
-    }
+
 
 }
 
