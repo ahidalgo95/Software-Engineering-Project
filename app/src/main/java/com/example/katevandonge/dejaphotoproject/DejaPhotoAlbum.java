@@ -18,13 +18,8 @@ import java.io.File;
  * Created by luujfer on 5/29/17.
  */
 
-public class DejaPhotoActivity extends Activity{
+public class DejaPhotoAlbum{
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        queryTakenPhotos();
-    }
 
     public void queryTakenPhotos(){
        // Uri imagesURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI; //uri to have access gallery
@@ -36,8 +31,7 @@ public class DejaPhotoActivity extends Activity{
 
         }
         Log.i("QUERY SIZE",""+ files.length);
-        //Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", fileDir2);
-
+        //Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", fileDir);
 
     }
 }
