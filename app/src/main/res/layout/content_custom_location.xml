@@ -8,6 +8,7 @@
     tools:context="com.example.katevandonge.dejaphotoproject.CustomLocation"
     tools:showIn="@layout/activity_custom_location">
 
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,4 +36,5 @@
             android:text="camera" />
 
     </GridLayout>
+
 </android.support.v4.widget.NestedScrollView>

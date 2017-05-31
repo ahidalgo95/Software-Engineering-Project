@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,13 +30,13 @@ public class CustomLocation extends AppCompatActivity {
 
     int counter = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_location);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         Button switchScreen = (Button) findViewById(R.id.button4);
         switchScreen.setOnClickListener(new View.OnClickListener(){
@@ -51,12 +52,12 @@ public class CustomLocation extends AppCompatActivity {
         startActivityForResult(intent, SELECTED_PIC);
     }
 
-    public void btnClick2(View view){
+   /* public void btnClick2(View view){
         File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
         Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", fileDir);
         Intent intent = new Intent(Intent.ACTION_PICK, fileUri);
         startActivityForResult(intent, SELECTED_PIC);
-    }
+    }*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
