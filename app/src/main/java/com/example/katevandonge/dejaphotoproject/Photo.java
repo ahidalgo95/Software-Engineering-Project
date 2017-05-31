@@ -32,6 +32,7 @@ public class Photo {
     boolean shown;          // recently shown boolean
     int weight;             // stores photo's weight
     long timeTotal;         // holds time to know if recently taken
+    boolean DJP;
 
     /*
     * Constructor for photo class. Initialize some variables
@@ -43,6 +44,7 @@ public class Photo {
         context1 = context;
         locName = "Location";
         timeTotal=0;
+        DJP = false;
     }
 
 

@@ -40,17 +40,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     UserLocation m_service;
     TrackLocation mLocation;
-
+    static boolean sharingMode = false; //false Means sharing is off
+    static boolean friendMode = false;
+    static boolean cameraMode = false;
+    static boolean copiedMode = false;
     User user;
-
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
-
     static Intent intentAlpha;
-    //static Intent intentBeta;
     static Gallery list;
     Wall wally;
     WallpaperManager myWall;
-    boolean first = true;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
 
@@ -206,6 +205,31 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         return;
     }
 
+    /**
+     * Changes the mode the user is in for sharing. It determines if their photos are being shared
+     * with friends or not.
+     * @param view
+     */
+    public void sharingChange(View view){ //tested and works!
+        sharingMode = !sharingMode;
+    }
+
+    /**
+     * Changes the mode the user is in for photo views. It determines if they are seeing their own
+     * photos or their friends' as the background
+     * @param view
+     */
+    public void friendModeChange(View view){
+        friendMode = !friendMode;
+    }
+
+    public void cameraChange(View view){
+        cameraMode = !cameraMode;
+    }
+
+    public void copiedChange(View view){
+        copiedMode = !copiedMode;
+    }
 
        /*
        *  saving the user specified rate for rotating the photos
