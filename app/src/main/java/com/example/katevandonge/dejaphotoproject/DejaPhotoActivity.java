@@ -36,8 +36,8 @@ public class DejaPhotoActivity extends Activity{
 
         }
         Log.i("QUERY SIZE",""+ files.length);
+        //Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", fileDir2);
 
-        //Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", storageDir);
 
     }
 }
