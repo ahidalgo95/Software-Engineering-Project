@@ -70,7 +70,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     Drawable drawable = new BitmapDrawable(bitmap);
                     int k=1000;
                     String me = "hello";
-                    for(int i=0; i<Wall.photoArr.length; i++){
+                    /*for(int i=0; i<Wall.photoArr.length; i++){
                         Log.v("Scrolling", "In the for");
                         if(Wall.photoArr[i].photouri.equals(uri)){
                             Log.v("Scrolling", "URI MATch");
@@ -79,11 +79,14 @@ public class ScrollingActivity extends AppCompatActivity {
                             k = i;
                             break;
                         }
-                    }
+                    }*/
+                    MasterGallery.copied.addPhoto(uri);
+
                     String sstring = "" + k;
                     Log.v(sstring, me);
                     Log.v("Scrolling", "scrolling");
-                    if(counter==1){
+                    imageView.setBackground(drawable);
+                    /*if(counter==1){
                         imageView.setBackground(drawable);
                     }
                     if(counter==2){
@@ -92,7 +95,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     if(counter==3){
                         imageView3.setBackground(drawable);
                     }
-                    counter++;
+                    counter++;*/
 
                 }
                 break;
