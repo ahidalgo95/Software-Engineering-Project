@@ -140,6 +140,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         list = new Gallery(context);
 
         int listSize= list.queryGallery(conR); //queries photo uris
+
+        DejaPhotoGallery testing= new DejaPhotoGallery(getApplicationContext());
+        testing.queryTakenPhotos();
+
+
         if(listSize==0){
             Toast.makeText(context, "Please put photos in gallery!", Toast.LENGTH_LONG).show();
             return;

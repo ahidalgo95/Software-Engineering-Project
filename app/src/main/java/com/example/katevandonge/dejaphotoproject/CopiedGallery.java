@@ -1,5 +1,6 @@
 package com.example.katevandonge.dejaphotoproject;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -16,6 +17,7 @@ public class CopiedGallery {
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> copiedQueue;
 
+    @TargetApi(24)
     public CopiedGallery() {
         photoComparator = new PhotoComparator();
         copiedQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error

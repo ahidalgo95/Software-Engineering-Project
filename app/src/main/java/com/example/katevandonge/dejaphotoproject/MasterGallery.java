@@ -14,17 +14,22 @@ import static com.example.katevandonge.dejaphotoproject.CopiedGallery.copiedQueu
 
 public class MasterGallery {
 
-    static CopiedGallery copied = new CopiedGallery();
+    static CopiedGallery copied;
+    static  DejaPhotoGallery dj;
     static PriorityQueue<Photo> masterQueue;
+    Context con;
 
     public void MasterGallery(Context context){
+        con=context;
+        copied= new CopiedGallery();
+        dj= new DejaPhotoGallery(con);
         //copied = new CopiedGallery(context);
     }
 
     public void copyToMasterGall(Context context){
-        Log.v("made it into copytomasterGAll", "made it into copytomasterGall");
+        Log.v(" ", "made it into copytomasterGAll");
         masterQueue = new PriorityQueue<>(copiedQueue);
-        Log.v("COPIEDQUEUE copied to MASTERQUEUE", "COPIEDQUEUE copied to MASTERQUEUE");
+        Log.v(" ", "COPIEDQUEUE copied to MASTERQUEUE");
 
     }
 }
