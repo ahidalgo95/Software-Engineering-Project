@@ -49,19 +49,25 @@ public class Wall extends Activity {
         con = context;
         pListOld = gallery.queueCopy;
         pList = MasterGallery.MasterQueue;
+        Photo curr = pListOld.poll();
+        pList.add(curr);
         myWall = wm;
         counter = 0;
         Qsize = pListOld.size();
         Rsize = pList.size();
         allGall = new Photo[Qsize];
         photoArr = new Photo[Rsize];
-
+        updateArray();
+    }
+    public void updateArray(){
+        Qsize = pListOld.size();
+        Rsize = pList.size();
         for (int i = 0; i < Qsize; i++) { //poll photos length of input pqueue
             allGall[i] = pListOld.poll();
         }
 
         for (int i = 0; i < Rsize; i++) { //poll photos length of input pqueue
-           photoArr[i] = pList.poll();
+            photoArr[i] = pList.poll();
         }
 
     }

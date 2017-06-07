@@ -15,30 +15,33 @@ import java.util.PriorityQueue;
 public class CopiedGallery {
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> copiedQueue;
+    static PriorityQueue<Photo> copiedQueueCopy;
 
     public CopiedGallery() {
         photoComparator = new PhotoComparator();
         copiedQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
+        copiedQueueCopy = new PriorityQueue<Photo>(photoComparator); //this isn't an error
+
     }
 
     public static void addPhoto(Uri uri){
         Log.v("copied gallery", "addphoto called");
-        for(int i=0; i<Wall.photoArr.length; i++){
-            Photo curr = Wall.photoArr[i];
+        for(int i=0; i<Wall.allGall.length; i++){
+            Photo curr = Wall.allGall[i];
             if(curr.photouri.equals(uri)){
                 Log.v("copied gallery", "photo matched!");
                 copiedQueue.add(curr);
+                String size = "" + copiedQueue.size();
+                Log.v("copied gallery", size);
                 break;
-            }
-            else{
-                Log.v("COPIED GALLERY", "ERROR");
             }
         }
     }
 
     public static PriorityQueue<Photo> getPQ(){
-        Log.v("copied gallery", "called copiedgall to get PQ");
-        return copiedQueue;
+        //Log.v("copied gallery", "7");
+        copiedQueueCopy = copiedQueue;
+        return copiedQueueCopy;
     }
 
 }
