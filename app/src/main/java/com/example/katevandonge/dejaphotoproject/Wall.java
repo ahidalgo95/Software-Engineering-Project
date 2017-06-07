@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 
 import static android.R.id.list;
+import static com.example.katevandonge.dejaphotoproject.MainActivity.masterGallery;
 
 
 /*
@@ -48,7 +49,10 @@ public class Wall extends Activity {
         galleryK = gallery;
         con = context;
         pListOld = gallery.queueCopy;
-        pList = MasterGallery.MasterQueue;
+        pList = masterGallery.MasterQueue;
+        Log.i("size of plistold",""+pListOld.size());
+        Photo curr = pListOld.poll();
+        pList.add(curr);
         myWall = wm;
         counter = 0;
         Qsize = pListOld.size();

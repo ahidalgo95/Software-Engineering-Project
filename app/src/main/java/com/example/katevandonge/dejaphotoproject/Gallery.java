@@ -166,7 +166,7 @@ public class Gallery {
 
         photoQueue=newQueue; //set new queues to class queues
         queueCopy=newQcopy;
-        Wall.pList = newQcopy;
+        Wall.pListOld = newQcopy;
         Wall.counter=-1;
 
         if(first){

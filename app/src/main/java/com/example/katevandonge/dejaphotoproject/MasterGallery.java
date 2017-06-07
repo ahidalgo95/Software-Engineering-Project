@@ -26,7 +26,7 @@ public class MasterGallery {
     Context con;
 
     @TargetApi(24)
-    public void MasterGallery(Context context) {
+    public MasterGallery(Context context) {
 
         //copied = new CopiedGallery(context);
         MasterQueue = new PriorityQueue<Photo>(photoComparator);

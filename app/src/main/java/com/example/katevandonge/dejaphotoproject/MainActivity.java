@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static Gallery list;
     Wall wally;
     WallpaperManager myWall;
+    static MasterGallery masterGallery;
     int accessCameraCounter=0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         }
 
             list.fillQueue(); //fills priority queue with picture objs
+             masterGallery = new MasterGallery(context);
             //Log.v("list size", Integer.toString(list.getSize()));
             WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
             wally = new Wall(context, list, wm);
