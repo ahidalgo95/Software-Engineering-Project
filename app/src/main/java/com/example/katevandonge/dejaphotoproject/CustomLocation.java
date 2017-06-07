@@ -8,7 +8,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,28 +19,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.support.v4.content.FileProvider;
 
-public class ScrollingActivity extends AppCompatActivity {
 
-    private static final int SELECTED_PIC =1;
-    ImageView imageView;
-    ImageView imageView2;
-    ImageView imageView3;
+import java.io.File;
+
+public class CustomLocation extends AppCompatActivity {
+
+    private static final int SELECTED_PIC = 1;
+
     int counter = 1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.activity_custom_location);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        imageView = (ImageView)findViewById(R.id.imageView);
-        imageView2 = (ImageView)findViewById(R.id.imageView2);
-        imageView3 = (ImageView)findViewById(R.id.imageView3);
-
-        Button switchScreen= (Button) findViewById(R.id.button2);
+        Button switchScreen = (Button) findViewById(R.id.button4);
         switchScreen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -52,6 +52,12 @@ public class ScrollingActivity extends AppCompatActivity {
         startActivityForResult(intent, SELECTED_PIC);
     }
 
+   /* public void btnClick2(View view){
+        File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
+        Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", fileDir);
+        Intent intent = new Intent(Intent.ACTION_PICK, fileUri);
+        startActivityForResult(intent, SELECTED_PIC);
+    }*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -68,34 +74,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
                     Bitmap bitmap = BitmapFactory.decodeFile(filepath);
                     Drawable drawable = new BitmapDrawable(bitmap);
-                    int k=1000;
-                    String me = "hello";
-                    /*for(int i=0; i<Wall.photoArr.length; i++){
-                        Log.v("Scrolling", "In the for");
-                        if(Wall.photoArr[i].photouri.equals(uri)){
-                            Log.v("Scrolling", "URI MATch");
-                            Wall.photoArr[i].DJP=true;
-                            me = Wall.photoArr[i].DJP + "";
-                            k = i;
-                            break;
-                        }
-                    }*/
 
-
-                    String sstring = "" + k;
-                    Log.v(sstring, me);
-                    Log.v("Scrolling", "scrolling");
-                    imageView.setBackground(drawable);
-                    /*if(counter==1){
-                        imageView.setBackground(drawable);
-                    }
-                    if(counter==2){
-                        imageView2.setBackground(drawable);
-                    }
-                    if(counter==3){
-                        imageView3.setBackground(drawable);
-                    }
-                    counter++;*/
+                    CopiedGallery.addPhoto(uri);
 
                 }
                 break;

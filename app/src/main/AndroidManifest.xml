@@ -14,10 +14,16 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android:hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
 
+    <uses-feature
+        android:name="android:hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -39,13 +45,10 @@
         </activity>
         <activity
             android:name=".AccessCamera"
-            android:label="CameraAccess" >
-        </activity>
+            android:label="CameraAccess"></activity>
         <activity
             android:name=".DejaPhotoActivity"
-            android:label="getting photos" >
-        </activity>
-
+            android:label="getting photos"></activity>
 
         <receiver android:name=".NewAppWidget">
             <intent-filter>
@@ -57,6 +60,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/new_app_widget_info" />
         </receiver>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -64,8 +68,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
+
         <service
             android:name=".UserLocation"
             android:enabled="true"
@@ -108,15 +113,15 @@
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".FriendActivity"
             android:label="Friend Menu"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".CustomLocation"
+            android:label="@string/title_activity_custom_location"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

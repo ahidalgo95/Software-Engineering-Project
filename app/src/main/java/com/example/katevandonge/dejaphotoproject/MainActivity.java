@@ -42,12 +42,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     TrackLocation mLocation;
     static boolean sharingMode = false; //false Means sharing is off
     static boolean friendMode = false;
+    static boolean cameraMode = false;
+    static boolean copiedMode = false;
     User user;
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
     static Intent intentAlpha;
     static Gallery list;
     Wall wally;
     WallpaperManager myWall;
+    static MasterGallery masterGallery;
+    int accessCameraCounter=0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
 
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         launchProfileActivity.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                launchActivity();
+                launchScrollingActivity();
             }
         });
 
@@ -76,6 +80,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void onClick(View view){
                 launchFriendActivity();
+            }
+        });
+        Button launchCustomActivity = (Button) findViewById(R.id.customLocBtn);
+        launchCustomActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCustomActivity();
             }
         });
 
@@ -137,12 +148,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         list = new Gallery(context);
 
         int listSize= list.queryGallery(conR); //queries photo uris
+
+        DejaPhotoGallery testing= new DejaPhotoGallery(getApplicationContext());
+        testing.queryTakenPhotos();
+
+
         if(listSize==0){
             Toast.makeText(context, "Please put photos in gallery!", Toast.LENGTH_LONG).show();
             return;
         }
 
             list.fillQueue(); //fills priority queue with picture objs
+             masterGallery = new MasterGallery(context);
             //Log.v("list size", Integer.toString(list.getSize()));
             WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
             wally = new Wall(context, list, wm);
@@ -160,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             timer.schedule(hourlytask, 01, 60000 * 60);
     }
 
-    public void launchActivity(){
+    public void launchScrollingActivity(){
         Intent intent = new Intent(this, ScrollingActivity.class);
         intent.putExtra("kate", "myString");
         startActivity(intent);
@@ -168,6 +185,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     public void launchFriendActivity(){
         Intent intent = new Intent(this, FriendActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchCustomActivity(){
+        Intent intent = new Intent(this, CustomLocation.class);
         startActivity(intent);
     }
 
@@ -209,11 +231,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      * @param view
      */
     public void sharingChange(View view){ //tested and works!
-        String thing1 = "" + sharingMode;
-        Log.v("SHARING", thing1);
         sharingMode = !sharingMode;
-        String thing2 = "" + sharingMode;
-        Log.v("SHARING", thing2);
     }
 
     /**
@@ -222,12 +240,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      * @param view
      */
     public void friendModeChange(View view){
-        String thing1 = "" + friendMode;
-        Log.v("SHARING", thing1);
         friendMode = !friendMode;
-        String thing2 = "" + friendMode;
-        Log.v("SHARING", thing2);
+    }
 
+    public void cameraChange(View view){
+        cameraMode = !cameraMode;
+    }
+
+    public void copiedChange(View view){
+        copiedMode = !copiedMode;
     }
 
        /*
@@ -274,15 +295,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
 
         }
-        Intent intent= new Intent(this, AccessCamera.class);
-        startActivity(intent);
+        Button btn = (Button)findViewById(R.id.camButton);
+        btn.setOnClickListener(camListener);
+
+        if(accessCameraCounter==0) {
+            accessCameraCounter++;
+            Intent intent = new Intent(getApplicationContext(), AccessCamera.class);
+            startActivity(intent);
+        }
+
 
     }
 
-    public void viewDejaVuPhotos(View view){
-        Intent intent = new Intent(this, DejaPhotoActivity.class);
-        startActivity(intent);
-    }
+    private View.OnClickListener camListener = new View.OnClickListener()
+    {
+
+        public void onClick(View v)
+        {
+            Intent intent= new Intent(getApplicationContext(), AccessCamera.class);
+            startActivity(intent);
+        }
+
+    };
+
 
 }
 
