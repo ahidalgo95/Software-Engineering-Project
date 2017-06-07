@@ -107,9 +107,9 @@ public class NewAppWidget extends AppWidgetProvider {
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_BUTTON)) {
             Photo[] wallArr = Wall.photoArr;
             int counter = Wall.counter;
-            Photo thisPhoto = wallArr[counter];
-            thisPhoto.karma = true;
-            wallArr[counter].karma = true;
+            //Photo thisPhoto = wallArr[counter];
+            wallArr[counter].karma++;
+            wallArr[counter].weight++;
         }
 
         //RELEASE BUTTON
@@ -172,9 +172,11 @@ public class NewAppWidget extends AppWidgetProvider {
                 String locDisplay = picToSet.locName;
                 //Log.v(locDisplay, locDisplay);
                 //Creates bitmap of proper screen ratio
+                setResolution(context);
                 Bitmap bm = picToSet.toBitmap(context.getContentResolver());
-                bm = Bitmap.createScaledBitmap(bm, 411, 670, true);
-                Bitmap newBm = addLocation(locDisplay, bm);
+                bm = Bitmap.createScaledBitmap(bm, resWidth, resHeight, true);
+                String karmaNum = Integer.toString(picToSet.karma);
+                Bitmap newBm = writeCanvas(locDisplay,karmaNum, bm);
                 myWall.setBitmap(newBm);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -273,7 +275,8 @@ public class NewAppWidget extends AppWidgetProvider {
             Bitmap bm = picToSet.toBitmap(context.getContentResolver());
             setResolution(context);
             bm = Bitmap.createScaledBitmap(bm, resWidth, resHeight, true);
-            Bitmap newBm = addLocation(locDisplay, bm);
+            String karmaNum = Integer.toString(picToSet.karma);
+            Bitmap newBm = writeCanvas(locDisplay, karmaNum, bm);
             myWall.setBitmap(newBm);
         } catch (IOException e) {
             e.printStackTrace();
@@ -285,14 +288,15 @@ public class NewAppWidget extends AppWidgetProvider {
     /**
      * add location string to bitmap and display on the screen on top of the photo
      */
-    public Bitmap addLocation(String locDisplay, Bitmap bm){
+    public Bitmap writeCanvas(String locDisplay,String num, Bitmap bm){
         Bitmap newBm = bm.copy(Bitmap.Config.ARGB_8888, true);
         //Canvas stuff to new bm
         Canvas canvas = new Canvas(newBm);
         Paint paint = new Paint();
         paint.setColor(Color.RED);
-        paint.setTextSize(70);
+        paint.setTextSize(50);
         canvas.drawText(locDisplay, 15, resHeight-(resHeight/6), paint);
+        canvas.drawText(num, resWidth-(resWidth/6), resHeight-(resHeight/6), paint);
         canvas.drawBitmap(newBm, 0f, 0f, null);
         return newBm;
     }

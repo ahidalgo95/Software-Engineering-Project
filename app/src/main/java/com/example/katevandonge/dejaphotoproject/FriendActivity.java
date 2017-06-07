@@ -11,16 +11,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import android.util.Pair;
+import android.widget.Toast;
 
 import java.net.URI;
+import java.util.ArrayList;
 
 /**
  * Created by Peter on 5/28/2017.
  */
 
 public class FriendActivity extends AppCompatActivity {
+    User myUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,7 @@ public class FriendActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        myUser = new User();
 
         Button switchScreen= (Button) findViewById(R.id.FriendBack);
         switchScreen.setOnClickListener(new View.OnClickListener(){
@@ -39,28 +48,126 @@ public class FriendActivity extends AppCompatActivity {
         });
     }
 
-    public void submit(View button) {
-
-        EditText etName = (EditText) findViewById(R.id.myName);
-        EditText etEmail= (EditText) findViewById(R.id.myEmail);
-        String name = etName.getText().toString();
-        String email = etEmail.getText().toString();
-
-        Uri test = Uri.parse("http://www.google.com");
-
-        User thisUser = new User();
-        thisUser.setName(name);
-        thisUser.setEmail(email);
-        //thisUser.addUri(test);
+    public void addFriend(View button){
+        if( !myUser.isLoggedIn()){
+            Toast.makeText(getApplicationContext(), "Please login / register", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.i("FriendActivity", myUser.getId());
+        EditText etEmail = (EditText) findViewById(R.id.UserEmailSearch);
+        String friendEmail = etEmail.getText().toString();
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myFirebaseRef = database.getReference();
+        DatabaseReference userRef = myFirebaseRef.child("users/"+myUser.getId());
+
+        //myUser.addFriend(friendEmail);
+
+        DatabaseReference myFriendsRef = userRef.child("myFriends");
+
+        ArrayList<String> userFriendList = myUser.getFriends();
+        Log.i("FriendActivity", ""+userFriendList.size());
+        /*for(int i = 0; i < userFriendList.size(); i++)
+        {
+            myFriendsRef.child(friendEmail.substring(0,friendEmail.length()-10)).setValue(friendEmail);
+
+            myFriendsRef.child(userFriendList.get(i).substring(0,userFriendList.get(i).length()-10)).setValue(userFriendList.get(i));
+        }*/
+
+        myFriendsRef.child(friendEmail.replaceAll("\\.","_")).setValue(friendEmail);
+
+        //userRef.child("myFriends").setValue(myUser.getFriends());
+        //userRef.push().setValue(myUser.getFriends());
+
+    }
+
+    public void submit(View button) {
+
+        // Get the data the enter into Firebase
+        EditText etName = (EditText) findViewById(R.id.myPassword);
+        EditText etEmail = (EditText) findViewById(R.id.myEmail);
+        String password = etName.getText().toString();
+        String email = etEmail.getText().toString();
+
+        // TODO test
+        Pair<String, Integer> temp = new Pair("testphoto", 5);
+        Uri test = Uri.parse("http://www.google.com");
+
+        // Create new user / login
+        myUser = new User();
+        myUser.setPassword(password);
+        myUser.setEmail(email);
+
+        // TODO test
+        myUser.addPhoto(temp);
+
+
+        // Accesses database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myFirebaseRef = database.getReference();
         DatabaseReference userRef = myFirebaseRef.child("users");
 
-        Log.i("FriendActivity", thisUser.getId());
+        Log.i("FriendActivity", myUser.getId());
 
-        userRef.child(thisUser.getId()).setValue(thisUser);
+        // Catches if the user already exists, if so, log in
+        userRef.child(myUser.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // If data already exists "log in" the user
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myFirebaseRef = database.getReference();
+                    DatabaseReference userRef = myFirebaseRef.child("users/"+ myUser.getId() + "/myPassword");
+
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // check if password is right
+                            EditText etName = (EditText) findViewById(R.id.myPassword);
+                            String password = etName.getText().toString();
+                            String storedPassword = dataSnapshot.getValue(String.class);
+                            Log.i("FriendActivity", storedPassword + " " + password);
+                            // If password is right log in
+                            if(storedPassword.equals(password)) {
+                                myUser.setLoggedIn(true);
+                                Toast.makeText(getApplicationContext(), "User already exists! Logging in...", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                myUser.setLoggedIn(false);
+                                Toast.makeText(getApplicationContext(), "Wrong password!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }
+                else {
+                    // Access database
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myFirebaseRef = database.getReference();
+                    DatabaseReference userRef = myFirebaseRef.child("users");
+                    userRef.child(myUser.getId()).setValue(myUser);
+
+                    myUser.setLoggedIn(true);
+
+
+                    // Add user if not already in data base
+                    userRef = myFirebaseRef.child("users/"+myUser.getId());
+                    userRef.child("myFriends").setValue(myUser.getFriends());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // do nothing
+            }
+        });
 
 
         Intent output = new Intent();

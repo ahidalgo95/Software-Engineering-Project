@@ -2,7 +2,9 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringDef;
 import android.util.Log;
+import android.util.Pair;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,23 +21,32 @@ import java.util.ArrayList;
  */
 
 public class User {
-    String myName;
+    String myPassword;
     String myEmail;
     //String myFirebaseID;
-    ArrayList<Uri> myUriList;
+
+    @Exclude
+    boolean loggedIn;
+
+    @Exclude
+    ArrayList<Pair<String,Integer>> myShareablePhotos;
+
+    @Exclude
     ArrayList<String> myFriends;
+
 
 
     public User(){
         //Initialize array lists
-        myUriList = new ArrayList<Uri>();
+        myShareablePhotos = new ArrayList<Pair<String,Integer>>();
         myFriends = new ArrayList<String>();
+        loggedIn = false;
 
     }
 
     @Exclude
-    public void setName(String name){
-        myName = name;
+    public void setPassword(String password){
+        myPassword = password;
     }
 
     @Exclude
@@ -44,13 +55,13 @@ public class User {
     }
 
     @Exclude
-    public void setUriList(ArrayList<Uri> uriList){
-        myUriList = uriList;
+    public void setUriList( ArrayList<Pair<String,Integer>> shareablePhotos){
+        myShareablePhotos = shareablePhotos;
     }
 
     @Exclude
-    public void addUri(Uri toAdd){
-        myUriList.add(toAdd);
+    public void addPhoto(Pair<String,Integer> toAdd){
+        myShareablePhotos.add(toAdd);
     }
 
     @Exclude
@@ -61,13 +72,35 @@ public class User {
     public String getEmail(){return myEmail;}
 
     @Exclude
-    public String getName(){return myName;}
-
-
-    public String getId(){
-        return myEmail.substring(0,myEmail.length()-10);
+    public boolean isLoggedIn(){
+        return loggedIn;
     }
 
+    @Exclude
+    public void setLoggedIn(boolean login){
+        loggedIn = login;
+    }
+
+    @Exclude
+    public String getName(){return myPassword;}
+
+    @Exclude
+    public ArrayList<String> getFriends(){
+        return myFriends;
+    }
+
+    @Exclude
+    public String getId(){
+        //return myEmail.substring(0,myEmail.length()-10);
+        return myEmail.replaceAll("\\.", "_");
+    }
+
+    @Exclude
+    public int getFriendIndex(){
+        return myFriends.size();
+    }
+
+    @Exclude
     public void uploadPhotos(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         //https://firebase.google.com/docs/storage/android/upload-files
@@ -78,9 +111,9 @@ public class User {
         StorageReference imageFolder = storageRef.child(myEmail);
 
         //Uploading based on URI's
-        for(int i = 0; i < myUriList.size(); i++){
-            Uri file = myUriList.get(i);
-            StorageReference newImage = storageRef.child(myEmail+"/"+file.getLastPathSegment());
+        for(int i = 0; i < myShareablePhotos.size(); i++){
+            Pair<String, Integer> file = myShareablePhotos.get(i);
+            /*StorageReference newImage = storageRef.child(myEmail+"/"+file.getLastPathSegment());
             UploadTask uploadTask = newImage.putFile(file);
 
             // Register observers to listen for when the download is done or if it fails
@@ -98,7 +131,7 @@ public class User {
                     @SuppressWarnings("VisibleForTests")Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     Log.i("UserUpload", "Upload photo success");
             }
-            });
+            });*/
         }
     }
 

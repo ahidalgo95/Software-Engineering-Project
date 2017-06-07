@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 
 import static android.R.id.list;
+import static com.example.katevandonge.dejaphotoproject.MainActivity.master;
 
 
 /*
@@ -30,11 +31,14 @@ public class Wall extends Activity {
 
     static Gallery galleryK;            //our gallery object
     static WallpaperManager myWall;     //our wall object
-    static PriorityQueue<Photo> pList;         //priorityqueue of photos to make photoArr
+    static PriorityQueue<Photo> pListOld;  //priorityqueue of photos to make photoArr
+    static PriorityQueue<Photo> pList;
     Context con;
     static int counter;                 //counter to be used in widget
     static Photo [] photoArr;           //photoArr to be used in widget
+    static Photo [] allGall;
     int Qsize;                          //size of pqueue
+    int Rsize;
 
 
 
@@ -42,19 +46,31 @@ public class Wall extends Activity {
     * Constructor for our Wall object.
     * */
     public Wall(Context context, Gallery gallery, WallpaperManager wm) {
-        galleryK = gallery; //set gallery
+        galleryK = gallery;
         con = context;
-        pList = gallery.queueCopy;  //set queue
-        myWall = wm; //set wallpapermanager
+        pListOld = gallery.queueCopy;
+        pList = MasterGallery.MasterQueue;
+        Photo curr = pListOld.poll();
+        pList.add(curr);
+        myWall = wm;
         counter = 0;
-        Qsize = pList.size();
-        //Log.i("Wall: ", "size "+Integer.toString(Qsize));
-        photoArr = new Photo[Qsize];
+        Qsize = pListOld.size();
+        Rsize = pList.size();
+        allGall = new Photo[Qsize];
+        photoArr = new Photo[Rsize];
+        updateArray();
+    }
+    public void updateArray(){
+        Qsize = pListOld.size();
+        Rsize = pList.size();
         for (int i = 0; i < Qsize; i++) { //poll photos length of input pqueue
-            photoArr[i] = pList.poll();
-            //Log.i("Wall: ","adding to photo array "+Integer.toString(i));
-
+            allGall[i] = pListOld.poll();
         }
+
+        for (int i = 0; i < Rsize; i++) { //poll photos length of input pqueue
+            photoArr[i] = pList.poll();
+        }
+
     }
 
 

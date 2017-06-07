@@ -3,10 +3,12 @@ package com.example.katevandonge.dejaphotoproject;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,18 +29,19 @@ public class Photo {
     double longitude;       // stores location longitude
     Context context1;       // stores application context
     String locName;         // stores location name
-    boolean karma;          // has been karma'd boolean
+    int karma;          // has been karma'd boolean
     boolean release;        // released boolean
     boolean shown;          // recently shown boolean
     int weight;             // stores photo's weight
     long timeTotal;         // holds time to know if recently taken
     boolean DJP;
+    String filePath;
 
     /*
     * Constructor for photo class. Initialize some variables
     * */
     public Photo(Context context){
-        karma = false;
+        karma = 0;
         shown = false;
         release = false;
         context1 = context;
@@ -56,24 +59,21 @@ public class Photo {
         weight=0;
         // if current days match, add weight
         if(checkDay()==true){
-            weight=weight+5;
+            weight=weight+10;
         }
         // if current times match, add weight
         if(checkTime()==true) {
-            weight = weight + 5;
+            weight = weight + 10;
         }
         // if within location, add weight
         if(compareLoc()==true){
-            weight=weight+50;
+            weight=weight+10;
         }
         // if released, negative weight
         if(release == true) {
             weight = weight * (-1);
         }
-        // if karma'd, add weight
-        if(karma == true){
-            weight=weight+1;
-        }
+        weight = weight+karma;
 
     }
 
@@ -221,8 +221,14 @@ public class Photo {
         Bitmap bm = null;
         //Log.i("Photo:" ,"getting bitmap");
         try {
-            bm = MediaStore.Images.Media.getBitmap(cr,photouri);
+            if(DJP == true){
+                bm = BitmapFactory.decodeFile(filePath);
+            }
+            else {
+                bm = MediaStore.Images.Media.getBitmap(cr, photouri);
+            }
         } catch (IOException e) {
+
             e.printStackTrace();
         }
         return bm;
