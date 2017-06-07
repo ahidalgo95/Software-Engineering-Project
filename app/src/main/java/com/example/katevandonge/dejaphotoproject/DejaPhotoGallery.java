@@ -54,6 +54,9 @@ public class DejaPhotoGallery{
        // Uri imagesURI = FileProvider.getUriForFile(con, con.getPackageName() + ".provider", fileDir);
 
         File [] files = fileDir.listFiles();
+        if(files.length == 0){
+            return;
+        }
         Log.v("files array size", files.length+"");
         long date;
         for(int i = counter; i < files.length; i++)

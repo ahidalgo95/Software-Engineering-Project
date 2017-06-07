@@ -29,7 +29,7 @@ public class Photo {
     double longitude;       // stores location longitude
     Context context1;       // stores application context
     String locName;         // stores location name
-    boolean karma;          // has been karma'd boolean
+    int karma;          // has been karma'd boolean
     boolean release;        // released boolean
     boolean shown;          // recently shown boolean
     int weight;             // stores photo's weight
@@ -41,7 +41,7 @@ public class Photo {
     * Constructor for photo class. Initialize some variables
     * */
     public Photo(Context context){
-        karma = false;
+        karma = 0;
         shown = false;
         release = false;
         context1 = context;
@@ -59,24 +59,21 @@ public class Photo {
         weight=0;
         // if current days match, add weight
         if(checkDay()==true){
-            weight=weight+5;
+            weight=weight+10;
         }
         // if current times match, add weight
         if(checkTime()==true) {
-            weight = weight + 5;
+            weight = weight + 10;
         }
         // if within location, add weight
         if(compareLoc()==true){
-            weight=weight+50;
+            weight=weight+10;
         }
         // if released, negative weight
         if(release == true) {
             weight = weight * (-1);
         }
-        // if karma'd, add weight
-        if(karma == true){
-            weight=weight+1;
-        }
+        weight = weight+karma;
 
     }
 

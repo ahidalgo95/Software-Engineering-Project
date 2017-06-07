@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         int listSize= list.queryGallery(conR); //queries photo uris
 
         DejaPhotoGallery testing= new DejaPhotoGallery(getApplicationContext());
-        testing.queryTakenPhotos();
+
 
 
         if(listSize==0){
