@@ -89,7 +89,7 @@ public class CustomLocation extends AppCompatActivity {
                     imageView.setBackground(drawable);
                     for(int i=0; i<Wall.photoArr.length; i++) {
                         if (Wall.photoArr[i].photouri.equals(uri)) {
-                            Log.v("custom location", "URI MATch");
+                            Log.v("custom location", "URI matchh");
                             ii=i;
                             Wall.photoArr[i].locName = editText.getText().toString();
                             Log.v("custom", editText.getText().toString());
