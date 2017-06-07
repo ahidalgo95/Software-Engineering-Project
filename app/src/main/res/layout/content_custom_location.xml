@@ -38,7 +38,14 @@
                 android:layout_column="3"
                 android:layout_row="0"
                 android:onClick="btnClick"
-                android:text="Make Custom Location" />
+                android:text="Make Custom Location for a DejaPhotoCopied photo" />
+            <Button
+                android:id="@+id/ClocationBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_row="0"
+                android:text="Make Custom Location for a DejaPhoto photo" />
 
             <ImageView
                 android:id="@+id/imageView4"

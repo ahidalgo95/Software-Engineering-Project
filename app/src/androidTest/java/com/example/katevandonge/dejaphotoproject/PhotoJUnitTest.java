@@ -53,7 +53,7 @@ public class PhotoJUnitTest {
         testPhoto.setWeight();
         assertNotEquals(testPhoto.weight, -10);
         testPhoto.release = false;
-        testPhoto.karma = true;
+        testPhoto.karma =0;
         testPhoto.setWeight();
         assertNotEquals(testPhoto.weight, 11);
     }
