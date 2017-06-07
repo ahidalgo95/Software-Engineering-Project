@@ -17,12 +17,15 @@ public class CopiedGallery {
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> copiedQueue;
     static PriorityQueue<Photo> copiedQueueCopy;
+    static ArrayList<Photo> copiedAL;
+    static Photo mostRecent;
 
     @TargetApi(24)
     public CopiedGallery() {
         photoComparator = new PhotoComparator();
         copiedQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
-        copiedQueueCopy = new PriorityQueue<Photo>(photoComparator); //this isn't an error
+        copiedAL = new ArrayList<Photo>();
+        //copiedQueueCopy = new PriorityQueue<Photo>(photoComparator); //this isn't an error
 
     }
 
@@ -32,7 +35,10 @@ public class CopiedGallery {
             Photo curr = Wall.allGall[i];
             if(curr.photouri.equals(uri)){
                 Log.v("copied gallery", "photo matched!");
+                curr.ogAlbum = 1;
                 copiedQueue.add(curr);
+                copiedAL.add(curr);
+                mostRecent = curr;
                 String size = "" + copiedQueue.size();
                 Log.v("copied gallery", size);
                 break;
@@ -42,8 +48,13 @@ public class CopiedGallery {
 
     public static PriorityQueue<Photo> getPQ(){
         //Log.v("copied gallery", "7");
-        copiedQueueCopy = copiedQueue;
+        copiedQueueCopy = new  PriorityQueue<Photo>(copiedQueue);
         return copiedQueueCopy;
     }
+
+    public static ArrayList<Photo> getAL(){
+        return copiedAL;
+    }
+
 
 }
