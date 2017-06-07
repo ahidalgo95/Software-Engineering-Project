@@ -2,8 +2,8 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -15,42 +15,60 @@ import static com.example.katevandonge.dejaphotoproject.CopiedGallery.copiedQueu
 
 public class MasterGallery {
 
-
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> MasterQueue;
-    static CopiedGallery copied;
+    static int countRuns;
+    static PriorityQueue<Photo> MasterQueueCopy;
     static PriorityQueue<Photo> copiedSet;
     static PriorityQueue<Photo> djSet;
     static PriorityQueue<Photo> friendSet;
     static  DejaPhotoGallery DJGallery;
     Context con;
 
+
     @TargetApi(24)
-    public MasterGallery(Context context) {
-
-        //copied = new CopiedGallery(context);
+    public MasterGallery(){
+        //copied = new CopiedGallery();
+        photoComparator= new PhotoComparator();
+        countRuns = 0;
+        Log.v("master", "constructor");
         MasterQueue = new PriorityQueue<Photo>(photoComparator);
-        con = context;
-        copied = new CopiedGallery();
-        DJGallery = new DejaPhotoGallery(con);
-      //  DJGallery.queryTakenPhotos();
-        //djSet = DJGallery.returnQ();
-        //copiedSet = copied.getPQ();
+        MasterQueueCopy = new PriorityQueue<Photo>(photoComparator);
+        copiedSet = MainActivity.dpcopied.getPQ();
+        //copiedSet = copiedSet2;
 
     }
 
-    public void copyToMasterGall(Context context){
-        Log.v(" ", "made it into copytomasterGAll");
-        MasterQueue = new PriorityQueue<>(copiedQueue);
-        Log.v(" ", "COPIEDQUEUE copied to MASTERQUEUE");
-
+    public void addCopied(){
+        copiedSet = MainActivity.dpcopied.getPQ();
+        //if(MainActivity.copiedMode) {
+            while(copiedSet.size() > 0) {
+                countRuns++;
+                Photo curr = copiedSet.poll();
+                MasterQueue.add(curr);
+            }
+            String info2 = "" + MasterQueue.size();
+            String info3 = "" + countRuns;
+            Log.v("Master M size", info2);
+            Log.v("Master runs", info3);
+        String info4 = "" + copiedSet.size();
+        Log.v("Master copied", info4);
+            Wall.pList = MasterQueue;
+            Wall.counter=-1;
+            MasterQueueCopy = MasterQueue;
+            convertToArray(MasterQueueCopy);
+        //}
     }
 
-    public void createPQ(){
-        while(copiedSet.size()>=0){
-            Photo curr = copiedSet.poll();
-            MasterQueue.add(curr);
+
+    public void convertToArray(PriorityQueue<Photo> polledPQ){
+        Photo polled;
+        int i=0;
+        while(polledPQ.size() != 0){
+            polled = polledPQ.poll(); //poll photo from queue
+            Wall.photoArr[i]=polled; //add photo to array
+            i++;
         }
+        return;
     }
-
 }

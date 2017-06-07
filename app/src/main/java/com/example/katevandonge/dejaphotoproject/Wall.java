@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 
 import static android.R.id.list;
-import static com.example.katevandonge.dejaphotoproject.MainActivity.masterGallery;
+import static com.example.katevandonge.dejaphotoproject.MainActivity.master;
 
 
 /*
@@ -49,8 +49,7 @@ public class Wall extends Activity {
         galleryK = gallery;
         con = context;
         pListOld = gallery.queueCopy;
-        pList = masterGallery.MasterQueue;
-        Log.i("size of plistold",""+pListOld.size());
+        pList = MasterGallery.MasterQueue;
         Photo curr = pListOld.poll();
         pList.add(curr);
         myWall = wm;
@@ -59,13 +58,17 @@ public class Wall extends Activity {
         Rsize = pList.size();
         allGall = new Photo[Qsize];
         photoArr = new Photo[Rsize];
-
+        updateArray();
+    }
+    public void updateArray(){
+        Qsize = pListOld.size();
+        Rsize = pList.size();
         for (int i = 0; i < Qsize; i++) { //poll photos length of input pqueue
             allGall[i] = pListOld.poll();
         }
 
         for (int i = 0; i < Rsize; i++) { //poll photos length of input pqueue
-           photoArr[i] = pList.poll();
+            photoArr[i] = pList.poll();
         }
 
     }

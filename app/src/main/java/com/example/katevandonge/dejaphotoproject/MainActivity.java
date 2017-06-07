@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -48,9 +49,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
     static Intent intentAlpha;
     static Gallery list;
-    Wall wally;
+    static MasterGallery master;
+    static CopiedGallery dpcopied;
+    static Wall wally;
     WallpaperManager myWall;
-    static MasterGallery masterGallery;
+    //static MasterGallery masterGallery;
     int accessCameraCounter=0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -67,11 +70,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         intentAlpha.putExtra("myrate", holder);
         startService(intentAlpha);
 
+        //context resolver and context getters
+        Context context = getApplicationContext();
+        ContentResolver conR = getApplicationContext().getContentResolver();
+
+
+        //list of photos from the Gallery class
+        list = new Gallery(context);
+        dpcopied = new CopiedGallery();
+        master = new MasterGallery();
+
+
         Button launchProfileActivity = (Button) findViewById(R.id.button3);
         launchProfileActivity.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                Log.v("Main", "1");
                 launchScrollingActivity();
+                Log.v("Main", "6");
             }
         });
 
@@ -140,16 +156,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             return;
         }
 
-        //context resolver and context getters
-        Context context = getApplicationContext();
-        ContentResolver conR = getApplicationContext().getContentResolver();
-
-        //list of photos from the Gallery class
-        list = new Gallery(context);
 
         int listSize= list.queryGallery(conR); //queries photo uris
 
         DejaPhotoGallery testing= new DejaPhotoGallery(getApplicationContext());
+
+        //testing.queryTakenPhotos();
 
 
 
@@ -159,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         }
 
             list.fillQueue(); //fills priority queue with picture objs
-             masterGallery = new MasterGallery(context);
+             //masterGallery = new MasterGallery();
             //Log.v("list size", Integer.toString(list.getSize()));
             WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
             wally = new Wall(context, list, wm);
@@ -180,8 +192,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     public void launchScrollingActivity(){
         Intent intent = new Intent(this, ScrollingActivity.class);
         intent.putExtra("kate", "myString");
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.v("Main", "4");
+        Log.v("Main", "Main on Act res");
+        if (requestCode == 1) {
+            myUri = Uri.parse(data.getStringExtra("imageURI"));
+            helper(myUri);
+        }
+    }
+    public void helper(Uri uri){
+        Log.v("Main", "5");
+        //dpcopied.addPhoto(uri);
+        //master.addCopied();
+    }*/
 
     public void launchFriendActivity(){
         Intent intent = new Intent(this, FriendActivity.class);

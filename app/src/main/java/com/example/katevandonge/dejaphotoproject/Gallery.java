@@ -174,7 +174,6 @@ public class Gallery {
         }
         else {
             con.stopService(MainActivity.intentAlpha);
-            Log.v("KILLED SELF", "KILLED SELF");
             con.startService(MainActivity.intentAlpha);
 
         }
@@ -186,7 +185,7 @@ public class Gallery {
     @TargetApi(25)
     public PriorityQueue<Photo> convertToPQ(){
         PriorityQueue<Photo> newPQ= new PriorityQueue<Photo>(photoComparator);
-        Photo[] pArray= Wall.photoArr;
+        Photo[] pArray= Wall.allGall;
         Photo currPhoto;
         for(int i=0; i<pArray.length; i++){ //for length of array
             currPhoto= pArray[i];
@@ -211,9 +210,9 @@ public class Gallery {
         int i=0;
         while(polledPQ.size() != 0){
             //Log.i("Gallery:", "convert to array "+Integer.toString(i));
-            polled= polledPQ.poll(); //poll photo from queue
+            polled = polledPQ.poll(); //poll photo from queue
             //Log.i("Gallery Convert2Array" , polled.locName);
-            Wall.photoArr[i]=polled; //add photo to array
+            Wall.allGall[i]=polled; //add photo to array
             i++;
         }
         return;

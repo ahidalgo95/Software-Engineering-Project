@@ -10,14 +10,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.support.v4.content.FileProvider;
 
@@ -29,7 +27,9 @@ public class CustomLocation extends AppCompatActivity {
     private static final int SELECTED_PIC = 1;
 
     int counter = 1;
-
+    ImageView imageView;
+    EditText editText;
+    int ii;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +38,24 @@ public class CustomLocation extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        imageView = (ImageView)findViewById(R.id.imageView4);
+        editText = (EditText)findViewById(R.id.editText);
+
         Button switchScreen = (Button) findViewById(R.id.button4);
         switchScreen.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 finish();
+            }
+        });
+
+        Button submit = (Button) findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Log.v("in on click", "hi");
+                Wall.photoArr[ii].locName = editText.getText().toString();
+                Log.v("custom", editText.getText().toString());
             }
         });
     }
@@ -71,12 +84,18 @@ public class CustomLocation extends AppCompatActivity {
                     int columnIndex = cursor.getColumnIndex(projection[0]);
                     String filepath=cursor.getString(columnIndex);
                     cursor.close();
-
                     Bitmap bitmap = BitmapFactory.decodeFile(filepath);
                     Drawable drawable = new BitmapDrawable(bitmap);
-
-                    CopiedGallery.addPhoto(uri);
-
+                    imageView.setBackground(drawable);
+                    for(int i=0; i<Wall.photoArr.length; i++) {
+                        if (Wall.photoArr[i].photouri.equals(uri)) {
+                            Log.v("custom location", "URI MATch");
+                            ii=i;
+                            Wall.photoArr[i].locName = editText.getText().toString();
+                            Log.v("custom", editText.getText().toString());
+                            break;
+                        }
+                    }
                 }
                 break;
             default:

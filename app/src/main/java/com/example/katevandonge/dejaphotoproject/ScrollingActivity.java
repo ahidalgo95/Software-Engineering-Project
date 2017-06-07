@@ -68,8 +68,18 @@ public class ScrollingActivity extends AppCompatActivity {
 
                     Bitmap bitmap = BitmapFactory.decodeFile(filepath);
                     Drawable drawable = new BitmapDrawable(bitmap);
-                    int k=1000;
-                    String me = "hello";
+                    imageView.setBackground(drawable);
+
+                    MainActivity.dpcopied.addPhoto(uri);
+                    MainActivity.master.addCopied();
+
+                    Intent intentChi = new Intent(this, MainActivity.class);
+                    intentChi.putExtra("imageURI", uri.toString());
+                    setResult(1, intentChi);
+                    //startActivity(intentChi);
+                    //this.finish();
+
+                    //CopiedGallery.addPhoto(uri);
                     /*for(int i=0; i<Wall.photoArr.length; i++){
                         Log.v("Scrolling", "In the for");
                         if(Wall.photoArr[i].photouri.equals(uri)){
@@ -80,22 +90,6 @@ public class ScrollingActivity extends AppCompatActivity {
                             break;
                         }
                     }*/
-
-
-                    String sstring = "" + k;
-                    Log.v(sstring, me);
-                    Log.v("Scrolling", "scrolling");
-                    imageView.setBackground(drawable);
-                    /*if(counter==1){
-                        imageView.setBackground(drawable);
-                    }
-                    if(counter==2){
-                        imageView2.setBackground(drawable);
-                    }
-                    if(counter==3){
-                        imageView3.setBackground(drawable);
-                    }
-                    counter++;*/
 
                 }
                 break;
