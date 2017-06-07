@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static CopiedGallery dpcopied;
     static Wall wally;
     WallpaperManager myWall;
-    static Uri myUri;
+    static MasterGallery masterGallery;
     int accessCameraCounter=0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -158,12 +158,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
 
         int listSize= list.queryGallery(conR); //queries photo uris
+
+        DejaPhotoGallery testing= new DejaPhotoGallery(getApplicationContext());
+        testing.queryTakenPhotos();
+
+
         if(listSize==0){
             Toast.makeText(context, "Please put photos in gallery!", Toast.LENGTH_LONG).show();
             return;
         }
 
             list.fillQueue(); //fills priority queue with picture objs
+             masterGallery = new MasterGallery(context);
             //Log.v("list size", Integer.toString(list.getSize()));
             WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
             wally = new Wall(context, list, wm);

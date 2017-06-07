@@ -3,10 +3,12 @@ package com.example.katevandonge.dejaphotoproject;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,6 +35,7 @@ public class Photo {
     int weight;             // stores photo's weight
     long timeTotal;         // holds time to know if recently taken
     boolean DJP;
+    String filePath;
 
     /*
     * Constructor for photo class. Initialize some variables
@@ -221,8 +224,14 @@ public class Photo {
         Bitmap bm = null;
         //Log.i("Photo:" ,"getting bitmap");
         try {
-            bm = MediaStore.Images.Media.getBitmap(cr,photouri);
+            if(DJP == true){
+                bm = BitmapFactory.decodeFile(filePath);
+            }
+            else {
+                bm = MediaStore.Images.Media.getBitmap(cr, photouri);
+            }
         } catch (IOException e) {
+
             e.printStackTrace();
         }
         return bm;

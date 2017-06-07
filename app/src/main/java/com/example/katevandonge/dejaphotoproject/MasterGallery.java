@@ -14,16 +14,17 @@ import static com.example.katevandonge.dejaphotoproject.CopiedGallery.copiedQueu
  */
 
 public class MasterGallery {
+
     Comparator<Photo> photoComparator;
-    //static CopiedGallery copiedGallery;
     static PriorityQueue<Photo> MasterQueue;
     static int countRuns;
     static PriorityQueue<Photo> MasterQueueCopy;
-    //static CopiedGallery copied;//= new CopiedGallery();
     static PriorityQueue<Photo> copiedSet;
-    //static PriorityQueue<Photo> copiedSet2;
-    static PriorityQueue<Photo> dj;
+    static PriorityQueue<Photo> djSet;
     static PriorityQueue<Photo> friendSet;
+    static  DejaPhotoGallery DJGallery;
+    Context con;
+
 
     @TargetApi(24)
     public MasterGallery(){
@@ -54,35 +55,11 @@ public class MasterGallery {
         Log.v("Master copied", info4);
             Wall.pList = MasterQueue;
             Wall.counter=-1;
-            //MasterQueueCopy = MasterQueue;
-            //convertToArray(MasterQueueCopy);
+            MasterQueueCopy = MasterQueue;
+            convertToArray(MasterQueueCopy);
         //}
     }
 
-
-    /*public void createPQ(){
-        Log.v("mster", "4");
-        //updateCopied();
-        Log.v("mster", "6");
-        Log.v("Master", "create called");
-        String info = "" + copiedSet.size();
-        Log.v("Master copied size", info);
-        while(copiedSet.size()>0){
-            Photo curr = copiedSet.poll();
-            MasterQueue.add(curr);
-        }
-        String info2 = "" + MasterQueue.size();
-        Log.v("Master M size", info2);
-        Wall.pList = MasterQueue;
-        Wall.counter=-1;
-        MasterQueueCopy = MasterQueue;
-        convertToArray(MasterQueueCopy);
-    }*/
-
-    /*public void updateCopied(){
-        Log.v("mster", "5");
-        copiedSet = MainActivity.djcopied.getPQ();
-    }*/
 
     public void convertToArray(PriorityQueue<Photo> polledPQ){
         Photo polled;
@@ -94,12 +71,4 @@ public class MasterGallery {
         }
         return;
     }
-
-    /*public void addCopiedPhoto(Uri uri){
-        Log.v("mster", "1");
-        //copied.addPhoto(uri);
-        Log.v("mster", "3");
-        createPQ();
-    }*/
-
 }
