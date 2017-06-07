@@ -1,5 +1,6 @@
 package com.example.katevandonge.dejaphotoproject;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.Log;
 
@@ -14,22 +15,42 @@ import static com.example.katevandonge.dejaphotoproject.CopiedGallery.copiedQueu
 
 public class MasterGallery {
 
+
+    Comparator<Photo> photoComparator;
+    static PriorityQueue<Photo> MasterQueue;
     static CopiedGallery copied;
-    static  DejaPhotoGallery dj;
-    static PriorityQueue<Photo> masterQueue;
+    static PriorityQueue<Photo> copiedSet;
+    static PriorityQueue<Photo> djSet;
+    static PriorityQueue<Photo> friendSet;
+    static  DejaPhotoGallery DJGallery;
     Context con;
 
-    public void MasterGallery(Context context){
-        con=context;
-        copied= new CopiedGallery();
-        dj= new DejaPhotoGallery(con);
+    @TargetApi(24)
+    public void MasterGallery(Context context) {
+
         //copied = new CopiedGallery(context);
+        MasterQueue = new PriorityQueue<Photo>(photoComparator);
+        con = context;
+        copied = new CopiedGallery();
+        DJGallery = new DejaPhotoGallery(con);
+      //  DJGallery.queryTakenPhotos();
+        //djSet = DJGallery.returnQ();
+        //copiedSet = copied.getPQ();
+
     }
 
     public void copyToMasterGall(Context context){
         Log.v(" ", "made it into copytomasterGAll");
-        masterQueue = new PriorityQueue<>(copiedQueue);
+        MasterQueue = new PriorityQueue<>(copiedQueue);
         Log.v(" ", "COPIEDQUEUE copied to MASTERQUEUE");
 
     }
+
+    public void createPQ(){
+        while(copiedSet.size()>=0){
+            Photo curr = copiedSet.poll();
+            MasterQueue.add(curr);
+        }
+    }
+
 }

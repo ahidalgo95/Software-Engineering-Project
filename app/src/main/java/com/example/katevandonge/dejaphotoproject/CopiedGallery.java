@@ -38,7 +38,7 @@ public class CopiedGallery {
         }
     }
 
-    public static PriorityQueue<Photo> copiedGall(){
+    public static PriorityQueue<Photo> getPQ(){
         Log.v("copied gallery", "called copiedgall to get PQ");
         return copiedQueue;
     }

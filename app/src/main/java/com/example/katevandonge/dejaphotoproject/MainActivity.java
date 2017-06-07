@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         launchProfileActivity.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                launchActivity();
+                launchScrollingActivity();
             }
         });
 
@@ -79,6 +79,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void onClick(View view){
                 launchFriendActivity();
+            }
+        });
+        Button launchCustomActivity = (Button) findViewById(R.id.customLocBtn);
+        launchCustomActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCustomActivity();
             }
         });
 
@@ -168,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             timer.schedule(hourlytask, 01, 60000 * 60);
     }
 
-    public void launchActivity(){
+    public void launchScrollingActivity(){
         Intent intent = new Intent(this, ScrollingActivity.class);
         intent.putExtra("kate", "myString");
         startActivity(intent);
@@ -176,6 +183,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     public void launchFriendActivity(){
         Intent intent = new Intent(this, FriendActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchCustomActivity(){
+        Intent intent = new Intent(this, CustomLocation.class);
         startActivity(intent);
     }
 

@@ -39,22 +39,20 @@
                     android:id="@+id/imageView"
                     android:layout_width="84dp"
                     android:layout_height="84dp"
-                    app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000"
                     android:layout_weight="0.12" />
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="84dp"
                     android:layout_height="84dp"
-                    android:layout_weight="0.16"
-                    app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
+                    android:layout_weight="0.16" />
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="84dp"
                     android:layout_height="84dp"
                     android:layout_weight="0.20"
-                    app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
+ />
             </LinearLayout>
 
         </LinearLayout>
