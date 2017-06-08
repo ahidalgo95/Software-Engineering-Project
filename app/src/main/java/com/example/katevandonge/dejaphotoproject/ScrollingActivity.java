@@ -71,11 +71,11 @@ public class ScrollingActivity extends AppCompatActivity {
                     imageView.setBackground(drawable);
 
                     MainActivity.dpcopied.addPhoto(uri);
-                    MainActivity.master.addCopied();
+                    MainActivity.master.updateMasterQ(MainActivity.copiedMode, MainActivity.cameraMode, MainActivity.friendMode);
 
                     Intent intentChi = new Intent(this, MainActivity.class);
                     intentChi.putExtra("imageURI", uri.toString());
-                    setResult(1, intentChi);
+                    //setResult(1, intentChi);
                     //startActivity(intentChi);
                     //this.finish();
 

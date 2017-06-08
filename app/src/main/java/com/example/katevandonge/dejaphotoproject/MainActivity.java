@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static boolean sharingMode = false; //false Means sharing is off
     static boolean friendMode = false;
     static boolean cameraMode = false;
-    static boolean copiedMode = false;
+    static boolean copiedMode = true;
     User user;
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
     static Intent intentAlpha;
@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         list = new Gallery(context);
         dpcopied = new CopiedGallery();
         master = new MasterGallery();
+        Log.v("main", "MASTER SHOULD ONLY ONCE");
 
 
         Button launchProfileActivity = (Button) findViewById(R.id.button3);
@@ -268,14 +269,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      */
     public void friendModeChange(View view){
         friendMode = !friendMode;
+        master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
     public void cameraChange(View view){
         cameraMode = !cameraMode;
+        master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
     public void copiedChange(View view){
         copiedMode = !copiedMode;
+        //master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
        /*

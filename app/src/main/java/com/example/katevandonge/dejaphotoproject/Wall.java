@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -37,8 +38,9 @@ public class Wall extends Activity {
     static int counter;                 //counter to be used in widget
     static Photo [] photoArr;           //photoArr to be used in widget
     static Photo [] allGall;
-    int Qsize;                          //size of pqueue
-    int Rsize;
+    static ArrayList<Photo> photoAL;
+    static int Qsize;                          //size of pqueue
+    static int Rsize;
 
 
 
@@ -60,9 +62,11 @@ public class Wall extends Activity {
         photoArr = new Photo[Rsize];
         updateArray();
     }
-    public void updateArray(){
+    public static void updateArray(){
         Qsize = pListOld.size();
         Rsize = pList.size();
+        photoArr = new Photo[Rsize];
+        Log.v("wall up arr", ""+Rsize);
         for (int i = 0; i < Qsize; i++) { //poll photos length of input pqueue
             allGall[i] = pListOld.poll();
         }
