@@ -1,27 +1,30 @@
 {
   "project_info": {
-    "project_number": "300869077218",
-    "firebase_url": "https://dejaphoto-98b71.firebaseio.com",
-    "project_id": "dejaphoto-98b71",
-    "storage_bucket": "dejaphoto-98b71.appspot.com"
+    "project_number": "1038062739503",
+    "firebase_url": "https://dejaphoto-9e8d9.firebaseio.com",
+    "project_id": "dejaphoto-9e8d9",
+    "storage_bucket": "dejaphoto-9e8d9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:300869077218:android:714668b697411159",
+        "mobilesdk_app_id": "1:1038062739503:android:714668b697411159",
         "android_client_info": {
           "package_name": "com.example.katevandonge.dejaphotoproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "300869077218-1uoo3ctuleg7ppgo55nrmbmc8cug6g3g.apps.googleusercontent.com",
+          "client_id": "1038062739503-k1ildh6hsbhv55u25icin08m89pm8u9q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAKnxjTVsGF32Ie3ouDpEXdKOlH_O6KxWk"
+          "current_key": "AIzaSyB1x2M7gq_o3WIfewVX6f-wGEps8XC4m4Q"
+        },
+        {
+          "current_key": "AIzaSyB4f02Nqi9tji4tQtd5h_5v9L7gV0UQwlA"
         }
       ],
       "services": {

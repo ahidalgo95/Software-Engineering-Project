@@ -18,23 +18,37 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:text="Enter Rate"
-        app:layout_constraintRight_toLeftOf="@+id/mins"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
+
+        android:layout_marginStart="147dp"
+        app:layout_constraintBottom_toBottomOf="@+id/submit"
+        android:layout_marginEnd="147dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="69dp"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/display"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="67dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/submit"
-        android:layout_width="155dp"
+        android:layout_width="0dp"
         android:layout_height="49dp"
         android:onClick="saveRate"
         android:text="Submit"
+        app:layout_constraintRight_toLeftOf="@+id/mins"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/camButton"
+        android:layout_marginTop="44dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintLeft_toLeftOf="@+id/display"
+        app:layout_constraintTop_toTopOf="@+id/mins" />
+=======
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -42,19 +56,30 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toTopOf="@+id/display" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <TextView
         android:id="@+id/display"
         android:layout_width="170dp"
         android:layout_height="29dp"
         android:text="Rate: 5 minutes"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/camButton"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="49dp"
         tools:layout_constraintLeft_creator="1"
+
+        android:layout_marginBottom="55dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/submit" />
+=======
         android:layout_marginBottom="366dp"
         app:layout_constraintLeft_toLeftOf="@+id/switch1"
         android:layout_marginLeft="70dp"
         android:layout_marginStart="70dp" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <TextView
         android:id="@+id/mins"
@@ -62,10 +87,32 @@
         android:layout_height="27dp"
         android:text="in mins"
         tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        android:layout_marginTop="33dp"
+        app:layout_constraintBottom_toTopOf="@+id/camButton"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="103dp"
         tools:layout_constraintLeft_creator="1"
+
+        android:layout_marginBottom="102dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/rate" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/testPhoto"
+        app:layout_constraintRight_toLeftOf="parent"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/button3"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/FriendActivity" />
+=======
         android:layout_marginBottom="17dp"
         app:layout_constraintTop_toTopOf="@+id/rate"
         app:layout_constraintLeft_toRightOf="@+id/submit"
@@ -85,34 +132,57 @@
         tools:layout_constraintRight_creator="1"
         android:layout_marginRight="12dp"
         app:layout_constraintRight_toRightOf="parent" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DejaPhotoCopied"
-        tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
+
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+=======
         android:layout_marginEnd="23dp"
         android:layout_marginRight="23dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/FriendActivity"
         android:layout_marginTop="20dp" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <Switch
         android:id="@+id/switch1"
-        android:layout_width="108dp"
+        android:layout_width="0dp"
         android:layout_height="54dp"
         android:text="Sharing?"
         android:onClick="sharingChange"
         android:textColorLink="@android:color/holo_purple"
+        app:layout_constraintRight_toLeftOf="@+id/camButton"
         tools:layout_constraintTop_creator="1"
+
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/FriendActivity"
+        android:layout_marginEnd="11dp"
+        android:layout_marginTop="83dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="79dp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/camButton" />
+=======
         android:layout_marginTop="34dp"
         app:layout_constraintTop_toBottomOf="@+id/display"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="39dp"
         android:layout_marginStart="39dp" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <TextView
         android:id="@+id/textView"
@@ -120,12 +190,24 @@
         android:layout_height="45dp"
         android:text="Modes"
         android:textSize="30dp"
+
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="41dp"
+        app:layout_constraintBottom_toBottomOf="@+id/switch1"
+        android:layout_marginTop="45dp"
+        app:layout_constraintTop_toBottomOf="@+id/display"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="54dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+=======
         tools:layout_constraintBottom_creator="1"
         android:layout_marginLeft="47dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="233dp"
         android:layout_marginStart="47dp" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <Switch
         android:id="@+id/friendSwitch"
@@ -133,31 +215,74 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="57dp"
         android:onClick="friendModeChange"
+
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="116dp"
+        app:layout_constraintLeft_toLeftOf="@+id/switch1" />
+=======
         android:text="Friends Photos?"
         app:layout_constraintLeft_toLeftOf="@+id/switch1"
         app:layout_constraintTop_toBottomOf="@+id/switch1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <Button
         android:id="@+id/FriendActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Friend Menu"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
+
+        android:layout_marginEnd="13dp"
+        app:layout_constraintRight_toRightOf="@+id/button3"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/switch2"
+        tools:ignore="UnknownIdInLayout" />
+=======
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="118dp"
         app:layout_constraintHorizontal_bias="0.94" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
 
     <Switch
         android:id="@+id/cameraSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:onClick="viewDejaVuPhotos"
+        android:text="DejaVu Photos"
+        app:layout_constraintRight_toLeftOf="@+id/mins"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="31dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/camButton"
+        style="@android:style/Widget.Holo.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Camera"
+        android:filterTouchesWhenObscured="true"
+        android:onClick="accessCamera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+=======
         android:text="DJV camera"
         tools:layout_constraintTop_creator="1"
         android:layout_marginStart="10dp"
@@ -186,6 +311,7 @@
         android:text="Custom Location"
         tools:layout_editor_absoluteX="32dp"
         tools:layout_editor_absoluteY="431dp" />
+>>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
 
 </android.support.constraint.ConstraintLayout>
