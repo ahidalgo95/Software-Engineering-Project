@@ -65,7 +65,7 @@ public class MasterGallery {
             //addFriend();
         }
         if(cameraMode){
-            //addCamera();
+            addCamera();
         }
         MasterQueueCopy = new PriorityQueue<Photo>(MasterQueue);
         MasterQueueCopy2 = new PriorityQueue<Photo>(MasterQueue);
@@ -113,6 +113,17 @@ public class MasterGallery {
             i++;
         }
         return;
+    }
+
+    public void addCamera(){
+        Log.v("add camera", "add");
+        MainActivity.djpGallery.queryTakenPhotos();
+        djSet = MainActivity.djpGallery.returnQ();
+        while(djSet.size() > 0) {
+            Photo curr = copiedSet.poll();
+            MasterQueue.add(curr);
+        }
+
     }
 
     public PriorityQueue<Photo> convertToPQ(int album){

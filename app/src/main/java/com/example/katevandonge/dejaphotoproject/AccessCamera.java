@@ -31,7 +31,7 @@ import android.widget.ImageView;
 
 public class AccessCamera extends Activity{
 
-    private String pictureImagePath = "";
+    static String pictureImagePath = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
