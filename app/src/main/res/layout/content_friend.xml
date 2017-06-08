@@ -40,18 +40,18 @@
             android:ems="10"
             android:id="@+id/UserEmailSearch" />
         <Button
-            android:id="@+id/Search"
+            android:id="@+id/AddFriend"
             android:layout_height="wrap_content"
             android:text="Add user as friend"
-            android:onClick="search"
+            android:onClick="addFriend"
             android:layout_width="fill_parent">
         </Button>
 
         <EditText
-            android:id="@+id/myName"
+            android:id="@+id/myPassword"
             android:layout_marginTop="100dp"
             android:layout_height="wrap_content"
-            android:hint="Enter your name"
+            android:hint="Enter your password"
             android:inputType="textPersonName"
             android:layout_width="fill_parent">
         </EditText>
