@@ -5,25 +5,35 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.util.Log;
 import android.util.Pair;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.*;
 
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Peter on 5/28/2017.
  */
 
 public class User {
-    String myPassword;
-    String myEmail;
-    //String myFirebaseID;
+    public String myPassword;
+    public String myEmail;
+
+    @Exclude
+    boolean isMutualFriend;
 
     @Exclude
     boolean loggedIn;
@@ -98,6 +108,76 @@ public class User {
     @Exclude
     public int getFriendIndex(){
         return myFriends.size();
+    }
+
+    @Exclude
+    public boolean checkMutualFriends(User friend) throws InterruptedException {
+        // Accesses database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myFirebaseRef = database.getReference();
+        DatabaseReference userRef = myFirebaseRef.child("users/" + this.getId() + "/myFriends");
+
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        // Check friends
+        userRef.child(friend.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Check if friend has user as a friend as well in next block
+                    isMutualFriend = true;
+                    Log.i("User", "Mutual friend check 1 passed");
+                }
+                else {
+                    //do nothing
+                    isMutualFriend = false;
+                    Log.i("User", "Mutual friend check 1 failed");
+                }
+                latch.countDown();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // do nothing
+                Log.i("User", "Mutual check cancelled");
+                latch.countDown();
+            }
+        });
+        latch.await();
+
+        userRef = myFirebaseRef.child("users/" + friend.getId() + "/myFriends");
+
+
+        final CountDownLatch latch2 = new CountDownLatch(1);
+        // Check if friend has user as friend
+        userRef.child(this.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Check if friend has user as a friend as well
+                    isMutualFriend = true;
+                    Log.i("User", "Mutual friend check 2 passed");
+                }
+                else {
+                    //do nothing
+                    isMutualFriend = false;
+                    Log.i("User", "Mutual friend check 2 failed");
+                }
+                latch2.countDown();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // do nothing
+                Log.i("User", "Mutual check cancelled");
+                latch2.countDown();
+            }
+        });
+        latch.await();
+
+
+        Log.i("User", "Mutual friend check end");
+        return isMutualFriend;
     }
 
     @Exclude
