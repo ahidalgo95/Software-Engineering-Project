@@ -45,7 +45,8 @@ public class MasterGallery {
         //copiedSet = copiedSet2;
 
     }
-    public void updateMasterQ(boolean copiedMode, boolean friendMode, boolean cameraMode ){
+    public void updateMasterQ(boolean copiedMode, boolean cameraMode, boolean friendMode ){
+        Log.i("MASTER GAL", "cam mode "+cameraMode);
         if(MasterQueue.size()>0){
             newQCopied = convertToPQ(1);
             newQCamera = convertToPQ(2);
@@ -65,6 +66,7 @@ public class MasterGallery {
             //addFriend();
         }
         if(cameraMode){
+            Log.i("MASTER GAL", "cam mode "+cameraMode);
             addCamera();
         }
         MasterQueueCopy = new PriorityQueue<Photo>(MasterQueue);
@@ -122,7 +124,7 @@ public class MasterGallery {
         MainActivity.djpGallery.queryTakenPhotos();
         djSet = MainActivity.djpGallery.returnQ();
         while(djSet.size() > 0) {
-            Photo curr = copiedSet.poll();
+            Photo curr = djSet.poll();
             MasterQueue.add(curr);
         }
 

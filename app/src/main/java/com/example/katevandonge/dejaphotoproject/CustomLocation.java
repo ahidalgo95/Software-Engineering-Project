@@ -79,7 +79,7 @@ public class CustomLocation extends AppCompatActivity {
         //File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
         //Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", fileDir);
         //Intent intent = new Intent(Intent.ACTION_PICK, fileUri);
-       Uri camUri = DejaPhotoGallery.onePhotoUri;
+      /* Uri camUri = DejaPhotoGallery.onePhotoUri;
        for(int i=0; i<Wall.photoArr.length; i++) {
            if (Wall.photoArr[i].photouri.equals(camUri)) {
                Log.v("CAM", "URI matchh");
@@ -88,7 +88,7 @@ public class CustomLocation extends AppCompatActivity {
                Log.v("CAM", editText.getText().toString());
                break;
            }
-       }
+       }*/
 
         //startActivityForResult(intent, SELECTED_PIC);
 
