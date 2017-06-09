@@ -83,15 +83,8 @@ public class FriendActivity extends AppCompatActivity {
         User testPhoto = new User();
         testPhoto.setEmail("phototest@gmail.com");
 
-        testPhoto.getFirebaseShareablePhoto();
-
-
-        Log.i("ShareableFriendActivity", "size: " + testPhoto.myShareablePhotos.size());
-        //Log.i("ShareableFriendActivity", "size2: " + testPhoto.getAL().size());
-
-
-        //userRef.child("myFriends").setValue(myUser.getFriends());
-        //userRef.push().setValue(myUser.getFriends());
+        //testPhoto.getFirebaseShareablePhoto();
+        testPhoto.getFirebaseFriends();
 
     }
 
@@ -109,17 +102,6 @@ public class FriendActivity extends AppCompatActivity {
         myUser = new User();
         myUser.setPassword(password);
         myUser.setEmail(email);
-
-        // Tests firebase with dummy photo
-        Uri test = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        Photo temp = new Photo(getApplicationContext());
-        temp.setUri(test);
-        myUser.addPhotos(temp, getApplicationContext(), 1);
-
-        Uri test2 = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        Photo temp2 = new Photo(getApplicationContext());
-        temp2.setUri(test2);
-        myUser.addPhotos(temp2, getApplicationContext(), 2);
 
 
 

@@ -48,18 +48,18 @@ public class User extends AppCompatActivity {
     public String myEmail;
 
     @Exclude
-    boolean readyToReturn;
-
-    @Exclude
     boolean isMutualFriend;
 
     @Exclude
     boolean loggedIn;
 
-
     static ArrayList<Pair<String,String>> myShareablePhotos;
 
+    @Exclude
     static FriendGallery friendGall;
+
+    @Exclude
+    static ArrayList<Pair<Bitmap, String>> myBitmaps;
 
     @Exclude
     ArrayList<String> myFriends;
@@ -92,14 +92,26 @@ public class User extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Exclude
-    public void addPhotos(Photo photo, Context context, long temp)
+    public void addPhotos(Photo[] photo, Context context)
     {
-        String bitmap = encodeBitmap(photo.toBitmap(context.getContentResolver()));
-        Long karma_value = temp;
-        Pair<String, String> insVal = new Pair(bitmap, karma_value);
-        myShareablePhotos.add(insVal);
+
+        // Accesses database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myFirebaseRef = database.getReference();
+        DatabaseReference userRef = myFirebaseRef.child("users/" + this.getId() + "/myShareablePhotos");
 
 
+        for(int i = 0; i < photo.length; i++) {
+            String bitmap = encodeBitmap(photo[i].toBitmap(context.getContentResolver()));
+
+            //KARMA , LOCATION NAME, LATITUDE, LONGITUDE, DATE, DAYOFWEEK, TIME
+            String metadata= photo[i].karma + "@" + photo[i].locName + "@"+ photo[i].latitude + "@" + photo[i].longitude+ "@" +
+                    photo[i].date + "@" + photo[i].dayOfWeek + "@" + photo[i].time;
+
+            Pair<String, String> insVal = new Pair(bitmap, metadata);
+            myShareablePhotos.add(insVal);
+        }
+        userRef.setValue(myShareablePhotos);
     }
    // public ArrayList<Pair<String, Long>> getAL(){
         //return myShareablePhotos;
@@ -117,7 +129,7 @@ public class User extends AppCompatActivity {
             return "";
 
         ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, bYtE);
         bmp.recycle();
         byte[] byteArray = bYtE.toByteArray();
         String imageFile = Base64.encodeToString(byteArray, Base64.DEFAULT);
@@ -168,18 +180,57 @@ public class User extends AppCompatActivity {
         }
     }
 
+
+    @Exclude
+    public ArrayList<String> getFirebaseFriends(){
+        // Initialize myBitmaps
+        myFriends = new ArrayList<>();
+
+        // Accesses database and goes to user's friends database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myFirebaseRef = database.getReference();
+        DatabaseReference shareablePhotosRef = myFirebaseRef.child("users/" + this.getId() + "/myFriends");
+
+        // Loop through users in order with the forEach() method. The callback
+        // provided to forEach() will be called synchronously with a DataSnapshot
+        // for each child:
+        shareablePhotosRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Gets formatted email address
+                    String tempFriend = (String) snapshot.getValue();
+
+                    String tempFormattedFriend = tempFriend.replaceAll("\\.", "_");
+
+                    Log.i("ShareableInListener", tempFormattedFriend);
+
+                    myFriends.add(tempFormattedFriend);
+                    Log.i("ShareableInListener", "FriendsSize: " +  myFriends.size());
+                }
+                Log.i("ShareableInListener", "FriendsFinalSize: " + myFriends.size());
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // do nothing
+            }
+        });
+        return myFriends;
+    }
     @Exclude
     public void getFirebaseShareablePhoto() throws InterruptedException {
+        // Initialize myBitmaps
+        myBitmaps = new ArrayList<>();
+
         // Accesses database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myFirebaseRef = database.getReference();
         DatabaseReference shareablePhotosRef = myFirebaseRef.child("users/" + this.getId() + "/myShareablePhotos");
 
-        //myShareablePhotos = new ArrayList<>();
         // Loop through users in order with the forEach() method. The callback
         // provided to forEach() will be called synchronously with a DataSnapshot
         // for each child:
-        //final CountDownLatch latch = new CountDownLatch(1);
         shareablePhotosRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
             @Override
@@ -187,37 +238,25 @@ public class User extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     HashMap<String,Long> tempHash = (HashMap<String,Long>)snapshot.getValue();
 
-                    String tempURI = tempHash.get("first") + "";
+                    String tempStringBitmap = tempHash.get("first") + "";
                     String tempKarma = tempHash.get("second") + "";
-                    Log.i("ShareableInListener", tempURI + " " + tempKarma);
+                    Log.i("ShareableInListener", tempStringBitmap + " " + tempKarma);
 
-                    Pair<String,String> tempPair = new Pair<String,String>(tempURI, tempKarma);
-                    myShareablePhotos.add(tempPair);
-                    Log.i("ShareableInListener", "size: " + myShareablePhotos.size());
+                    Bitmap tempBitmap = decodeBitMap(tempStringBitmap);
+
+                    Pair<Bitmap,String> tempPair = new Pair<Bitmap, String>(tempBitmap, tempKarma);
+                    myBitmaps.add(tempPair);
+                    Log.i("ShareableInListener", "shareablesize: " + myBitmaps .size());
                 }
-                //latch.countDown();
-                //friendGall.fillQueue(myShareablePhotos); //THIS DOESNT WORK (Bitmap, String)
+                Log.i("ShareableInListener", "BitmapSize " + myBitmaps.size());
+                friendGall.fillQueue(myBitmaps); //THIS DOESNT WORK (Bitmap, String)
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // do nothing
-                //latch.countDown();
             }
         });
 
-        //latch.await();
-        // Force an update
-        //shareablePhotosRef.child("temp").setValue("temp");
-        //shareablePhotosRef.child("temp").removeValue();
-
-
-
-        //Log.i("ShareableBeforeRetun", "shareablephotos size: " + myShareablePhotos.size());
-        //for(int i = 0; i < myShareablePhotos.size(); i++){
-        //    Log.i("ShareableStored",myShareablePhotos.get(i).first + " " + myShareablePhotos.get(i).second);
-        //}
-
-        //return myShareablePhotos;
     }
 
 
@@ -323,6 +362,7 @@ public class User extends AppCompatActivity {
         this.loggedIn = loggedIn;
     }
 
+    @Exclude
     public boolean isLoggedIn() {
         return loggedIn;
     }
