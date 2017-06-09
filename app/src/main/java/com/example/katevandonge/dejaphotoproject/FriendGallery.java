@@ -2,6 +2,7 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
@@ -17,35 +18,34 @@ public class FriendGallery {
 
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> friendQueue;
-    String metadata;
+
     Context context;
 
     @TargetApi(24)
     public FriendGallery(Context context1){
         context = context1;
-        metadata = "karma@locName@latitude@longitude@date@dayOfWeek@time";
+        //how metadata is stored "karma@locName@latitude@longitude@date@dayOfWeek@time";
         photoComparator = new PhotoComparator();
         friendQueue = new PriorityQueue<Photo>(photoComparator);
-
-
     }
 
-    public void fillQueue(Pair<String, String>[] photoArray){
-        String bitmap;
+    public void fillQueue(ArrayList<Pair<Bitmap, String>> photoArray){
         String photoInfo;
-        for(int i=0; i<photoArray.length; i++){
-            bitmap= photoArray[i].first;
-            photoInfo = photoArray[i].second;
+        Bitmap bitmap;
+        for(int i=0; i<photoArray.size(); i++){
+            bitmap= photoArray.get(i).first;
+            photoInfo = photoArray.get(i).second;
             friendQueue.add(parseToPhoto(bitmap, photoInfo));
-            Log.v("fillQueue", ""+ friendQueue.size());
+            Log.i("fillQueue", "added to friendQueue"+ i);
         }
     }
 
-    public Photo parseToPhoto(String bitmap, String photoInfo){
-        //"karma@locName@latitude@longitude@date@dayOfWeek@time"
+    public Photo parseToPhoto(Bitmap bitmap, String photoInfo){
+        //"karma@locName@latitude@longitude@date@dayOfWeek@time
         Photo photo = new Photo(context);
         String[] arr= photoInfo.split("@");
         photo.ogAlbum=3;
+        photo.storedBitmap= bitmap;
         photo.date= arr[4];
         photo.time = arr[6];
         photo.latitude = Double.parseDouble(arr[2]);

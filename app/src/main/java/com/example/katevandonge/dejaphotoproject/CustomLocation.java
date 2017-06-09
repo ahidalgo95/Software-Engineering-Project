@@ -65,7 +65,12 @@ public class CustomLocation extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Log.v("in on click", "hi");
-                Wall.photoArr[curr].locName = editText.getText().toString();
+                if(Wall.photoArr[curr].ogAlbum != 3) {
+                    Wall.photoArr[curr].locName = editText.getText().toString();
+                }
+                else{
+                    Log.i("CustomLocation: ", "can't change location on friend's photo");
+                }
                 //Wall.photoArr[curr].locName = editText.getText().toString();
                 Log.v("custom", editText.getText().toString());
             }

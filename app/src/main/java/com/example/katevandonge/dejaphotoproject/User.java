@@ -138,7 +138,7 @@ public class User {
      *  Created by David Teng
      *  This method is decodes user's photos stored as compressed strings
      */
-    public Bitmap decodeBitMap(String encodedString){
+    public static Bitmap decodeBitMap(String encodedString){
         try {
             byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
             Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
