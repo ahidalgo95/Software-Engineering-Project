@@ -105,13 +105,13 @@ public class MasterGallery {
     }
 
 
-    public void updateMasterAL(){
+    /*public void updateMasterAL(){
         ArrayList<Photo> myAL = MainActivity.dpcopied.getAL();
         for(int i=0; i<myAL.size(); i++){
             Photo curr = myAL.get(i);
             MasterQueue.add(curr);
         }
-    }
+    }*/
 
     public void createSharedArray(){
         MasterShared = new PriorityQueue<Photo>(MasterQueue);
