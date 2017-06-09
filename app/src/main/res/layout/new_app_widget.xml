@@ -29,6 +29,12 @@
         android:layout_height="60dp"
         android:text="Next" />
 
+    <Button
+        android:id="@+id/custom"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:text="Edit Location"/>
+
 
 </LinearLayout>
 

@@ -55,6 +55,8 @@ public class CustomLocation extends AppCompatActivity {
             public void onClick(View view){
                 Log.v("in on click", "hi");
                 Wall.photoArr[ii].locName = editText.getText().toString();
+                int counter = Wall.counter;
+                //Wall.photoArr[git].locName = editText.getText().toString();
                 Log.v("custom", editText.getText().toString());
             }
         });

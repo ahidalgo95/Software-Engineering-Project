@@ -36,6 +36,7 @@ public class NewAppWidget extends AppWidgetProvider {
     public static String WIDGET_NEXT = "NEXT_BUTTON";
     public static String WIDGET_PREV = "PREV_BUTTON";
     public static String WIDGET_RELEASE = "RELEASE_BUTTON";
+    public static String WIDGET_CUSTOM = "CUSTOM_LOCATION";
     public int resWidth;
     public int resHeight;
 
@@ -76,6 +77,12 @@ public class NewAppWidget extends AppWidgetProvider {
         pendingIntentKarma = PendingIntent.getBroadcast(context, 0, intentKarma, 0);
         views.setOnClickPendingIntent(R.id.button6, pendingIntentKarma);
 
+        //CUSTOM LOCATION
+        intentKarma = new Intent(context, NewAppWidget.class);
+        intentKarma.setAction(WIDGET_CUSTOM);
+        pendingIntentKarma = PendingIntent.getBroadcast(context, 0, intentKarma, 0);
+        views.setOnClickPendingIntent(R.id.custom, pendingIntentKarma);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -102,6 +109,15 @@ public class NewAppWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intentKarma) {
         super.onReceive(context, intentKarma);
+
+        //NEXT BUTTON
+        if (intentKarma.getAction().equals(NewAppWidget.WIDGET_CUSTOM)) {
+            Photo[] wallArr = Wall.photoArr;
+            int counter = Wall.counter;
+            Photo thisPhoto = wallArr[counter];
+            Intent intent = new Intent(context, CustomLocation.class);
+            context.startActivity(intent);
+        }
 
         //KARMA BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_BUTTON)) {

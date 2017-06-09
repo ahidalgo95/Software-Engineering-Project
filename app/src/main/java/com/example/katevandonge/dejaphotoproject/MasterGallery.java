@@ -60,6 +60,10 @@ public class MasterGallery {
         //}
     }
 
+    public void addDJPhoto(){
+
+    }
+
 
     public void convertToArray(PriorityQueue<Photo> polledPQ){
         Photo polled;
