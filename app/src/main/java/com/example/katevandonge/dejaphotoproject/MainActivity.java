@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     UserLocation m_service;
     TrackLocation mLocation;
-    static boolean sharingMode = true; //false Means sharing is off
+    static boolean sharingMode = false; //false Means sharing is off
     static boolean friendMode = false;
     static boolean cameraMode = false;
     static boolean copiedMode = false;
@@ -310,7 +310,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     }
 
     public void copiedChange(View view){
+        Log.i("COPY MODE CHANGED","");
         copiedMode = !copiedMode;
+        Log.i("copy mode",""+copiedMode);
         master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 

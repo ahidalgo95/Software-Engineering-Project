@@ -50,6 +50,7 @@ public class MasterGallery {
     }
     public void updateMasterQ(boolean copiedMode, boolean cameraMode, boolean friendMode ){
         Log.i("MASTER GAL", "cam mode "+cameraMode);
+        Log.i("MASTER GAL", "copy mode "+copiedMode);
         if(MasterQueue.size()>0){
             newQCopied = convertToPQ(1);
             newQCamera = convertToPQ(2);
@@ -63,6 +64,7 @@ public class MasterGallery {
             MasterQueue.clear();
         }
         if(copiedMode){
+            Log.i("adding", "copy mode "+copiedMode);
             addCopied();
         }
 

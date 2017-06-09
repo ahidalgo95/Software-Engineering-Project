@@ -187,7 +187,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="cameraChange"
-        android:text="DejaPhotos"
+        android:text="DejaVu Photos"
         tools:layout_constraintTop_creator="1"
         app:layout_constraintTop_toBottomOf="@+id/switch1"
         tools:layout_constraintLeft_creator="1"

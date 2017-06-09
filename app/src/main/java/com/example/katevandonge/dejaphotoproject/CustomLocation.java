@@ -30,6 +30,7 @@ public class CustomLocation extends AppCompatActivity {
     ImageView imageView;
     EditText editText;
     int ii;
+    int curr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class CustomLocation extends AppCompatActivity {
         setContentView(R.layout.activity_custom_location);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        curr = Wall.counter;
+
 
         imageView = (ImageView)findViewById(R.id.imageView4);
         editText = (EditText)findViewById(R.id.editText);
@@ -63,8 +66,7 @@ public class CustomLocation extends AppCompatActivity {
             public void onClick(View view){
                 Log.v("in on click", "hi");
                 Wall.photoArr[ii].locName = editText.getText().toString();
-                int counter = Wall.counter;
-                //Wall.photoArr[git].locName = editText.getText().toString();
+                //Wall.photoArr[curr].locName = editText.getText().toString();
                 Log.v("custom", editText.getText().toString());
             }
         });
