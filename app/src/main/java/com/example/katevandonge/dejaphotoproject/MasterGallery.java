@@ -55,15 +55,24 @@ public class MasterGallery {
             newQCopied = convertToPQ(1);
             newQCamera = convertToPQ(2);
             newQFriends = convertToPQ(3);
-            if(CopiedGallery.mostRecent!=null) {
-                newQCopied.add(CopiedGallery.mostRecent);
+
+            String info222 = "" + newQCopied.size();
+            Log.v("Master Q size should be 3? maybe", info222);
+            if(newQCopied.size()!=0) {
+                int sizeOfCopQ = MainActivity.dpcopied.copiedQueue.size();
+                if ((CopiedGallery.mostRecent != null) && (newQCopied.size() != sizeOfCopQ)) {
+                    newQCopied.add(CopiedGallery.mostRecent);
+                }
+                MainActivity.dpcopied.copiedQueue.clear();
+                MainActivity.dpcopied.copiedQueue = newQCopied;
             }
-            MainActivity.dpcopied.copiedQueue = newQCopied;
+
             //set cam
             //set friends
             String info22 = "" + MasterQueue.size();
             Log.v("Master M size before!", info22);
             MasterQueue.clear();
+
         }
         if(copiedMode){
             Log.i("adding", "copy mode "+copiedMode);
@@ -93,6 +102,7 @@ public class MasterGallery {
     public void addCopied(){
         copiedSet = MainActivity.dpcopied.getPQ();
         while(copiedSet.size() > 0) {
+            Log.v("add copied loop", "X");
             countRuns++;
             Photo curr = copiedSet.poll();
             MasterQueue.add(curr);
