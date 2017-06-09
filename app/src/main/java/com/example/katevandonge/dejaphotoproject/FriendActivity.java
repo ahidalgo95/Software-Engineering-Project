@@ -2,8 +2,10 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -93,6 +95,7 @@ public class FriendActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public void submit(View button) {
 
         // Get the data the enter into Firebase

@@ -2,6 +2,8 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.util.Pair;
 
@@ -30,12 +32,13 @@ public class FriendGallery {
 
     }
 
-    public void fillQueue(Pair<String, String>[] photoArray){
+    @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
+    public void fillQueue(ArrayList<Pair<String,String>> photoArray){
         String bitmap;
         String photoInfo;
-        for(int i=0; i<photoArray.length; i++){
-            bitmap= photoArray[i].first;
-            photoInfo = photoArray[i].second;
+        for(int i=0; i<photoArray.size(); i++){
+            bitmap= photoArray.get(i).first;
+            photoInfo = photoArray.get(i).second;
             friendQueue.add(parseToPhoto(bitmap, photoInfo));
             Log.v("fillQueue", ""+ friendQueue.size());
         }
@@ -46,12 +49,12 @@ public class FriendGallery {
         Photo photo = new Photo(context);
         String[] arr= photoInfo.split("@");
         photo.ogAlbum=3;
-        photo.date= arr[4];
+        /*photo.date= arr[4];
         photo.time = arr[6];
         photo.latitude = Double.parseDouble(arr[2]);
         photo.longitude = Double.parseDouble(arr[3]);
         photo.locName = arr[1];
-        photo.karma = Integer.parseInt(arr[0]);
+        photo.karma = Integer.parseInt(arr[0]);*/
         return photo;
     }
 }

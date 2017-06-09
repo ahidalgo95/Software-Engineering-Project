@@ -57,7 +57,7 @@ public class User extends AppCompatActivity {
     boolean loggedIn;
 
 
-    static ArrayList<Pair<String,Long>> myShareablePhotos;
+    static ArrayList<Pair<String,String>> myShareablePhotos;
 
     static FriendGallery friendGall;
 
@@ -66,7 +66,7 @@ public class User extends AppCompatActivity {
 
     public User() {
         //Initialize array lists
-        myShareablePhotos = new ArrayList<Pair<String, Long>>();
+        myShareablePhotos = new ArrayList<Pair<String, String>>();
         myFriends = new ArrayList<String>();
         loggedIn = false;
         friendGall = MainActivity.friendGall;
@@ -96,17 +96,17 @@ public class User extends AppCompatActivity {
     {
         String bitmap = encodeBitmap(photo.toBitmap(context.getContentResolver()));
         Long karma_value = temp;
-        Pair<String, Long> insVal = new Pair(bitmap, karma_value);
+        Pair<String, String> insVal = new Pair(bitmap, karma_value);
         myShareablePhotos.add(insVal);
 
 
     }
-    public ArrayList<Pair<String, Long>> getAL(){
-        return myShareablePhotos;
-    }
+   // public ArrayList<Pair<String, Long>> getAL(){
+        //return myShareablePhotos;
+    //}
 
     @Exclude
-    public void setUriList( ArrayList<Pair<String,Long>> shareablePhotos) {
+    public void setUriList( ArrayList<Pair<String,String>> shareablePhotos) {
         myShareablePhotos = shareablePhotos;
     }
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
@@ -130,7 +130,7 @@ public class User extends AppCompatActivity {
      * This method allows retrieval of a user's shareable library of photos
      */
     @Exclude
-    public void addPhoto(Pair<String,Long> toAdd) {
+    public void addPhoto(Pair<String,String> toAdd) {
         myShareablePhotos.add(toAdd);
     }
 
@@ -142,7 +142,7 @@ public class User extends AppCompatActivity {
         for(int i = 0; i < myShareablePhotos.size(); i++)
         {
             Bitmap temp = decodeBitMap(myShareablePhotos.get(i).first);
-            Long temp2 = myShareablePhotos.get(i).second;
+            String temp2 = myShareablePhotos.get(i).second;
             Pair<Bitmap, Integer> retVal = new Pair(temp, temp2);
             if(temp != null)
                 bmap.add(retVal);
@@ -187,14 +187,15 @@ public class User extends AppCompatActivity {
                     HashMap<String,Long> tempHash = (HashMap<String,Long>)snapshot.getValue();
 
                     String tempURI = tempHash.get("first") + "";
-                    long tempKarma = tempHash.get("second");
+                    String tempKarma = tempHash.get("second") + "";
                     Log.i("ShareableInListener", tempURI + " " + tempKarma);
 
-                    Pair<String,Long> tempPair = new Pair<String,Long>(tempURI, tempKarma);
+                    Pair<String,String> tempPair = new Pair<String,String>(tempURI, tempKarma);
                     myShareablePhotos.add(tempPair);
                     Log.i("ShareableInListener", "size: " + myShareablePhotos.size());
                 }
                 //latch.countDown();
+                friendGall.fillQueue(myShareablePhotos);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
