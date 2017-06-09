@@ -25,6 +25,8 @@ import android.widget.Toast;
 import java.net.URI;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Peter on 5/28/2017.
@@ -52,7 +54,7 @@ public class FriendActivity extends AppCompatActivity {
         });
     }
 
-    public void addFriend(View button){
+    public void addFriend(View button) throws InterruptedException {
         if( !myUser.isLoggedIn()){
             Toast.makeText(getApplicationContext(), "Please login / register", Toast.LENGTH_SHORT).show();
             return;
@@ -75,6 +77,16 @@ public class FriendActivity extends AppCompatActivity {
         Log.i("FriendActivity", ""+userFriendList.size());
 
         myFriendsRef.child(friendEmail.replaceAll("\\.","_")).setValue(friendEmail);
+
+        User testPhoto = new User();
+        testPhoto.setEmail("phototest@gmail.com");
+
+        testPhoto.getFirebaseShareablePhoto();
+
+
+        Log.i("ShareableFriendActivity", "size: " + testPhoto.myShareablePhotos.size());
+        Log.i("ShareableFriendActivity", "size2: " + testPhoto.getAL().size());
+
 
         //userRef.child("myFriends").setValue(myUser.getFriends());
         //userRef.push().setValue(myUser.getFriends());
@@ -99,7 +111,12 @@ public class FriendActivity extends AppCompatActivity {
         Uri test = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         Photo temp = new Photo(getApplicationContext());
         temp.setUri(test);
-        myUser.addPhotos(temp, getApplicationContext());
+        myUser.addPhotos(temp, getApplicationContext(), 1);
+
+        Uri test2 = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Photo temp2 = new Photo(getApplicationContext());
+        temp2.setUri(test2);
+        myUser.addPhotos(temp2, getApplicationContext(), 2);
 
 
         // Accesses database

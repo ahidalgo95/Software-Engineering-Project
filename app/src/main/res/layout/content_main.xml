@@ -48,15 +48,6 @@
         android:layout_marginBottom="36dp"
         app:layout_constraintLeft_toLeftOf="@+id/display"
         app:layout_constraintTop_toTopOf="@+id/mins" />
-=======
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/display" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <TextView
         android:id="@+id/display"
@@ -74,12 +65,6 @@
         android:layout_marginBottom="55dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/submit" />
-=======
-        android:layout_marginBottom="366dp"
-        app:layout_constraintLeft_toLeftOf="@+id/switch1"
-        android:layout_marginLeft="70dp"
-        android:layout_marginStart="70dp" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <TextView
         android:id="@+id/mins"
@@ -112,12 +97,6 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/FriendActivity" />
-=======
-        android:layout_marginBottom="17dp"
-        app:layout_constraintTop_toTopOf="@+id/rate"
-        app:layout_constraintLeft_toRightOf="@+id/submit"
-        app:layout_constraintVertical_bias="0.0" />
-
 
     <Button
         android:id="@+id/camButton"
@@ -132,7 +111,7 @@
         tools:layout_constraintRight_creator="1"
         android:layout_marginRight="12dp"
         app:layout_constraintRight_toRightOf="parent" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
+
 
     <Button
         android:id="@+id/button3"
@@ -147,13 +126,7 @@
         tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="16dp"
         app:layout_constraintLeft_toLeftOf="parent" />
-=======
-        android:layout_marginEnd="23dp"
-        android:layout_marginRight="23dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FriendActivity"
-        android:layout_marginTop="20dp" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
+
 
     <Switch
         android:id="@+id/switch1"
@@ -175,14 +148,6 @@
         android:layout_marginBottom="79dp"
         app:layout_constraintLeft_toLeftOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/camButton" />
-=======
-        android:layout_marginTop="34dp"
-        app:layout_constraintTop_toBottomOf="@+id/display"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="39dp"
-        android:layout_marginStart="39dp" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <TextView
         android:id="@+id/textView"
@@ -200,14 +165,6 @@
         tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="54dp"
         app:layout_constraintLeft_toLeftOf="parent" />
-=======
-        tools:layout_constraintBottom_creator="1"
-        android:layout_marginLeft="47dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="233dp"
-        android:layout_marginStart="47dp" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <Switch
         android:id="@+id/friendSwitch"
@@ -221,13 +178,6 @@
         tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="116dp"
         app:layout_constraintLeft_toLeftOf="@+id/switch1" />
-=======
-        android:text="Friends Photos?"
-        app:layout_constraintLeft_toLeftOf="@+id/switch1"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
     <Button
         android:id="@+id/FriendActivity"
@@ -242,13 +192,6 @@
         android:layout_marginTop="5dp"
         app:layout_constraintTop_toBottomOf="@+id/switch2"
         tools:ignore="UnknownIdInLayout" />
-=======
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="118dp"
-        app:layout_constraintHorizontal_bias="0.94" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
 
     <Switch
@@ -282,15 +225,6 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
-=======
-        android:text="DJV camera"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="18dp"
-        android:onClick="cameraChange"
-        app:layout_constraintTop_toBottomOf="@+id/friendSwitch"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/friendSwitch" />
 
     <Switch
         android:id="@+id/copiedSwitch"
@@ -311,7 +245,6 @@
         android:text="Custom Location"
         tools:layout_editor_absoluteX="32dp"
         tools:layout_editor_absoluteY="431dp" />
->>>>>>> 4c9a1564ca5f8ab0174004ff1371ad2dcd311e43
 
 
 </android.support.constraint.ConstraintLayout>
