@@ -12,6 +12,9 @@ import java.util.PriorityQueue;
  * Created by katevandonge on 6/8/17.
  */
 
+/**
+ * Parses String array input to create photo objects for friends photos
+ */
 public class FriendGallery {
 
     Comparator<Photo> photoComparator;
@@ -35,6 +38,11 @@ public class FriendGallery {
 
     }
 
+    /**
+     * Takes in a String aray and calls parseToPhoto to help make photo objects
+     * Populates FriendQueue for displaying friends photos
+     * @param photoArray
+     */
     public void fillQueue(String[] photoArray){
         String photoInfo;
         for(int i=0; i<photoArray.length; i++){
@@ -44,6 +52,11 @@ public class FriendGallery {
         }
     }
 
+    /**
+     * Parses String info from firebase to create photo objects
+     * @param photoInfo
+     * @return Photo objects
+     */
     public Photo parseToPhoto(String photoInfo){
         //"location@date@time@lat@long@locname@karma";
         Photo photo = new Photo(context);
