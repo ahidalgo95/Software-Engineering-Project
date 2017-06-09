@@ -27,7 +27,6 @@ public class FriendGallery {
     static PriorityQueue<Photo> friendQueue;
     Context context;
 
-
     /*
     * Constructor for friendGallery class.
     * */

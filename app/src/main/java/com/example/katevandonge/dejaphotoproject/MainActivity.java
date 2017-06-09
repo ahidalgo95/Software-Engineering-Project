@@ -77,11 +77,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         ContentResolver conR = getApplicationContext().getContentResolver();
 
 
-        //list of photos from the Gallery class
+        //make all galleries here, including master
         friendGall = new FriendGallery(context);
         list = new Gallery(context);
         dpcopied = new CopiedGallery();
+        djpGallery = new DejaPhotoGallery(getApplicationContext());
         master = new MasterGallery(context);
+
+
         currUser = new User();
         currUser.setEmail("katemvd@gmail.com");
         currUser.setPassword("password");
@@ -189,9 +192,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
 
         int listSize= list.queryGallery(conR); //queries photo uris
-
-        djpGallery = new DejaPhotoGallery(getApplicationContext());
-
 
 
 
