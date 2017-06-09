@@ -10,51 +10,58 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
- * Created by katevandonge on 5/31/17.
+ * Copied Gallery class to hold photos selected from galleries within phone's external memory.
  */
 
 public class CopiedGallery {
     Comparator<Photo> photoComparator;
-    static PriorityQueue<Photo> copiedQueue;
+    static PriorityQueue<Photo> copiedQueue; //main queue for this class
     static PriorityQueue<Photo> copiedQueueCopy;
-    static ArrayList<Photo> copiedAL;
-    static Photo mostRecent;
+    static Photo mostRecent;                //saves the most recent photo selected
 
+
+    /*
+    * Constructor for CopiedGallery class.
+    * */
     @TargetApi(24)
     public CopiedGallery() {
         photoComparator = new PhotoComparator();
         copiedQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
-        copiedAL = new ArrayList<Photo>();
-        //copiedQueueCopy = new PriorityQueue<Photo>(photoComparator); //this isn't an error
 
     }
 
+    /*
+    * Helper to add a photo with a specified uri to the queue for copiedGallery class.
+    * return: void
+    * */
     public static void addPhoto(Uri uri){
-        Log.v("copied gallery", "addphoto called");
+        Log.i("addPhoto: ", "addPhoto");
         for(int i=0; i<Wall.allGall.length; i++){
             Photo curr = Wall.allGall[i];
+            //where current photo has the uri we are looking for
             if(curr.photouri.equals(uri)){
-                Log.v("copied gallery", "photo matched!");
-                curr.ogAlbum = 1;
-                copiedQueue.add(curr);
-                copiedAL.add(curr);
+                Log.i("addPhoto:", "matched Uris");
+                curr.ogAlbum = 1; //marker for copiedGallery
+                copiedQueue.add(curr); //add to priorityqueue
                 mostRecent = curr;
-                String size = "" + copiedQueue.size();
-                Log.v("copied gallery", size);
+                Log.i("addPhoto:", "size of Queue "+ copiedQueue.size());
                 break;
             }
         }
     }
 
+    /*
+    * Helper method to return the priority queue of photos we want to display when CopiedGallery
+    * should be displayed.
+    * returns: priorityQueue
+    * */
     public static PriorityQueue<Photo> getPQ(){
-        //Log.v("copied gallery", "7");
         copiedQueueCopy = new  PriorityQueue<Photo>(copiedQueue);
         return copiedQueueCopy;
     }
 
-    public static ArrayList<Photo> getAL(){
-        return copiedAL;
-    }
+
+
 
 
 }

@@ -36,7 +36,7 @@ public class Photo {
     long timeTotal;         // holds time to know if recently taken
     boolean DJP;
     String filePath;
-    int ogAlbum;
+    int ogAlbum;  //1 if in copiedGallery, 2 if DJPhotoGallery, 3 FriendGallery
 
     /*
     * Constructor for photo class. Initialize some variables

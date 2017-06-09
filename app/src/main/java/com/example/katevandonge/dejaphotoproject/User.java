@@ -2,7 +2,9 @@ package com.example.katevandonge.dejaphotoproject;
 
 
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -57,6 +59,8 @@ public class User extends AppCompatActivity {
 
     static ArrayList<Pair<String,Long>> myShareablePhotos;
 
+    static FriendGallery friendGall;
+
     @Exclude
     ArrayList<String> myFriends;
 
@@ -65,6 +69,7 @@ public class User extends AppCompatActivity {
         myShareablePhotos = new ArrayList<Pair<String, Long>>();
         myFriends = new ArrayList<String>();
         loggedIn = false;
+        friendGall = MainActivity.friendGall;
 
     }
 
@@ -85,6 +90,7 @@ public class User extends AppCompatActivity {
      * This method allows insertion of bitmaps to a specific user's shareable library of photos
      */
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Exclude
     public void addPhotos(Photo photo, Context context, long temp)
     {
@@ -103,6 +109,7 @@ public class User extends AppCompatActivity {
     public void setUriList( ArrayList<Pair<String,Long>> shareablePhotos) {
         myShareablePhotos = shareablePhotos;
     }
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public String encodeBitmap(Bitmap bmp)
     {
         //We compress the bitmap down to a string in order to store it efficiently on firebase
@@ -127,6 +134,7 @@ public class User extends AppCompatActivity {
         myShareablePhotos.add(toAdd);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public ArrayList<Pair<Bitmap, Integer>> getPhotos() {
 
         ArrayList<Pair<Bitmap, Integer>> bmap = new ArrayList<Pair<Bitmap, Integer>>();
@@ -147,6 +155,7 @@ public class User extends AppCompatActivity {
      *  Created by David Teng
      *  This method is decodes user's photos stored as compressed strings
      */
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public Bitmap decodeBitMap(String encodedString){
         try {
             byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
@@ -171,6 +180,7 @@ public class User extends AppCompatActivity {
         // for each child:
         //final CountDownLatch latch = new CountDownLatch(1);
         shareablePhotosRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {

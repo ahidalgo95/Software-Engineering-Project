@@ -23,19 +23,23 @@ import java.util.Date;
 import java.util.PriorityQueue;
 
 /**
- * Created by luujfer on 5/29/17.
+ * DejaPhotoGallery class to hold photos taken within Deja Photo app.
  */
 
 public class DejaPhotoGallery{
 
     Comparator<Photo> photoComparator;
-    static PriorityQueue<Photo> djQueue;
+    static PriorityQueue<Photo> djQueue;        //main queue photos are stored in
+    static PriorityQueue<Photo> djQueueCopy;    //copy of queue of photos
     Context con;
     int queryCall;
     int size;
     int counter;
 
 
+    /*
+    * Constructor for DejaPhotoGallery class.
+    * */
     @TargetApi(24)
     public DejaPhotoGallery(Context context) {
         con= context;
@@ -46,25 +50,24 @@ public class DejaPhotoGallery{
         djQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
     }
 
+
+    /*
+    * Queries photos from hidden files in external memory of phone.
+    * return: void
+    * */
     public void queryTakenPhotos(){
-
+        //directory in phone's external we save photos to
         File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
-
-
-       // Uri imagesURI = FileProvider.getUriForFile(con, con.getPackageName() + ".provider", fileDir);
-
         File [] files = fileDir.listFiles();
-
         if(files.length == 0){
             return;
         }
-        Log.v("files array size", files.length+"");
-
-        //Log.v("files array size", files.length+"");
+        Log.i("QueryTakenPhotos: ", "files length "+ files.length+"");
 
         long date;
         for(int i = counter; i < files.length; i++)
         {
+            //get files based on Uri
             Uri fileUri = FileProvider.getUriForFile(con, con.getPackageName() + ".provider", files[i]);
             Photo photo = new Photo(con); //make new photo
             //set fields in photo
@@ -74,21 +77,24 @@ public class DejaPhotoGallery{
             photo.latitude = TrackLocation.mLatitude;
             photo.longitude= TrackLocation.mLongitude;
             photo.filePath = files[i].getAbsolutePath();
+            photo.ogAlbum = 2;
             date = System.currentTimeMillis();
             photo.setDate(date);
-
+            photo.setWeight();
             djQueue.add(photo);
             counter++;
-
         }
-
-
     }
 
 
+    /*
+    * Method to return the helper queue.
+    * return: PriorityQueue
+    * */
     public static PriorityQueue<Photo> returnQ(){
         Log.v("copied gallery", "called copiedgall to get PQ");
-        return djQueue;
+        djQueueCopy = new  PriorityQueue<Photo>(djQueue);
+        return djQueueCopy;
     }
 
 

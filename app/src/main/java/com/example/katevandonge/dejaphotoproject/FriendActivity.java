@@ -85,7 +85,7 @@ public class FriendActivity extends AppCompatActivity {
 
 
         Log.i("ShareableFriendActivity", "size: " + testPhoto.myShareablePhotos.size());
-        Log.i("ShareableFriendActivity", "size2: " + testPhoto.getAL().size());
+        //Log.i("ShareableFriendActivity", "size2: " + testPhoto.getAL().size());
 
 
         //userRef.child("myFriends").setValue(myUser.getFriends());
@@ -117,6 +117,7 @@ public class FriendActivity extends AppCompatActivity {
         Photo temp2 = new Photo(getApplicationContext());
         temp2.setUri(test2);
         myUser.addPhotos(temp2, getApplicationContext(), 2);
+
 
 
         // Accesses database

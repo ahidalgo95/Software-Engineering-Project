@@ -30,6 +30,7 @@ public class CustomLocation extends AppCompatActivity {
     ImageView imageView;
     EditText editText;
     int ii;
+    int curr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class CustomLocation extends AppCompatActivity {
         setContentView(R.layout.activity_custom_location);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        curr = Wall.counter;
+
 
         imageView = (ImageView)findViewById(R.id.imageView4);
         editText = (EditText)findViewById(R.id.editText);
@@ -49,12 +52,21 @@ public class CustomLocation extends AppCompatActivity {
             }
         });
 
+        /*Button camera = (Button) findViewById(R.id.button7);
+        camera.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+            }
+        });*/
+
         Button submit = (Button) findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Log.v("in on click", "hi");
-                Wall.photoArr[ii].locName = editText.getText().toString();
+                Wall.photoArr[curr].locName = editText.getText().toString();
+                //Wall.photoArr[curr].locName = editText.getText().toString();
                 Log.v("custom", editText.getText().toString());
             }
         });
@@ -65,12 +77,25 @@ public class CustomLocation extends AppCompatActivity {
         startActivityForResult(intent, SELECTED_PIC);
     }
 
-   /* public void btnClick2(View view){
-        File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
-        Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", fileDir);
-        Intent intent = new Intent(Intent.ACTION_PICK, fileUri);
-        startActivityForResult(intent, SELECTED_PIC);
-    }*/
+   public void btnClick2(View view){
+        //File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
+        //Uri fileUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", fileDir);
+        //Intent intent = new Intent(Intent.ACTION_PICK, fileUri);
+      /* Uri camUri = DejaPhotoGallery.onePhotoUri;
+       for(int i=0; i<Wall.photoArr.length; i++) {
+           if (Wall.photoArr[i].photouri.equals(camUri)) {
+               Log.v("CAM", "URI matchh");
+               ii=i;
+               //Wall.photoArr[i].locName = editText.getText().toString();
+               Log.v("CAM", editText.getText().toString());
+               break;
+           }
+       }*/
+
+        //startActivityForResult(intent, SELECTED_PIC);
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -90,8 +115,8 @@ public class CustomLocation extends AppCompatActivity {
                     for(int i=0; i<Wall.photoArr.length; i++) {
                         if (Wall.photoArr[i].photouri.equals(uri)) {
                             Log.v("custom location", "URI matchh");
-                            ii=i;
-                            Wall.photoArr[i].locName = editText.getText().toString();
+                            curr=i;
+                            //Wall.photoArr[i].locName = editText.getText().toString();
                             Log.v("custom", editText.getText().toString());
                             break;
                         }
