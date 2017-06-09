@@ -22,7 +22,18 @@ public class CopiedGalleryTest {
         Context context= mainActivity.getActivity().getApplicationContext();
         CopiedGallery gallery= new CopiedGallery();
         assertEquals(gallery.copiedQueue.poll(), null);
-        assertEquals(gallery.copiedAL.size(), 0);
+        //assertEquals(gallery.copiedAL.size(), 0);
+    }
+
+    //addPhoto tested with logs
+
+    @Test
+    public void getPQTest(){
+        Context context= mainActivity.getActivity().getApplicationContext();
+        CopiedGallery gallery= new CopiedGallery();
+        assertEquals(gallery.copiedQueue.size(), 0);
+        assertEquals(gallery.getPQ(), gallery.copiedQueueCopy);
+        assertEquals(gallery.copiedQueueCopy.size(), 0);
     }
 
 
