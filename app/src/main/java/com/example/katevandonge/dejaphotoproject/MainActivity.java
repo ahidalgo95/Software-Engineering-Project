@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static Wall wally;
     static User currUser;
     WallpaperManager myWall;
+    static FriendGallery friendGall;
     //static MasterGallery masterGallery;
     int accessCameraCounter=0;
 
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
 
         //list of photos from the Gallery class
+        friendGall = new FriendGallery(context);
         list = new Gallery(context);
         dpcopied = new CopiedGallery();
         master = new MasterGallery(context);
