@@ -35,6 +35,7 @@ public class Wall extends Activity {
     static PriorityQueue<Photo> pListOld;  //priorityqueue of photos to make photoArr
     static PriorityQueue<Photo> pList;
     Context con;
+    static Photo curr;
     static int counter;                 //counter to be used in widget
     static Photo [] photoArr;           //photoArr to be used in widget
     static Photo [] allGall;
@@ -50,7 +51,7 @@ public class Wall extends Activity {
         con = context;
         pListOld = gallery.queueCopy;
         pList = MasterGallery.MasterQueue;
-        Photo curr = pListOld.poll();
+        curr = pListOld.poll();
         pList.add(curr);
         myWall = wm;
         counter = 0;
@@ -62,6 +63,9 @@ public class Wall extends Activity {
     }
     public static void updateArray(){
         Qsize = pListOld.size();
+        if(pList.size()==0){
+            pList.add(curr);
+        }
         Rsize = pList.size();
         photoArr = new Photo[Rsize];
         Log.v("wall up arr", ""+Rsize);
@@ -74,9 +78,6 @@ public class Wall extends Activity {
         }
 
     }
-     public static void updateArray(Photo[] arr){
-
-     }
 
 
 }
