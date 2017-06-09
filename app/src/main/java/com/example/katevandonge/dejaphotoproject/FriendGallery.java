@@ -18,6 +18,9 @@ import java.util.PriorityQueue;
  * FriendGallery class to hold friend's photos.
  */
 
+/**
+ * Parses String array input to create photo objects for friends photos
+ */
 public class FriendGallery {
 
     Comparator<Photo> photoComparator;
@@ -35,6 +38,7 @@ public class FriendGallery {
         photoComparator = new PhotoComparator();
         friendQueue = new PriorityQueue<Photo>(photoComparator);
     }
+
 
     /*
     * Fills the friendQueue with Photo objects given input of an arrayList of pairs.
