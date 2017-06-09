@@ -45,7 +45,6 @@ public class DejaPhotoGalleryTest {
     public void testReturnPQ(){
         Context context= mainActivity.getActivity().getApplicationContext();
         DejaPhotoGallery gallery= new DejaPhotoGallery(context);
-        assertEquals(gallery.returnQ(), gallery.djQueue);
         Photo p= new Photo(context);
         gallery.djQueue.add(p);
         assertEquals(gallery.returnQ().size(), 1);
