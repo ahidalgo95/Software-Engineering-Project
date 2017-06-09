@@ -92,6 +92,7 @@ public class MasterGallery {
 
     }
 
+
     public void updateMasterAL(){
         ArrayList<Photo> myAL = MainActivity.dpcopied.getAL();
         for(int i=0; i<myAL.size(); i++){
@@ -99,6 +100,7 @@ public class MasterGallery {
             MasterQueue.add(curr);
         }
     }
+
 
     public void convertToArray(PriorityQueue<Photo> polledPQ){
         Photo polled;
@@ -126,6 +128,7 @@ public class MasterGallery {
 
     }
 
+    @TargetApi(24)
     public PriorityQueue<Photo> convertToPQ(int album){
         PriorityQueue<Photo> newPQ = new PriorityQueue<Photo>(photoComparator);
         Photo[] pArray= Wall.photoArr;
