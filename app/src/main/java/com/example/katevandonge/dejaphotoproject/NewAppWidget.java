@@ -62,6 +62,7 @@ public class NewAppWidget extends AppWidgetProvider {
         //NEXT BUTTON
         intentKarma = new Intent(context, NewAppWidget.class);
         intentKarma.setAction(WIDGET_NEXT);
+        intentKarma.putExtra("From", "button");
         pendingIntentKarma = PendingIntent.getBroadcast(context, 0, intentKarma, 0);
         views.setOnClickPendingIntent(R.id.Next, pendingIntentKarma);
 
@@ -110,7 +111,7 @@ public class NewAppWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intentKarma) {
         super.onReceive(context, intentKarma);
 
-        //NEXT BUTTON
+        //CUSTOM LOC BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_CUSTOM)) {
             Photo[] wallArr = Wall.photoArr;
             int counter = Wall.counter;
@@ -146,6 +147,12 @@ public class NewAppWidget extends AppWidgetProvider {
         //NEXT BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_NEXT)) {
             //Calls mover method to iterate through photo array
+            Log.v("widget", "Next called");
+            if(intentKarma.getExtras().getString("From").equals("button")){
+                Log.v("widget", "from button");
+                MainActivity.context.stopService(MainActivity.intentAlpha);
+                MainActivity.context.startService(MainActivity.intentAlpha);
+            }
             mover(context);
         }
 
@@ -316,6 +323,8 @@ public class NewAppWidget extends AppWidgetProvider {
         canvas.drawBitmap(newBm, 0f, 0f, null);
         return newBm;
     }
+
+
 
     public void setResolution(Context context){
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);

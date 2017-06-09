@@ -109,7 +109,7 @@ public class User extends AppCompatActivity {
     public void setUriList( ArrayList<Pair<String,String>> shareablePhotos) {
         myShareablePhotos = shareablePhotos;
     }
-    @RequiresApi(api = Build.VERSION_CODES.FROYO)
+    //@RequiresApi(api = Build.VERSION_CODES.FROYO)
     public String encodeBitmap(Bitmap bmp)
     {
         //We compress the bitmap down to a string in order to store it efficiently on firebase
@@ -155,6 +155,7 @@ public class User extends AppCompatActivity {
      *  Created by David Teng
      *  This method is decodes user's photos stored as compressed strings
      */
+
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public Bitmap decodeBitMap(String encodedString){
         try {
@@ -195,7 +196,7 @@ public class User extends AppCompatActivity {
                     Log.i("ShareableInListener", "size: " + myShareablePhotos.size());
                 }
                 //latch.countDown();
-                friendGall.fillQueue(myShareablePhotos);
+                //friendGall.fillQueue(myShareablePhotos); //THIS DOESNT WORK (Bitmap, String)
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

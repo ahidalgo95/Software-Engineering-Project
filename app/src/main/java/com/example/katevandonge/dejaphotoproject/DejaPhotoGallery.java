@@ -26,7 +26,7 @@ import java.util.PriorityQueue;
  * DejaPhotoGallery class to hold photos taken within Deja Photo app.
  */
 
-public class DejaPhotoGallery{
+public class DejaPhotoGallery implements GalleriesInterface{
 
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> djQueue;        //main queue photos are stored in
@@ -87,16 +87,21 @@ public class DejaPhotoGallery{
         }
     }
 
-
     /*
-    * Method to return the helper queue.
-    * return: PriorityQueue
-    * */
-    public static PriorityQueue<Photo> returnQ(){
+   * Method to return the helper queue.
+   * return: PriorityQueue
+   * */
+    public PriorityQueue<Photo> getPQ(){
         Log.v("copied gallery", "called copiedgall to get PQ");
         djQueueCopy = new  PriorityQueue<Photo>(djQueue);
         return djQueueCopy;
     }
+
+
+
+    public void addPhoto(Uri uri){}
+
+
 
 
 }
