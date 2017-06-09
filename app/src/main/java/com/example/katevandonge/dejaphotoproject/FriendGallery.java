@@ -15,16 +15,19 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
- * Created by katevandonge on 6/8/17.
+ * FriendGallery class to hold friend's photos.
  */
 
 public class FriendGallery {
 
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> friendQueue;
-
     Context context;
 
+
+    /*
+    * Constructor for friendGallery class.
+    * */
     @TargetApi(24)
     public FriendGallery(Context context1){
         context = context1;
@@ -33,8 +36,10 @@ public class FriendGallery {
         friendQueue = new PriorityQueue<Photo>(photoComparator);
     }
 
-
-    //@RequiresApi(api = Build.VERSION_CODES.ECLAIR)
+    /*
+    * Fills the friendQueue with Photo objects given input of an arrayList of pairs.
+    * return: void
+    * */
     public void fillQueue(ArrayList<Pair<Bitmap, String>> photoArray){
         String photoInfo;
         Bitmap bitmap;
@@ -46,6 +51,11 @@ public class FriendGallery {
         }
     }
 
+
+    /*
+    * Fills a photo object given a bitmap and a string to parse.
+    * return: photo object
+    * */
     public Photo parseToPhoto(Bitmap bitmap, String photoInfo){
         //"karma@locName@latitude@longitude@date@dayOfWeek@time
         Photo photo = new Photo(context);

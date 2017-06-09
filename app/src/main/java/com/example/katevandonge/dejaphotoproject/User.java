@@ -109,7 +109,7 @@ public class User extends AppCompatActivity {
     public void setUriList( ArrayList<Pair<String,String>> shareablePhotos) {
         myShareablePhotos = shareablePhotos;
     }
-    @RequiresApi(api = Build.VERSION_CODES.FROYO)
+    //@RequiresApi(api = Build.VERSION_CODES.FROYO)
     public String encodeBitmap(Bitmap bmp)
     {
         //We compress the bitmap down to a string in order to store it efficiently on firebase
