@@ -18,6 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+import android.util.Pair;
+import android.widget.Toast;
+
+import java.net.URI;
+
 import java.util.ArrayList;
 
 /**
@@ -51,7 +57,8 @@ public class FriendActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please login / register", Toast.LENGTH_SHORT).show();
             return;
         }
-        //Log.i("FriendActivity", myUser.getId());
+
+        Log.i("FriendActivity", myUser.getId());
         EditText etEmail = (EditText) findViewById(R.id.UserEmailSearch);
         String friendEmail = etEmail.getText().toString();
 
@@ -65,12 +72,7 @@ public class FriendActivity extends AppCompatActivity {
         DatabaseReference myFriendsRef = userRef.child("myFriends");
 
         ArrayList<String> userFriendList = myUser.getFriends();
-        //Log.i("FriendActivity", ""+userFriendList.size());
-        /*for(int i = 0; i < userFriendList.size(); i++)
-        {
-            myFriendsRef.child(friendEmail.substring(0,friendEmail.length()-10)).setValue(friendEmail);
-            myFriendsRef.child(userFriendList.get(i).substring(0,userFriendList.get(i).length()-10)).setValue(userFriendList.get(i));
-        }*/
+        Log.i("FriendActivity", ""+userFriendList.size());
 
         myFriendsRef.child(friendEmail.replaceAll("\\.","_")).setValue(friendEmail);
 
@@ -86,7 +88,6 @@ public class FriendActivity extends AppCompatActivity {
         EditText etEmail = (EditText) findViewById(R.id.myEmail);
         String password = etName.getText().toString();
         String email = etEmail.getText().toString();
-
 
 
         // Create new user / login
@@ -107,6 +108,7 @@ public class FriendActivity extends AppCompatActivity {
         DatabaseReference userRef = myFirebaseRef.child("users");
 
         Log.i("FriendActivity", myUser.getId());
+
 
         // Catches if the user already exists, if so, log in
         userRef.child(myUser.getId()).addListenerForSingleValueEvent(new ValueEventListener() {

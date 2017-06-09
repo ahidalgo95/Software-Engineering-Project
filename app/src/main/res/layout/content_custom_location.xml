@@ -32,13 +32,13 @@
                 android:text="camera" />
 
             <Button
-                android:id="@+id/makeCustomBtn"
+                android:id="@+id/ClocationBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="3"
                 android:layout_row="0"
-                android:onClick="btnClick"
-                android:text="Make Custom Location" />
+                android:onClick="clicked"
+                android:text="Make Custom Location for a DejaPhoto photo" />
 
             <ImageView
                 android:id="@+id/imageView4"

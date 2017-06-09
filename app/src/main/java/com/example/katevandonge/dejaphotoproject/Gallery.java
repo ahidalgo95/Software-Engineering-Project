@@ -163,7 +163,6 @@ public class Gallery {
             }
         }*/
         convertToArray(newQueue);
-
         photoQueue=newQueue; //set new queues to class queues
         queueCopy=newQcopy;
         Wall.pListOld = newQcopy;

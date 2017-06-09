@@ -39,14 +39,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     TrackLocation mLocation;
     static boolean sharingMode = false; //false Means sharing is off
     static boolean friendMode = false;
-    static boolean cameraMode = false;
-    static boolean copiedMode = false;
+    static boolean cameraMode = true;
+    static boolean copiedMode = true;
     User user;
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
     static Intent intentAlpha;
     static Gallery list;
     static MasterGallery master;
     static CopiedGallery dpcopied;
+    static DejaPhotoGallery djpGallery;
     static Wall wally;
     WallpaperManager myWall;
     //static MasterGallery masterGallery;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         list = new Gallery(context);
         dpcopied = new CopiedGallery();
         master = new MasterGallery();
+        Log.v("main", "MASTER SHOULD ONLY ONCE");
 
 
         Button launchProfileActivity = (Button) findViewById(R.id.button3);
@@ -155,10 +157,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
         int listSize= list.queryGallery(conR); //queries photo uris
 
-        DejaPhotoGallery testing= new DejaPhotoGallery(getApplicationContext());
+        djpGallery = new DejaPhotoGallery(getApplicationContext());
 
 
-        //testing.queryTakenPhotos();
 
 
 
@@ -220,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     }
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -267,14 +269,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      */
     public void friendModeChange(View view){
         friendMode = !friendMode;
+        master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
     public void cameraChange(View view){
-        cameraMode = !cameraMode;
+        //cameraMode = !cameraMode;
+        //master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
     public void copiedChange(View view){
         copiedMode = !copiedMode;
+        //master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
        /*
@@ -340,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         {
             Intent intent= new Intent(getApplicationContext(), AccessCamera.class);
             startActivity(intent);
+
         }
 
     };

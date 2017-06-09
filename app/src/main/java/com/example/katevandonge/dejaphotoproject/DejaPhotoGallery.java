@@ -30,10 +30,14 @@ public class DejaPhotoGallery{
 
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> djQueue;
+    static PriorityQueue<Photo> djQueueCopy;
+    static File onePhoto;
+    static Uri onePhotoUri;
     Context con;
     int queryCall;
     int size;
     int counter;
+
 
 
     @TargetApi(24)
@@ -51,9 +55,12 @@ public class DejaPhotoGallery{
         File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
 
 
+
        // Uri imagesURI = FileProvider.getUriForFile(con, con.getPackageName() + ".provider", fileDir);
 
         File [] files = fileDir.listFiles();
+        onePhoto = new File(AccessCamera.pictureImagePath);
+        onePhotoUri = FileProvider.getUriForFile(con, con.getPackageName() + ".provider", onePhoto);
 
         if(files.length == 0){
             return;
@@ -74,6 +81,7 @@ public class DejaPhotoGallery{
             photo.latitude = TrackLocation.mLatitude;
             photo.longitude= TrackLocation.mLongitude;
             photo.filePath = files[i].getAbsolutePath();
+            photo.ogAlbum = 2;
             date = System.currentTimeMillis();
             photo.setDate(date);
 
@@ -88,7 +96,8 @@ public class DejaPhotoGallery{
 
     public static PriorityQueue<Photo> returnQ(){
         Log.v("copied gallery", "called copiedgall to get PQ");
-        return djQueue;
+        djQueueCopy = new  PriorityQueue<Photo>(djQueue);
+        return djQueueCopy;
     }
 
 

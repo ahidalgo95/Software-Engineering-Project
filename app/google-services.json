@@ -1,30 +1,35 @@
 {
   "project_info": {
-    "project_number": "1038062739503",
-    "firebase_url": "https://dejaphoto-9e8d9.firebaseio.com",
-    "project_id": "dejaphoto-9e8d9",
-    "storage_bucket": "dejaphoto-9e8d9.appspot.com"
+    "project_number": "817989131151",
+    "firebase_url": "https://dejaphotoapp.firebaseio.com",
+    "project_id": "dejaphotoapp",
+    "storage_bucket": "dejaphotoapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1038062739503:android:714668b697411159",
+        "mobilesdk_app_id": "1:817989131151:android:714668b697411159",
         "android_client_info": {
           "package_name": "com.example.katevandonge.dejaphotoproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1038062739503-k1ildh6hsbhv55u25icin08m89pm8u9q.apps.googleusercontent.com",
+          "client_id": "817989131151-bjuk1ag9lups929kpf4mc4otbgu228rr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.katevandonge.dejaphotoproject",
+            "certificate_hash": "f5f49ec8c7122999e42b6a71e8af06ae45d92104"
+          }
+        },
+        {
+          "client_id": "817989131151-pv7455c77qeer75g8annea0e0m6pf9hs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB1x2M7gq_o3WIfewVX6f-wGEps8XC4m4Q"
-        },
-        {
-          "current_key": "AIzaSyB4f02Nqi9tji4tQtd5h_5v9L7gV0UQwlA"
+          "current_key": "AIzaSyDnglR4lDZ2JTILk0EToORDkg5Phu_GfZ0"
         }
       ],
       "services": {
@@ -32,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817989131151-pv7455c77qeer75g8annea0e0m6pf9hs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -36,6 +36,7 @@ public class Photo {
     long timeTotal;         // holds time to know if recently taken
     boolean DJP;
     String filePath;
+    int ogAlbum;
 
     /*
     * Constructor for photo class. Initialize some variables
