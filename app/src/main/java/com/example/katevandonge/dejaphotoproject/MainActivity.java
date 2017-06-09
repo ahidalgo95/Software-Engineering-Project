@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     UserLocation m_service;
     TrackLocation mLocation;
-    static boolean sharingMode = false; //false Means sharing is off
+    static boolean sharingMode = true; //false Means sharing is off
     static boolean friendMode = false;
     static boolean cameraMode = true;
     static boolean copiedMode = true;
@@ -49,9 +49,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static CopiedGallery dpcopied;
     static DejaPhotoGallery djpGallery;
     static Wall wally;
+    static User currUser;
     WallpaperManager myWall;
     //static MasterGallery masterGallery;
     int accessCameraCounter=0;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
 
@@ -75,7 +77,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //list of photos from the Gallery class
         list = new Gallery(context);
         dpcopied = new CopiedGallery();
-        master = new MasterGallery();
+        master = new MasterGallery(context);
+        currUser = new User();
+        currUser.setEmail("katemvd@gmail.com");
+        currUser.setPassword("password");
         Log.v("main", "MASTER SHOULD ONLY ONCE");
 
 

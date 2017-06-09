@@ -80,12 +80,12 @@ public class User {
      */
 
     @Exclude
-    public void addPhotos(Photo photo, Context context)
+    public void addPhotos(Photo[] photo, Context context)
     {
-        String bitmap = encodeBitmap(photo.toBitmap(context.getContentResolver()));
+        /*String bitmap = encodeBitmap(photo.toBitmap(context.getContentResolver()));
         Integer karma_value = 0;
         Pair<String, Integer> insVal = new Pair(bitmap, karma_value);
-        myShareablePhotos.add(insVal);
+        myShareablePhotos.add(insVal);*/
 
 
     }
