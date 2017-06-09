@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
@@ -37,10 +38,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     UserLocation m_service;
     TrackLocation mLocation;
-    static boolean sharingMode = false; //false Means sharing is off
+    static boolean sharingMode = true; //false Means sharing is off
     static boolean friendMode = false;
-    static boolean cameraMode = true;
-    static boolean copiedMode = true;
+    static boolean cameraMode = false;
+    static boolean copiedMode = false;
     User user;
     static int rate = 5000; //set at 5000ms for testing at 5 seconds
     static Intent intentAlpha;
@@ -49,9 +50,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static CopiedGallery dpcopied;
     static DejaPhotoGallery djpGallery;
     static Wall wally;
+    static User currUser;
     WallpaperManager myWall;
     //static MasterGallery masterGallery;
     int accessCameraCounter=0;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
 
@@ -75,7 +78,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //list of photos from the Gallery class
         list = new Gallery(context);
         dpcopied = new CopiedGallery();
-        master = new MasterGallery();
+        master = new MasterGallery(context);
+        currUser = new User();
+        currUser.setEmail("katemvd@gmail.com");
+        currUser.setPassword("password");
         Log.v("main", "MASTER SHOULD ONLY ONCE");
 
 
@@ -101,6 +107,30 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             @Override
             public void onClick(View view) {
                 launchCustomActivity();
+            }
+        });
+
+        Switch changeCameraMode = (Switch) findViewById(R.id.cameraSwitch);
+        changeCameraMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cameraChange(view);
+            }
+        });
+
+        Switch changeCopiedMode = (Switch) findViewById(R.id.copiedSwitch);
+        changeCopiedMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copiedChange(view);
+            }
+        });
+
+        Switch changeFriendMode = (Switch) findViewById(R.id.friendSwitch);
+        changeFriendMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                friendModeChange(view);
             }
         });
 
@@ -273,13 +303,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     }
 
     public void cameraChange(View view){
-        //cameraMode = !cameraMode;
-        //master.updateMasterQ(copiedMode, cameraMode, friendMode);
+        Log.i("CAMERA CHANGED","");
+        cameraMode = !cameraMode;
+        Log.i("cam mode",""+cameraMode);
+        master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
     public void copiedChange(View view){
         copiedMode = !copiedMode;
-        //master.updateMasterQ(copiedMode, cameraMode, friendMode);
+        master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
        /*

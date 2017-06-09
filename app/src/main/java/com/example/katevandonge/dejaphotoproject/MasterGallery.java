@@ -24,17 +24,20 @@ public class MasterGallery {
     static PriorityQueue<Photo> MasterQueueCopy2;
     static PriorityQueue<Photo> copiedSet;
     static PriorityQueue<Photo> djSet;
+    static PriorityQueue<Photo> MasterShared;
     static PriorityQueue<Photo> friendSet;
     static  DejaPhotoGallery DJGallery;
     PriorityQueue<Photo> newQCopied;
     PriorityQueue<Photo> newQCamera;
     PriorityQueue<Photo> newQFriends;
-    Context con;
+    Context context;
     Photo myArr[];
+    Photo sharedPhotos[];
 
 
     @TargetApi(24)
-    public MasterGallery(){
+    public MasterGallery(Context context){
+        context = context;
         //copied = new CopiedGallery();
         photoComparator= new PhotoComparator();
         countRuns = 0;
@@ -45,7 +48,8 @@ public class MasterGallery {
         //copiedSet = copiedSet2;
 
     }
-    public void updateMasterQ(boolean copiedMode, boolean friendMode, boolean cameraMode ){
+    public void updateMasterQ(boolean copiedMode, boolean cameraMode, boolean friendMode ){
+        Log.i("MASTER GAL", "cam mode "+cameraMode);
         if(MasterQueue.size()>0){
             newQCopied = convertToPQ(1);
             newQCamera = convertToPQ(2);
@@ -61,11 +65,17 @@ public class MasterGallery {
         if(copiedMode){
             addCopied();
         }
+
+        if(cameraMode){
+            Log.i("MASTER GAL", "cam mode "+cameraMode);
+            addCamera();
+        }
+        if(MainActivity.sharingMode) {
+            createSharedArray();
+            MainActivity.currUser.addPhotos(sharedPhotos, context);
+        }
         if(friendMode){
             //addFriend();
-        }
-        if(cameraMode){
-            addCamera();
         }
         MasterQueueCopy = new PriorityQueue<Photo>(MasterQueue);
         MasterQueueCopy2 = new PriorityQueue<Photo>(MasterQueue);
@@ -101,6 +111,21 @@ public class MasterGallery {
         }
     }
 
+    public void createSharedArray(){
+        MasterShared = new PriorityQueue<Photo>(MasterQueue);
+        sharedPhotos = new Photo[MasterShared.size()];
+        int i=0;
+        Photo pic;
+        while(MasterShared.size() != 0){
+            pic = MasterShared.poll(); //poll photo from queue
+            myArr[i] = pic;
+            MasterShared.add(pic);
+            i++;
+        }
+        return;
+
+
+    }
 
     public void convertToArray(PriorityQueue<Photo> polledPQ){
         Photo polled;
@@ -122,7 +147,7 @@ public class MasterGallery {
         MainActivity.djpGallery.queryTakenPhotos();
         djSet = MainActivity.djpGallery.returnQ();
         while(djSet.size() > 0) {
-            Photo curr = copiedSet.poll();
+            Photo curr = djSet.poll();
             MasterQueue.add(curr);
         }
 

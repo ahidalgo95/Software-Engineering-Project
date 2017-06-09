@@ -59,8 +59,8 @@ public class DejaPhotoGallery{
        // Uri imagesURI = FileProvider.getUriForFile(con, con.getPackageName() + ".provider", fileDir);
 
         File [] files = fileDir.listFiles();
-        onePhoto = new File(AccessCamera.pictureImagePath);
-        onePhotoUri = FileProvider.getUriForFile(con, con.getPackageName() + ".provider", onePhoto);
+       // onePhoto = new File(AccessCamera.pictureImagePath);
+     //   onePhotoUri = FileProvider.getUriForFile(con, con.getPackageName() + ".provider", onePhoto);
 
         if(files.length == 0){
             return;
@@ -84,7 +84,7 @@ public class DejaPhotoGallery{
             photo.ogAlbum = 2;
             date = System.currentTimeMillis();
             photo.setDate(date);
-
+            photo.setWeight();
             djQueue.add(photo);
             counter++;
 
