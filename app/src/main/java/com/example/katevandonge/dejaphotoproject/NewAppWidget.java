@@ -324,6 +324,8 @@ public class NewAppWidget extends AppWidgetProvider {
         return newBm;
     }
 
+
+
     public void setResolution(Context context){
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
