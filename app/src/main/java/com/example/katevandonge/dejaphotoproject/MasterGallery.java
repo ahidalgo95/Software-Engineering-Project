@@ -180,7 +180,6 @@ public class MasterGallery {
 
 
 
-
     /*
     * Method to convert a respective photo array to a respective priorityQueue.
      * return: priorityQueue

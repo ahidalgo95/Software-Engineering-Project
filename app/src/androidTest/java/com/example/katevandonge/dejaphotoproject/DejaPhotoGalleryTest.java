@@ -47,7 +47,7 @@ public class DejaPhotoGalleryTest {
         DejaPhotoGallery gallery= new DejaPhotoGallery(context);
         Photo p= new Photo(context);
         gallery.djQueue.add(p);
-        assertEquals(gallery.returnQ().size(), 1);
+        assertEquals(gallery.getPQ().size(), 1);
     }
 
 

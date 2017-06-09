@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static User currUser;
     WallpaperManager myWall;
     static FriendGallery friendGall;
+    static Context context;
     //static MasterGallery masterGallery;
     int accessCameraCounter=0;
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         startService(intentAlpha);
 
         //context resolver and context getters
-        Context context = getApplicationContext();
+        context = getApplicationContext();
         ContentResolver conR = getApplicationContext().getContentResolver();
 
 

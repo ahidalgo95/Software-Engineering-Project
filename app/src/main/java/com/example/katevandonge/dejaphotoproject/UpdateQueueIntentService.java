@@ -61,6 +61,7 @@ public class UpdateQueueIntentService extends IntentService {
             intent2 = new Intent(UpdateQueueIntentService.this, NewAppWidget.class);
             WIDGET_NEXT = "NEXT_BUTTON";
             intent2.setAction(WIDGET_NEXT);
+            intent2.putExtra("From", "service");
             widget = new NewAppWidget();
             widget.onReceive(getApplicationContext(), intent2);
 
