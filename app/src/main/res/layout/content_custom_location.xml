@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="3"
                 android:layout_row="0"
-                android:onClick="clicked"
+                android:onClick="btnClick"
                 android:text="Make Custom Location for a DejaPhoto photo" />
 
             <ImageView
