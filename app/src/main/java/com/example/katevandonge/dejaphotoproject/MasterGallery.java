@@ -76,7 +76,7 @@ public class MasterGallery {
         }
         if(MainActivity.sharingMode) {
             createSharedArray();
-            MainActivity.currUser.addPhotos(sharedPhotos, context);
+            //MainActivity.currUser.addPhotos(sharedPhotos, context);
         }
         if(friendMode){
             //addFriend();

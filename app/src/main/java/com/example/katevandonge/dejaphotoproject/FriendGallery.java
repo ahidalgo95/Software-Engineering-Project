@@ -2,7 +2,11 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+
 import android.graphics.Bitmap;
+
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.util.Pair;
 
@@ -29,6 +33,8 @@ public class FriendGallery {
         friendQueue = new PriorityQueue<Photo>(photoComparator);
     }
 
+
+    //@RequiresApi(api = Build.VERSION_CODES.ECLAIR)
     public void fillQueue(ArrayList<Pair<Bitmap, String>> photoArray){
         String photoInfo;
         Bitmap bitmap;
@@ -47,6 +53,7 @@ public class FriendGallery {
         photo.ogAlbum=3;
         photo.storedBitmap= bitmap;
         photo.date= arr[4];
+        photo.dayOfWeek= arr[5];
         photo.time = arr[6];
         photo.latitude = Double.parseDouble(arr[2]);
         photo.longitude = Double.parseDouble(arr[3]);

@@ -39,10 +39,11 @@ public class FriendGalleryTest {
         Photo photo= new Photo(context);
         photo.ogAlbum=3;
         photo.storedBitmap= null;
-        photo.date= null;
+        photo.date= "null";
         photo.time = "thissux";
         photo.latitude = 0;
         photo.longitude = 0;
+        photo.dayOfWeek="haha";
         photo.locName = "hell";
         photo.karma = 0;
         assertEquals(photo.karma, parsed.karma);
