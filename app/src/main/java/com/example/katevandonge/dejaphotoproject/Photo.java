@@ -36,7 +36,9 @@ public class Photo {
     long timeTotal;         // holds time to know if recently taken
     boolean DJP;
     String filePath;
-    int ogAlbum;
+    int ogAlbum;  //1 if in copiedGallery, 2 if DJPhotoGallery, 3 FriendGallery
+    Bitmap storedBitmap;
+
 
     /*
     * Constructor for photo class. Initialize some variables
@@ -220,6 +222,9 @@ public class Photo {
     * */
     public Bitmap toBitmap(ContentResolver cr){
         Bitmap bm = null;
+        if(filePath==null && photouri==null){
+           return storedBitmap;
+        }
         //Log.i("Photo:" ,"getting bitmap");
         try {
             if(DJP == true){

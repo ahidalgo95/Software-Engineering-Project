@@ -2,13 +2,17 @@ package com.example.katevandonge.dejaphotoproject;
 
 
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringDef;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Pair;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import android.content.Context;
@@ -30,17 +34,21 @@ import com.google.firebase.storage.*;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Peter on 5/28/2017.
  */
 
-public class User {
+public class User extends AppCompatActivity {
 
     public String myPassword;
     public String myEmail;
 
+    @Exclude
+    boolean readyToReturn;
 
     @Exclude
     boolean isMutualFriend;
@@ -48,17 +56,20 @@ public class User {
     @Exclude
     boolean loggedIn;
 
-    @Exclude
-    ArrayList<Pair<String,Integer>> myShareablePhotos;
+
+    static ArrayList<Pair<String,String>> myShareablePhotos;
+
+    static FriendGallery friendGall;
 
     @Exclude
     ArrayList<String> myFriends;
 
     public User() {
         //Initialize array lists
-        myShareablePhotos = new ArrayList<Pair<String, Integer>>();
+        myShareablePhotos = new ArrayList<Pair<String, String>>();
         myFriends = new ArrayList<String>();
         loggedIn = false;
+        friendGall = MainActivity.friendGall;
 
     }
 
@@ -79,21 +90,26 @@ public class User {
      * This method allows insertion of bitmaps to a specific user's shareable library of photos
      */
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Exclude
-    public void addPhotos(Photo[] photo, Context context)
+    public void addPhotos(Photo photo, Context context, long temp)
     {
-        /*String bitmap = encodeBitmap(photo.toBitmap(context.getContentResolver()));
-        Integer karma_value = 0;
-        Pair<String, Integer> insVal = new Pair(bitmap, karma_value);
-        myShareablePhotos.add(insVal);*/
+        String bitmap = encodeBitmap(photo.toBitmap(context.getContentResolver()));
+        Long karma_value = temp;
+        Pair<String, String> insVal = new Pair(bitmap, karma_value);
+        myShareablePhotos.add(insVal);
 
 
     }
+   // public ArrayList<Pair<String, Long>> getAL(){
+        //return myShareablePhotos;
+    //}
 
     @Exclude
-    public void setUriList( ArrayList<Pair<String,Integer>> shareablePhotos) {
+    public void setUriList( ArrayList<Pair<String,String>> shareablePhotos) {
         myShareablePhotos = shareablePhotos;
     }
+    //@RequiresApi(api = Build.VERSION_CODES.FROYO)
     public String encodeBitmap(Bitmap bmp)
     {
         //We compress the bitmap down to a string in order to store it efficiently on firebase
@@ -114,10 +130,11 @@ public class User {
      * This method allows retrieval of a user's shareable library of photos
      */
     @Exclude
-    public void addPhoto(Pair<String,Integer> toAdd) {
+    public void addPhoto(Pair<String,String> toAdd) {
         myShareablePhotos.add(toAdd);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public ArrayList<Pair<Bitmap, Integer>> getPhotos() {
 
         ArrayList<Pair<Bitmap, Integer>> bmap = new ArrayList<Pair<Bitmap, Integer>>();
@@ -125,7 +142,7 @@ public class User {
         for(int i = 0; i < myShareablePhotos.size(); i++)
         {
             Bitmap temp = decodeBitMap(myShareablePhotos.get(i).first);
-            Integer temp2 = myShareablePhotos.get(i).second;
+            String temp2 = myShareablePhotos.get(i).second;
             Pair<Bitmap, Integer> retVal = new Pair(temp, temp2);
             if(temp != null)
                 bmap.add(retVal);
@@ -138,6 +155,8 @@ public class User {
      *  Created by David Teng
      *  This method is decodes user's photos stored as compressed strings
      */
+
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public Bitmap decodeBitMap(String encodedString){
         try {
             byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
@@ -148,6 +167,59 @@ public class User {
             return null;
         }
     }
+
+    @Exclude
+    public void getFirebaseShareablePhoto() throws InterruptedException {
+        // Accesses database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myFirebaseRef = database.getReference();
+        DatabaseReference shareablePhotosRef = myFirebaseRef.child("users/" + this.getId() + "/myShareablePhotos");
+
+        //myShareablePhotos = new ArrayList<>();
+        // Loop through users in order with the forEach() method. The callback
+        // provided to forEach() will be called synchronously with a DataSnapshot
+        // for each child:
+        //final CountDownLatch latch = new CountDownLatch(1);
+        shareablePhotosRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    HashMap<String,Long> tempHash = (HashMap<String,Long>)snapshot.getValue();
+
+                    String tempURI = tempHash.get("first") + "";
+                    String tempKarma = tempHash.get("second") + "";
+                    Log.i("ShareableInListener", tempURI + " " + tempKarma);
+
+                    Pair<String,String> tempPair = new Pair<String,String>(tempURI, tempKarma);
+                    myShareablePhotos.add(tempPair);
+                    Log.i("ShareableInListener", "size: " + myShareablePhotos.size());
+                }
+                //latch.countDown();
+                //friendGall.fillQueue(myShareablePhotos); //THIS DOESNT WORK (Bitmap, String)
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // do nothing
+                //latch.countDown();
+            }
+        });
+
+        //latch.await();
+        // Force an update
+        //shareablePhotosRef.child("temp").setValue("temp");
+        //shareablePhotosRef.child("temp").removeValue();
+
+
+
+        //Log.i("ShareableBeforeRetun", "shareablephotos size: " + myShareablePhotos.size());
+        //for(int i = 0; i < myShareablePhotos.size(); i++){
+        //    Log.i("ShareableStored",myShareablePhotos.get(i).first + " " + myShareablePhotos.get(i).second);
+        //}
+
+        //return myShareablePhotos;
+    }
+
 
     @Exclude
     public void addFriend(String friendEmail){
@@ -239,7 +311,7 @@ public class User {
                 latch2.countDown();
             }
         });
-        latch.await();
+        latch2.await();
 
 
         Log.i("User", "Mutual friend check end");

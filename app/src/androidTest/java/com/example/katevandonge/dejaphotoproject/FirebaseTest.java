@@ -18,7 +18,8 @@ public class FirebaseTest {
     @Rule
     public ActivityTestRule<FriendActivity  > friendActivity = new ActivityTestRule<FriendActivity>(FriendActivity.class);
 
-    // Tests the method that keeps track of the user's location and the string of the address
+    // Tests if we can detect mutual friends
+    // Relies on database being set up
     @Test
     public void testMutualFriends() throws InterruptedException {
 
