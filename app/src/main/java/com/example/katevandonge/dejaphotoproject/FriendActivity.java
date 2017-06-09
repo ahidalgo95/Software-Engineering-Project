@@ -3,13 +3,14 @@ package com.example.katevandonge.dejaphotoproject;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,10 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import android.util.Pair;
 import android.widget.Toast;
 
 import java.net.URI;
+
 import java.util.ArrayList;
 
 /**
@@ -28,6 +31,7 @@ import java.util.ArrayList;
  */
 
 public class FriendActivity extends AppCompatActivity {
+
     User myUser;
 
     @Override
@@ -53,6 +57,7 @@ public class FriendActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please login / register", Toast.LENGTH_SHORT).show();
             return;
         }
+
         Log.i("FriendActivity", myUser.getId());
         EditText etEmail = (EditText) findViewById(R.id.UserEmailSearch);
         String friendEmail = etEmail.getText().toString();
@@ -68,12 +73,6 @@ public class FriendActivity extends AppCompatActivity {
 
         ArrayList<String> userFriendList = myUser.getFriends();
         Log.i("FriendActivity", ""+userFriendList.size());
-        /*for(int i = 0; i < userFriendList.size(); i++)
-        {
-            myFriendsRef.child(friendEmail.substring(0,friendEmail.length()-10)).setValue(friendEmail);
-
-            myFriendsRef.child(userFriendList.get(i).substring(0,userFriendList.get(i).length()-10)).setValue(userFriendList.get(i));
-        }*/
 
         myFriendsRef.child(friendEmail.replaceAll("\\.","_")).setValue(friendEmail);
 
@@ -90,17 +89,17 @@ public class FriendActivity extends AppCompatActivity {
         String password = etName.getText().toString();
         String email = etEmail.getText().toString();
 
-        // TODO test
-        Pair<String, Integer> temp = new Pair("testphoto", 5);
-        Uri test = Uri.parse("http://www.google.com");
 
         // Create new user / login
         myUser = new User();
         myUser.setPassword(password);
         myUser.setEmail(email);
 
-        // TODO test
-        myUser.addPhoto(temp);
+        // Tests firebase with dummy photo
+        Uri test = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Photo temp = new Photo(getApplicationContext());
+        temp.setUri(test);
+        myUser.addPhotos(temp, getApplicationContext());
 
 
         // Accesses database
@@ -109,6 +108,7 @@ public class FriendActivity extends AppCompatActivity {
         DatabaseReference userRef = myFirebaseRef.child("users");
 
         Log.i("FriendActivity", myUser.getId());
+
 
         // Catches if the user already exists, if so, log in
         userRef.child(myUser.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -173,6 +173,7 @@ public class FriendActivity extends AppCompatActivity {
         Intent output = new Intent();
         setResult(RESULT_OK, output);
     }
+
 
 
 }
