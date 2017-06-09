@@ -65,7 +65,7 @@ public class CustomLocation extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Log.v("in on click", "hi");
-                Wall.photoArr[ii].locName = editText.getText().toString();
+                Wall.photoArr[curr].locName = editText.getText().toString();
                 //Wall.photoArr[curr].locName = editText.getText().toString();
                 Log.v("custom", editText.getText().toString());
             }
@@ -115,7 +115,7 @@ public class CustomLocation extends AppCompatActivity {
                     for(int i=0; i<Wall.photoArr.length; i++) {
                         if (Wall.photoArr[i].photouri.equals(uri)) {
                             Log.v("custom location", "URI matchh");
-                            ii=i;
+                            curr=i;
                             //Wall.photoArr[i].locName = editText.getText().toString();
                             Log.v("custom", editText.getText().toString());
                             break;
