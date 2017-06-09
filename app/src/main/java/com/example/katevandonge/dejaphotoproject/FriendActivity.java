@@ -99,7 +99,7 @@ public class FriendActivity extends AppCompatActivity {
         Uri test = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         Photo temp = new Photo(getApplicationContext());
         temp.setUri(test);
-        myUser.addPhotos(temp, getApplicationContext());
+        //myUser.addPhotos(temp, getApplicationContext());
 
 
         // Accesses database
