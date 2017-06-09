@@ -149,7 +149,7 @@ public class MasterGallery {
     public void addCamera(){
         Log.v("add camera", "add");
         MainActivity.djpGallery.queryTakenPhotos();
-        djSet = MainActivity.djpGallery.returnQ();
+        djSet = MainActivity.djpGallery.getPQ();
         while(djSet.size() > 0) {
             Photo curr = djSet.poll();
             MasterQueue.add(curr);
