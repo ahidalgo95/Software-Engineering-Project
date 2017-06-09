@@ -55,7 +55,9 @@ public class MasterGallery {
             newQCopied = convertToPQ(1);
             newQCamera = convertToPQ(2);
             newQFriends = convertToPQ(3);
-            newQCopied.add(CopiedGallery.mostRecent);
+            if(CopiedGallery.mostRecent!=null) {
+                newQCopied.add(CopiedGallery.mostRecent);
+            }
             MainActivity.dpcopied.copiedQueue = newQCopied;
             //set cam
             //set friends

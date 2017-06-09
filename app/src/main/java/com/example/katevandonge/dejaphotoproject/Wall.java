@@ -42,8 +42,6 @@ public class Wall extends Activity {
     static int Qsize;                          //size of pqueue
     static int Rsize;
 
-
-
     /*
     * Constructor for our Wall object.
     * */
