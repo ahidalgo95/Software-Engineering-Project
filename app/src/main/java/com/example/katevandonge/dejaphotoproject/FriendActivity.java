@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FriendActivity extends AppCompatActivity {
 
-    User myUser;
+    User myUser;    // class variable to manipulate
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,10 @@ public class FriendActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Initialize user
         myUser = new User();
 
+        // Set button to go back to main menu
         Button switchScreen= (Button) findViewById(R.id.FriendBack);
         switchScreen.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -56,30 +58,40 @@ public class FriendActivity extends AppCompatActivity {
         });
     }
 
+    /*  Add friend to myUser on Firebase
+     *
+     */
     public void addFriend(View button) throws InterruptedException {
+        // Check if user is logged in, else do nothing
         if( !myUser.isLoggedIn()){
             Toast.makeText(getApplicationContext(), "Please login / register", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Log.i("FriendActivity", myUser.getId());
+
+        // Get the email of the user we want to add
         EditText etEmail = (EditText) findViewById(R.id.UserEmailSearch);
         String friendEmail = etEmail.getText().toString();
 
-
+        // Connect to firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myFirebaseRef = database.getReference();
+
+        // Go to the users directory
         DatabaseReference userRef = myFirebaseRef.child("users/"+myUser.getId());
-
-        //myUser.addFriend(friendEmail);
-
+        // Go to this myUser's friend directory
         DatabaseReference myFriendsRef = userRef.child("myFriends");
 
+        // Testing user friends size is correct
         ArrayList<String> userFriendList = myUser.getFriends();
         Log.i("FriendActivity", ""+userFriendList.size());
 
+        // Add the friends email to user's list of friends
         myFriendsRef.child(friendEmail.replaceAll("\\.","_")).setValue(friendEmail);
 
+
+        // Dummy user to test Firebase functionality
         User testPhoto = new User();
         testPhoto.setEmail("phototest@gmail.com");
 
@@ -88,6 +100,9 @@ public class FriendActivity extends AppCompatActivity {
 
     }
 
+    /*  Registers a user if they don't exist yet, or logs in if they do
+     *
+     */
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public void submit(View button) {
 
@@ -136,6 +151,7 @@ public class FriendActivity extends AppCompatActivity {
                                 myUser.setLoggedIn(true);
                                 Toast.makeText(getApplicationContext(), "User already exists! Logging in...", Toast.LENGTH_SHORT).show();
                             }
+                            // Else do nothing and inform user
                             else{
                                 myUser.setLoggedIn(false);
                                 Toast.makeText(getApplicationContext(), "Wrong password!", Toast.LENGTH_SHORT).show();
@@ -144,7 +160,7 @@ public class FriendActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
+                            // do nothing
                         }
                     });
 
@@ -157,6 +173,7 @@ public class FriendActivity extends AppCompatActivity {
                     DatabaseReference userRef = myFirebaseRef.child("users");
                     userRef.child(myUser.getId()).setValue(myUser);
 
+                    // Set the user to be logged in
                     myUser.setLoggedIn(true);
 
 
@@ -171,7 +188,6 @@ public class FriendActivity extends AppCompatActivity {
                 // do nothing
             }
         });
-
 
         Intent output = new Intent();
         setResult(RESULT_OK, output);

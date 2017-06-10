@@ -42,46 +42,63 @@ import java.util.concurrent.TimeUnit;
  * Created by Peter on 5/28/2017.
  */
 
-public class User extends AppCompatActivity {
+public class User{
 
-    public String myPassword;
-    public String myEmail;
-
-    @Exclude
-    boolean isMutualFriend;
-
-    @Exclude
-    boolean loggedIn;
-
-    static ArrayList<Pair<String,String>> myShareablePhotos;
+    // Firebase stores this info
+    public String myPassword;   // this user's password
+    public String myEmail;      // this user's email
+    static ArrayList<Pair<String,String>> myShareablePhotos;  // this user's shareable photos
 
     @Exclude
-    static FriendGallery friendGall;
+    boolean isMutualFriend;     // used to check if two users are mutual friends
 
     @Exclude
-    static ArrayList<Pair<Bitmap, String>> myBitmaps;
+    boolean loggedIn;           // used to check if user logged in with correct password
 
     @Exclude
-    ArrayList<String> myFriends;
+    static FriendGallery friendGall; // stores friend's gallery
 
+    @Exclude
+    static ArrayList<Pair<Bitmap, String>> myBitmaps;   // bitmaps of this user's photos
+
+    @Exclude
+    ArrayList<String> myFriends;        // stores this user's friends
+
+    /*
+     *  Default constructor
+     */
     public User() {
-        //Initialize array lists
-        myShareablePhotos = new ArrayList<Pair<String, String>>();
-        myFriends = new ArrayList<String>();
+        //Initialize field variables
+        myShareablePhotos = new ArrayList<>();
+        myBitmaps = new ArrayList<>();
+        myFriends = new ArrayList<>();
         loggedIn = false;
         friendGall = MainActivity.friendGall;
 
     }
 
-
+    /*
+     * Set user password for testability
+     */
     @Exclude
     public void setPassword(String password){
         myPassword = password;
     }
 
+    /*
+     * Set user email for testability
+     */
     @Exclude
     public void setEmail(String email) {
         myEmail = email;
+    }
+
+    /*
+     * Set user sharable photos for testability
+     */
+    @Exclude
+    public void setShareablePhotos( ArrayList<Pair<String,String>> shareablePhotos) {
+        myShareablePhotos = shareablePhotos;
     }
 
 
@@ -113,15 +130,13 @@ public class User extends AppCompatActivity {
         }
         userRef.setValue(myShareablePhotos);
     }
-   // public ArrayList<Pair<String, Long>> getAL(){
-        //return myShareablePhotos;
-    //}
 
+
+
+    /*
+     * Encodes the bitmap to store on firebase
+     */
     @Exclude
-    public void setUriList( ArrayList<Pair<String,String>> shareablePhotos) {
-        myShareablePhotos = shareablePhotos;
-    }
-    //@RequiresApi(api = Build.VERSION_CODES.FROYO)
     public String encodeBitmap(Bitmap bmp)
     {
         //We compress the bitmap down to a string in order to store it efficiently on firebase
@@ -146,6 +161,10 @@ public class User extends AppCompatActivity {
         myShareablePhotos.add(toAdd);
     }
 
+    /*
+     * Converts shareable photos into bitmaps
+     */
+    @Exclude
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public ArrayList<Pair<Bitmap, Integer>> getPhotos() {
 
@@ -168,6 +187,7 @@ public class User extends AppCompatActivity {
      *  This method is decodes user's photos stored as compressed strings
      */
 
+    @Exclude
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public Bitmap decodeBitMap(String encodedString){
         try {
@@ -180,7 +200,9 @@ public class User extends AppCompatActivity {
         }
     }
 
-
+    /*
+     *  Gets this user's friends on firebase
+     */
     @Exclude
     public ArrayList<String> getFirebaseFriends(){
         // Initialize myBitmaps
@@ -206,6 +228,7 @@ public class User extends AppCompatActivity {
 
                     Log.i("ShareableInListener", tempFormattedFriend);
 
+                    // Add to array list
                     myFriends.add(tempFormattedFriend);
                     Log.i("ShareableInListener", "FriendsSize: " +  myFriends.size());
                 }
@@ -218,6 +241,10 @@ public class User extends AppCompatActivity {
         });
         return myFriends;
     }
+
+    /*
+     *  Get this user's shareable phots
+     */
     @Exclude
     public void getFirebaseShareablePhoto() throws InterruptedException {
         // Initialize myBitmaps
@@ -236,20 +263,30 @@ public class User extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Gets this child's value
                     HashMap<String,Long> tempHash = (HashMap<String,Long>)snapshot.getValue();
 
+                    // Gets the two pieces from Firebase
                     String tempStringBitmap = tempHash.get("first") + "";
-                    String tempKarma = tempHash.get("second") + "";
-                    Log.i("ShareableInListener", tempStringBitmap + " " + tempKarma);
+                    String tempMetadata = tempHash.get("second") + "";
+                    Log.i("ShareableInListener", tempStringBitmap + " " + tempMetadata);
 
+                    // Decodes the bitmap we got
                     Bitmap tempBitmap = decodeBitMap(tempStringBitmap);
 
-                    Pair<Bitmap,String> tempPair = new Pair<Bitmap, String>(tempBitmap, tempKarma);
+                    // Create pair to add to bitmaps
+                    Pair<Bitmap,String> tempPair = new Pair<Bitmap, String>(tempBitmap, tempMetadata);
                     myBitmaps.add(tempPair);
-                    Log.i("ShareableInListener", "shareablesize: " + myBitmaps .size());
+
+                    // Test and ensure things are being added
+                    Log.i("ShareableInListener", "shareablesize: " + myBitmaps.size());
                 }
+
+                // Test final size
                 Log.i("ShareableInListener", "BitmapSize " + myBitmaps.size());
-                friendGall.fillQueue(myBitmaps); //THIS DOESNT WORK (Bitmap, String)
+
+                // Add the bitmaps to friend's gallery for usability
+                friendGall.fillQueue(myBitmaps);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -260,17 +297,34 @@ public class User extends AppCompatActivity {
     }
 
 
+    /*
+     * Add friend for testability
+     */
     @Exclude
     public void addFriend(String friendEmail){
         myFriends.add(friendEmail);
     }
 
+    /*
+     *  Get user's email for testability
+     */
     @Exclude
-    public String getEmail(){return myEmail;}
+    public String getEmail(){
+        return myEmail;
+    }
 
+    /*
+     * Get this user's password for testability
+     */
     @Exclude
-    public String getName(){return myPassword;}
+    public String getPassword(){
+        return myPassword;
+    }
 
+
+    /*
+     * Access this user's friends for testability
+     */
     @Exclude
     public ArrayList<String> getFriends(){
         return myFriends;
@@ -278,15 +332,20 @@ public class User extends AppCompatActivity {
 
     @Exclude
     public String getId(){
-        //return myEmail.substring(0,myEmail.length()-10);
         return myEmail.replaceAll("\\.", "_");
     }
 
+    /*
+     * Get the current amount of friends this user has
+     */
     @Exclude
     public int getFriendIndex(){
         return myFriends.size();
     }
 
+    /*
+     * Checks if this user and the "friend" passed in are mutual friends
+     */
     @Exclude
     public boolean checkMutualFriends(User friend) throws InterruptedException {
         // Accesses database
@@ -295,6 +354,7 @@ public class User extends AppCompatActivity {
         DatabaseReference userRef = myFirebaseRef.child("users/" + this.getId() + "/myFriends");
 
 
+        // Countdown latch ensures data is checked before continuing
         final CountDownLatch latch = new CountDownLatch(1);
         // Check friends
         userRef.child(friend.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -322,8 +382,8 @@ public class User extends AppCompatActivity {
         });
         latch.await();
 
-        userRef = myFirebaseRef.child("users/" + friend.getId() + "/myFriends");
 
+        userRef = myFirebaseRef.child("users/" + friend.getId() + "/myFriends");
 
         final CountDownLatch latch2 = new CountDownLatch(1);
         // Check if friend has user as friend
