@@ -31,7 +31,7 @@ public class MasterGallery {
     PriorityQueue<Photo> newQCamera;
     PriorityQueue<Photo> newQFriends;
     Context context;
-    Photo myArr[];
+    static ArrayList<Photo> myArr;
     Photo sharedPhotos[];
 
 
@@ -41,6 +41,7 @@ public class MasterGallery {
         //copied = new CopiedGallery();
         photoComparator= new PhotoComparator();
         countRuns = 0;
+        myArr = new ArrayList<Photo>();
         Log.v("master", "constructor");
         MasterQueue = new PriorityQueue<Photo>(photoComparator);
         //MasterQueueCopy = new PriorityQueue<Photo>(photoComparator);
@@ -118,13 +119,13 @@ public class MasterGallery {
     public void createSharedArray(){
         MasterShared = new PriorityQueue<Photo>(MasterQueue);
         sharedPhotos = new Photo[MasterShared.size()];
-        int i=0;
+        //int i=0;
         Photo pic;
         while(MasterShared.size() != 0){
             pic = MasterShared.poll(); //poll photo from queue
-            myArr[i] = pic;
-            MasterShared.add(pic);
-            i++;
+            myArr.add(pic);
+            //MasterShared.add(pic);
+           // i++;
         }
         return;
 
@@ -133,11 +134,11 @@ public class MasterGallery {
 
     public void convertToArray(PriorityQueue<Photo> polledPQ){
         Photo polled;
-        myArr = new Photo[polledPQ.size()];
+        //myArr = new Photo[polledPQ.size()];
         int i=0;
         while(polledPQ.size() != 0){
             polled = polledPQ.poll(); //poll photo from queue
-            myArr[i] = polled;
+            myArr.add(polled);
             Log.v("in here", "filling arr");
             //Wall.photoArr[i]=polled; //add photo to array
             //MasterQueue.add(polled);
@@ -154,6 +155,10 @@ public class MasterGallery {
             Photo curr = djSet.poll();
             MasterQueue.add(curr);
         }
+
+    }
+
+    public void addFriends(){
 
     }
 

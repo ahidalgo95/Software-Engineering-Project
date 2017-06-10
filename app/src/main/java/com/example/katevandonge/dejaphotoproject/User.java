@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Peter on 5/28/2017.
  */
 
-public class User extends AppCompatActivity {
+public class User {
 
     public String myPassword;
     public String myEmail;
@@ -137,14 +137,7 @@ public class User extends AppCompatActivity {
         return imageFile;
     }
 
-    /**
-     * Created by David Teng
-     * This method allows retrieval of a user's shareable library of photos
-     */
-    @Exclude
-    public void addPhoto(Pair<String,String> toAdd) {
-        myShareablePhotos.add(toAdd);
-    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public ArrayList<Pair<Bitmap, Integer>> getPhotos() {
