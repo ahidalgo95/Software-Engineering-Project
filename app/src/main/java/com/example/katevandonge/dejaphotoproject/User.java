@@ -42,7 +42,9 @@ import java.util.concurrent.TimeUnit;
  * Created by Peter on 5/28/2017.
  */
 
-public class User{
+
+public class User {
+
 
     // Firebase stores this info
     public String myPassword;   // this user's password
@@ -116,6 +118,7 @@ public class User{
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myFirebaseRef = database.getReference();
         DatabaseReference userRef = myFirebaseRef.child("users/" + this.getId() + "/myShareablePhotos");
+        DatabaseReference deletePhoto = myFirebaseRef.child("users/" + this.getId());
 
 
         for(int i = 0; i < photo.length; i++) {
@@ -128,7 +131,12 @@ public class User{
             Pair<String, String> insVal = new Pair(bitmap, metadata);
             myShareablePhotos.add(insVal);
         }
-        userRef.setValue(myShareablePhotos);
+        if(photo.length == 0) {
+            userRef.setValue(null);
+        }
+        else {
+            userRef.setValue(myShareablePhotos);
+        }
     }
 
 
@@ -152,14 +160,7 @@ public class User{
         return imageFile;
     }
 
-    /**
-     * Created by David Teng
-     * This method allows retrieval of a user's shareable library of photos
-     */
-    @Exclude
-    public void addPhoto(Pair<String,String> toAdd) {
-        myShareablePhotos.add(toAdd);
-    }
+
 
     /*
      * Converts shareable photos into bitmaps

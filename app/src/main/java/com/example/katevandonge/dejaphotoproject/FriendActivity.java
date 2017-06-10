@@ -117,7 +117,8 @@ public class FriendActivity extends AppCompatActivity {
         myUser = new User();
         myUser.setPassword(password);
         myUser.setEmail(email);
-
+        MainActivity.currUser.setEmail(email);
+        Log.i("curruser", MainActivity.currUser.getEmail());
 
 
         // Accesses database

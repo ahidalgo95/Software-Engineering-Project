@@ -21,7 +21,7 @@ public class PhotoJUnitTest {
     public void constructorTest(){
         Context contxt = mainActivity.getActivity().getApplicationContext();
         Photo testPhoto = new Photo(contxt);
-        assertEquals(testPhoto.karma, false);
+        assertEquals(testPhoto.karma, 0);
         assertEquals(testPhoto.shown, false);
         assertEquals(testPhoto.release, false);
         assertEquals(testPhoto.context1, contxt);

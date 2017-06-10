@@ -214,7 +214,7 @@ public class NewAppWidget extends AppWidgetProvider {
     public void mover(Context context){
         WallpaperManager myWall = Wall.myWall;
         Photo[] wallArr = Wall.photoArr;
-        String wall = "" + wallArr.length;
+//        String wall = "" + wallArr.length;
         //Log.v(wall, wall);
         int wallArrSize = wallArr.length;
         int counter = Wall.counter;

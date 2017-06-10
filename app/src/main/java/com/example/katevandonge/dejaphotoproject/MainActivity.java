@@ -29,6 +29,7 @@ import android.util.Log;
 
 import com.google.android.gms.location.LocationListener;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -77,11 +78,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         ContentResolver conR = getApplicationContext().getContentResolver();
 
 
-        //list of photos from the Gallery class
+        //make all galleries here, including master
         friendGall = new FriendGallery(context);
         list = new Gallery(context);
         dpcopied = new CopiedGallery();
+        djpGallery = new DejaPhotoGallery(getApplicationContext());
         master = new MasterGallery(context);
+
+
         currUser = new User();
         currUser.setEmail("katemvd@gmail.com");
         currUser.setPassword("password");
@@ -133,7 +137,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         changeFriendMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                friendModeChange(view);
+                try {
+                    friendModeChange(view);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -190,9 +198,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
         int listSize= list.queryGallery(conR); //queries photo uris
 
-        djpGallery = new DejaPhotoGallery(getApplicationContext());
-
-
 
 
 
@@ -246,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     public void launchFriendActivity(){
         Intent intent = new Intent(this, FriendActivity.class);
         startActivity(intent);
+        //Log.i("curr user is", currUser.getEmail());
     }
 
     public void launchCustomActivity(){
@@ -293,6 +299,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      */
     public void sharingChange(View view){ //tested and works!
         sharingMode = !sharingMode;
+        if(sharingMode == true) {
+            int size = MasterGallery.myArr.size();
+            Photo [] temp = MasterGallery.myArr.toArray(new Photo[size]);
+            currUser.addPhotos(temp, getApplicationContext());
+        }
+        else{
+            Log.i("SHARING MODE", "OFF");
+            Photo [] empty = new Photo [0];
+            currUser.addPhotos(empty, getApplicationContext());
+        }
     }
 
     /**
@@ -300,8 +316,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      * photos or their friends' as the background
      * @param view
      */
-    public void friendModeChange(View view){
+    public void friendModeChange(View view) throws InterruptedException {
         friendMode = !friendMode;
+        ArrayList<String> friendArr = currUser.getFirebaseFriends();
+        User temp = new User();
+        for(int i = 0; i<friendArr.size(); i++){
+            temp.setEmail(friendArr.get(i));
+            if(currUser.checkMutualFriends(temp)){
+                temp.getFirebaseShareablePhoto();
+            }
+        }
         master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 

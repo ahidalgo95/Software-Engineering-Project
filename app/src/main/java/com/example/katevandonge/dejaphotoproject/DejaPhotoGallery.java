@@ -80,6 +80,7 @@ public class DejaPhotoGallery implements GalleriesInterface{
             photo.ogAlbum = 2;
             date = System.currentTimeMillis();
             photo.setDate(date);
+            photo.locScreenHelper();
             photo.setWeight();
             djQueue.add(photo);
             counter++;
