@@ -12,7 +12,7 @@ import java.io.File;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for DejaPhotoGallery class.
+ * Tests for DejaPhoto class.
  */
 
 public class DejaPhotoGalleryTest {
@@ -22,7 +22,7 @@ public class DejaPhotoGalleryTest {
     @Test
     public void testConstructor(){
         Context context= mainActivity.getActivity().getApplicationContext();
-        DejaPhotoGallery gallery= new DejaPhotoGallery(context);
+        DejaPhoto gallery= new DejaPhoto(context);
         assertEquals(gallery.size, 0);
         assertEquals(gallery.queryCall, 0);
         assertEquals(gallery.counter, 0);
@@ -32,7 +32,7 @@ public class DejaPhotoGalleryTest {
     @Test
     public void testQueryTakenPhotos(){
         Context context= mainActivity.getActivity().getApplicationContext();
-        DejaPhotoGallery gallery= new DejaPhotoGallery(context);
+        DejaPhoto gallery= new DejaPhoto(context);
         gallery.queryTakenPhotos();
         File fileDir = new File(Environment.getExternalStorageDirectory()+File.separator+".privPhotos");
         File [] files = fileDir.listFiles();
@@ -44,7 +44,7 @@ public class DejaPhotoGalleryTest {
     @Test
     public void testReturnPQ(){
         Context context= mainActivity.getActivity().getApplicationContext();
-        DejaPhotoGallery gallery= new DejaPhotoGallery(context);
+        DejaPhoto gallery= new DejaPhoto(context);
         Photo p= new Photo(context);
         gallery.djQueue.add(p);
         assertEquals(gallery.getPQ().size(), 1);

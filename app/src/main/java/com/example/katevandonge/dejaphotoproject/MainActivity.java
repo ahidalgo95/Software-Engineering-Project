@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -48,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     static Intent intentAlpha;
     static Gallery list;
     static MasterGallery master;
-    static CopiedGallery dpcopied;
-    static DejaPhotoGallery djpGallery;
+    static DejaPhotoCopied dpcopied;
+    static DejaPhoto djpGallery;
     static Wall wally;
     static User currUser;
     WallpaperManager myWall;
@@ -81,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         //make all galleries here, including master
         friendGall = new FriendGallery(context);
         list = new Gallery(context);
-        dpcopied = new CopiedGallery();
-        djpGallery = new DejaPhotoGallery(getApplicationContext());
+        dpcopied = new DejaPhotoCopied();
+        djpGallery = new DejaPhoto(getApplicationContext());
         master = new MasterGallery(context);
 
 
@@ -228,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     }
 
     public void launchScrollingActivity(){
-        Intent intent = new Intent(this, ScrollingActivity.class);
+        Intent intent = new Intent(this, PhotoPicker.class);
         intent.putExtra("kate", "myString");
         startActivityForResult(intent, 1);
     }

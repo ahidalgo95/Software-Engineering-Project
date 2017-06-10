@@ -2,15 +2,11 @@ package com.example.katevandonge.dejaphotoproject;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.Properties;
-
-import static com.example.katevandonge.dejaphotoproject.CopiedGallery.copiedQueue;
 
 
 /*
@@ -65,8 +61,8 @@ public class MasterGallery {
             Log.v("Master Q size should be 3? maybe", info222);
             if(newQCopied.size()!=0) {
                 int sizeOfCopQ = MainActivity.dpcopied.copiedQueue.size();
-                if ((CopiedGallery.mostRecent != null) && (newQCopied.size() != sizeOfCopQ)) {
-                    newQCopied.add(CopiedGallery.mostRecent);
+                if ((DejaPhotoCopied.mostRecent != null) && (newQCopied.size() != sizeOfCopQ)) {
+                    newQCopied.add(DejaPhotoCopied.mostRecent);
                 }
                 MainActivity.dpcopied.copiedQueue.clear();
                 MainActivity.dpcopied.copiedQueue = newQCopied;

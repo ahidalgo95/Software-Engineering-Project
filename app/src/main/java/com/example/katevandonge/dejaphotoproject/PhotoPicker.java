@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class PhotoPicker extends AppCompatActivity {
 
     private static final int SELECTED_PIC =1;
     ImageView imageView;
@@ -79,7 +79,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //startActivity(intentChi);
                     //this.finish();
 
-                    //CopiedGallery.addPhoto(uri);
+                    //DejaPhotoCopied.addPhoto(uri);
                     /*for(int i=0; i<Wall.photoArr.length; i++){
                         Log.v("Scrolling", "In the for");
                         if(Wall.photoArr[i].photouri.equals(uri)){
