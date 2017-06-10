@@ -25,6 +25,8 @@ public class FriendGallery {
 
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> friendQueue;
+    static PriorityQueue<Photo> friendQueueCopy;
+    static ArrayList<String> friendList;
     Context context;
 
     /*
@@ -38,6 +40,16 @@ public class FriendGallery {
         friendQueue = new PriorityQueue<Photo>(photoComparator);
     }
 
+    /*
+   * Method to return the helper queue.
+   * return: PriorityQueue
+   * */
+    public PriorityQueue<Photo> getPQ(){
+        Log.v("copied gallery", "called copiedgall to get PQ");
+        friendQueueCopy = new  PriorityQueue<Photo>(friendQueue);
+        Log.i("FRIEND Q SIZE",""+friendQueue.size());
+        return friendQueueCopy;
+    }
 
     /*
     * Fills the friendQueue with Photo objects given input of an arrayList of pairs.
@@ -50,8 +62,13 @@ public class FriendGallery {
             bitmap= photoArray.get(i).first;
             photoInfo = photoArray.get(i).second;
             friendQueue.add(parseToPhoto(bitmap, photoInfo));
+            MasterGallery.friendSet.add(parseToPhoto(bitmap, photoInfo));
             Log.i("fillQueue", "added to friendQueue"+ i);
+
         }
+        Log.i("friendGall", ""+MasterGallery.friendSet.size());
+        MasterGallery.restOfFriends();
+        MasterGallery.updateHack();
     }
 
 

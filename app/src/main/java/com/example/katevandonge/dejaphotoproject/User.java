@@ -35,6 +35,7 @@ import com.google.firebase.storage.*;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -65,6 +66,8 @@ public class User {
 
     @Exclude
     ArrayList<String> myFriends;        // stores this user's friends
+
+    static PriorityQueue<Photo> userFriendGall;
 
     /*
      *  Default constructor
@@ -123,7 +126,7 @@ public class User {
 
         for(int i = 0; i < photo.length; i++) {
             String bitmap = encodeBitmap(photo[i].toBitmap(context.getContentResolver()));
-
+            Log.i("BITMAP STRING"+i," "+bitmap);
             //KARMA , LOCATION NAME, LATITUDE, LONGITUDE, DATE, DAYOFWEEK, TIME
             String metadata= photo[i].karma + "@" + photo[i].locName + "@"+ photo[i].latitude + "@" + photo[i].longitude+ "@" +
                     photo[i].date + "@" + photo[i].dayOfWeek + "@" + photo[i].time;
@@ -148,14 +151,14 @@ public class User {
     public String encodeBitmap(Bitmap bmp)
     {
         //We compress the bitmap down to a string in order to store it efficiently on firebase
-        if(bmp == null)
-            return "";
+      //  if(bmp == null)
+      //      return "";
 
         ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, bYtE);
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
         bmp.recycle();
         byte[] byteArray = bYtE.toByteArray();
-        String imageFile = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String imageFile = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 
         return imageFile;
     }
@@ -192,7 +195,7 @@ public class User {
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public Bitmap decodeBitMap(String encodedString){
         try {
-            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            byte [] encodeByte=Base64.decode(encodedString,Base64.NO_WRAP);
             Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
         } catch(Exception e) {
@@ -234,12 +237,31 @@ public class User {
                     Log.i("ShareableInListener", "FriendsSize: " +  myFriends.size());
                 }
                 Log.i("ShareableInListener", "FriendsFinalSize: " + myFriends.size());
+                User temp = new User();
+                for(int i=0; i<myFriends.size(); i++) {
+                    temp.setEmail(myFriends.get(i));
+                    Log.i("FRIEND EMAIL", temp.getEmail());
+                    try {
+                        Log.v("USER", "try");
+                        //if (MainActivity.currUser.checkMutualFriends(temp)) {
+                            Log.v("USER", "check mutal");
+                            temp.getFirebaseShareablePhoto();
+                       // }
+                    } catch (InterruptedException e) {
+                        Log.v("USER", "catch");
+                        e.printStackTrace();
+                    }
+                }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // do nothing
             }
         });
+        //friendGall.friendList = myFriends;
+
+
         return myFriends;
     }
 
@@ -265,12 +287,14 @@ public class User {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     // Gets this child's value
-                    HashMap<String,Long> tempHash = (HashMap<String,Long>)snapshot.getValue();
+                    HashMap<String,String> tempHash = (HashMap<String,String>)snapshot.getValue();
 
                     // Gets the two pieces from Firebase
                     String tempStringBitmap = tempHash.get("first") + "";
                     String tempMetadata = tempHash.get("second") + "";
-                    Log.i("ShareableInListener", tempStringBitmap + " " + tempMetadata);
+                    //Log.i("ShareableInListener", tempStringBitmap + " " + tempMetadata);
+
+                    tempStringBitmap = tempStringBitmap.replaceAll("\n", "").replaceAll(" ", "").replaceAll("\r","");
 
                     // Decodes the bitmap we got
                     Bitmap tempBitmap = decodeBitMap(tempStringBitmap);
@@ -287,7 +311,9 @@ public class User {
                 Log.i("ShareableInListener", "BitmapSize " + myBitmaps.size());
 
                 // Add the bitmaps to friend's gallery for usability
-                friendGall.fillQueue(myBitmaps);
+                MainActivity.friendGall.fillQueue(myBitmaps);
+                Log.i("FRIEND QUEUE SIZE"," "+MainActivity.friendGall.friendQueue.size());
+                userFriendGall = new PriorityQueue<Photo>(friendGall.friendQueue);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

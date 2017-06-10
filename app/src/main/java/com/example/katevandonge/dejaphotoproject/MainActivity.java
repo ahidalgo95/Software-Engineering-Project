@@ -121,7 +121,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         changeCameraMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cameraChange(view);
+                try {
+                    cameraChange(view);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -129,7 +133,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         changeCopiedMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                copiedChange(view);
+                try {
+                    copiedChange(view);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -318,25 +326,32 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      */
     public void friendModeChange(View view) throws InterruptedException {
         friendMode = !friendMode;
-        ArrayList<String> friendArr = currUser.getFirebaseFriends();
+        /*ArrayList<String> friendArr = currUser.getFirebaseFriends();
         User temp = new User();
+        Log.i("CURRENT USER",currUser.getEmail());
+        Log.i("NUM OF FRIENDS", ""+friendArr.size());
         for(int i = 0; i<friendArr.size(); i++){
             temp.setEmail(friendArr.get(i));
+            Log.i("FRIEND EMAIL",temp.getEmail());
             if(currUser.checkMutualFriends(temp)){
                 temp.getFirebaseShareablePhoto();
             }
-        }
+        }*/
+        //User temp = new User();
+        //currUser.setEmail("hello@gmail_com");
+        //currUser.getFirebaseShareablePhoto();
+        //master.addFriends();
         master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
-    public void cameraChange(View view){
+    public void cameraChange(View view) throws InterruptedException {
         Log.i("CAMERA CHANGED","");
         cameraMode = !cameraMode;
         Log.i("cam mode",""+cameraMode);
         master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
-    public void copiedChange(View view){
+    public void copiedChange(View view) throws InterruptedException {
         Log.i("COPY MODE CHANGED","");
         copiedMode = !copiedMode;
         Log.i("copy mode",""+copiedMode);
