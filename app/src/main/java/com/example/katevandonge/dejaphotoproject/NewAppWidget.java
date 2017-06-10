@@ -127,6 +127,7 @@ public class NewAppWidget extends AppWidgetProvider {
             //Photo thisPhoto = wallArr[counter];
             wallArr[counter].karma++;
             wallArr[counter].weight++;
+            //karmaDraw(wallArr[counter], Wall.myWall, context);
         }
 
         //RELEASE BUTTON
@@ -147,9 +148,7 @@ public class NewAppWidget extends AppWidgetProvider {
         //NEXT BUTTON
         if (intentKarma.getAction().equals(NewAppWidget.WIDGET_NEXT)) {
             //Calls mover method to iterate through photo array
-            Log.v("widget", "Next called");
             if(intentKarma.getExtras().getString("From").equals("button")){
-                Log.v("widget", "from button");
                 MainActivity.context.stopService(MainActivity.intentAlpha);
                 MainActivity.context.startService(MainActivity.intentAlpha);
             }
@@ -300,9 +299,11 @@ public class NewAppWidget extends AppWidgetProvider {
             bm = Bitmap.createScaledBitmap(bm, resWidth, resHeight, true);
             String karmaNum = Integer.toString(picToSet.karma);
             Bitmap newBm = writeCanvas(locDisplay, karmaNum, bm);
+
+            //Bitmap newBm = karmaDraw(locDisplay, picToSet, bm, myWall);
             myWall.setBitmap(newBm);
         } catch (IOException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
         Wall.counter = counter;
 
@@ -334,5 +335,30 @@ public class NewAppWidget extends AppWidgetProvider {
         resWidth = screen.x;
         resHeight = screen.y;
     }
+
+    /**
+     * COMMENTED OUT BECAUSE SLOWS DOWN
+     * Write the karma onto the canvas
+     * @param picToSet
+     * @param myWall
+     * @param context
+
+    public void karmaDraw(Photo picToSet, WallpaperManager myWall, Context context) {
+        String locDisplay = picToSet.locName;
+        Bitmap bm = picToSet.toBitmap(context.getContentResolver());
+        setResolution(context);
+        bm = Bitmap.createScaledBitmap(bm, resWidth, resHeight, true);
+        String karmaNum = Integer.toString(picToSet.karma);
+        Bitmap newBm = writeCanvas(locDisplay, karmaNum, bm);
+        try {
+            myWall.setBitmap(newBm);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    */
+
+
 }
 
