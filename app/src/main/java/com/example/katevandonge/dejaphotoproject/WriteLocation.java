@@ -40,7 +40,7 @@ public class WriteLocation {
             // making url request
             try {
                     URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng="
-                            + lat + "," + lon + "&key=AIzaSyBw4dHwwILCiH4RzSuYRzBD8UNp9NXh508");
+                            + lat + "," + lon + "&source=true");
                 // making connection
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -66,7 +66,7 @@ public class WriteLocation {
                 // Check that the url actually returned anything
                 if(results == null || results.size() < 1 ){
                     // If not, return empty string
-                    //Log.i("Other", "Didn't get good result from reverse geocoding call");
+                    Log.i("Other", "Didn't get good result from reverse geocoding call");
                     return "Unknown Location";
                 }
 

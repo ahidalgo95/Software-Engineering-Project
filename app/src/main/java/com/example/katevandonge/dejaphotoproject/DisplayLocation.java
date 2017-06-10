@@ -79,7 +79,7 @@ public class DisplayLocation {
             // Check that the url actually returned anything
             if(results == null || results.size() < 1 ){
                 // If not, return empty string
-                //Log.i("DisplayLocation", "Didn't get good result from reverse geocoding call");
+                Log.i("DisplayLocation", "Didn't get good result from reverse geocoding call");
                 return "Unknown Location";
             }
 
