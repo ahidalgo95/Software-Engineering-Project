@@ -141,6 +141,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             }
         });
 
+        Switch changeSharingMode = (Switch) findViewById(R.id.switch1);
+        changeSharingMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    sharingChange(view);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         Switch changeFriendMode = (Switch) findViewById(R.id.friendSwitch);
         changeFriendMode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      * with friends or not.
      * @param view
      */
-    public void sharingChange(View view){ //tested and works!
+    public void sharingChange(View view) throws InterruptedException{ //tested and works!
         sharingMode = !sharingMode;
         if(sharingMode == true) {
             int size = MasterGallery.myArr.size();
@@ -326,21 +338,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
      */
     public void friendModeChange(View view) throws InterruptedException {
         friendMode = !friendMode;
-        /*ArrayList<String> friendArr = currUser.getFirebaseFriends();
-        User temp = new User();
-        Log.i("CURRENT USER",currUser.getEmail());
-        Log.i("NUM OF FRIENDS", ""+friendArr.size());
-        for(int i = 0; i<friendArr.size(); i++){
-            temp.setEmail(friendArr.get(i));
-            Log.i("FRIEND EMAIL",temp.getEmail());
-            if(currUser.checkMutualFriends(temp)){
-                temp.getFirebaseShareablePhoto();
-            }
-        }*/
-        //User temp = new User();
-        //currUser.setEmail("hello@gmail_com");
-        //currUser.getFirebaseShareablePhoto();
-        //master.addFriends();
+
         master.updateMasterQ(copiedMode, cameraMode, friendMode);
     }
 
