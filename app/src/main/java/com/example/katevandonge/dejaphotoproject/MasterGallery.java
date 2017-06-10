@@ -155,21 +155,17 @@ public class MasterGallery {
         sharedPhotos = new Photo[MasterShared.size()];
         //int i=0;
         Photo pic;
-        myArr= new Photo[MasterShared.size()];
+        //myArr= new Photo[MasterShared.size()];
         while(MasterShared.size() != 0){
             Log.i("MasterGallery: ", "createSharedArray i");
             pic = MasterShared.poll(); //poll photo from queue
-<<<<<<< HEAD
+
             myArr.add(pic);
             //MasterShared.add(pic);
            // i++;
-=======
-            myArr[i] = pic;
-            //MasterShared.add(pic);
-            i++;
->>>>>>> 32ccbb0246cf2123ce0c89e906512e6d4f9aa0d5
+
         }
-        Log.i("MasterGallery: ", "createSharedArray of size" + i+1);
+      //  Log.i("MasterGallery: ", "createSharedArray of size" + i+1);
         return;
 
 
@@ -181,22 +177,13 @@ public class MasterGallery {
     @TargetApi(24)
     public void convertToArray(PriorityQueue<Photo> old){
         Photo polled;
-<<<<<<< HEAD
+        PriorityQueue<Photo> polledPQ= new PriorityQueue<Photo>(old);
         //myArr = new Photo[polledPQ.size()];
         int i=0;
         while(polledPQ.size() != 0){
             polled = polledPQ.poll(); //poll photo from queue
             myArr.add(polled);
-            Log.v("in here", "filling arr");
-=======
-        PriorityQueue<Photo> polledPQ= new PriorityQueue<Photo>(old);
-        myArr = new Photo[polledPQ.size()];
-        int i=0;
-        while(polledPQ.size() != 0){
-            polled = polledPQ.poll(); //poll photo from queue
-            myArr[i] = polled;
             Log.i("MasterGallery: ", "convertToArray" + i);
->>>>>>> 32ccbb0246cf2123ce0c89e906512e6d4f9aa0d5
             //Wall.photoArr[i]=polled; //add photo to array
             //MasterQueue.add(polled);
             i++;
@@ -206,17 +193,17 @@ public class MasterGallery {
 
 
 
-<<<<<<< HEAD
+
     public void addFriends(){
 
     }
 
-=======
+
     /*
     * Method to convert a respective photo array to a respective priorityQueue.
      * return: priorityQueue
     * */
->>>>>>> 32ccbb0246cf2123ce0c89e906512e6d4f9aa0d5
+
     @TargetApi(24)
     public PriorityQueue<Photo> convertToPQ(int album){
         PriorityQueue<Photo> newPQ = new PriorityQueue<Photo>(photoComparator);

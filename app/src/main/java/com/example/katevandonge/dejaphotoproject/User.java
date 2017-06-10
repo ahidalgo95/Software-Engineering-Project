@@ -99,6 +99,7 @@ public class User {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myFirebaseRef = database.getReference();
         DatabaseReference userRef = myFirebaseRef.child("users/" + this.getId() + "/myShareablePhotos");
+        DatabaseReference deletePhoto = myFirebaseRef.child("users/" + this.getId());
 
 
         for(int i = 0; i < photo.length; i++) {
@@ -111,7 +112,12 @@ public class User {
             Pair<String, String> insVal = new Pair(bitmap, metadata);
             myShareablePhotos.add(insVal);
         }
-        userRef.setValue(myShareablePhotos);
+        if(photo.length == 0) {
+            userRef.setValue(null);
+        }
+        else {
+            userRef.setValue(myShareablePhotos);
+        }
     }
    // public ArrayList<Pair<String, Long>> getAL(){
         //return myShareablePhotos;

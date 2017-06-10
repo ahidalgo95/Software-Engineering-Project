@@ -305,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             currUser.addPhotos(temp, getApplicationContext());
         }
         else{
+            Log.i("SHARING MODE", "OFF");
             Photo [] empty = new Photo [0];
             currUser.addPhotos(empty, getApplicationContext());
         }
