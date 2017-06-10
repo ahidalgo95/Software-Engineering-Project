@@ -6,6 +6,8 @@ import android.support.test.rule.ActivityTestRule;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static android.support.test.InstrumentationRegistry.getContext;
 import static junit.framework.Assert.assertEquals;
 
@@ -42,4 +44,23 @@ public class FirebaseTest {
 
     }
 
+    //Test accessing friends list
+    @Test
+    public void testGetFriends(){
+        User test = new User();
+        test.setEmail("testUser1@gmail.com");
+        test.setPassword("password");
+
+        ArrayList<String> actualFriends = new ArrayList<>();
+        actualFriends.add("friend1@gmail_com");
+        actualFriends.add("friend2@gmail_com");
+        actualFriends.add("testUser2@gmail_com");
+
+        ArrayList<String> testFriends = test.getFirebaseFriends();
+
+        for(int i = 0; i < testFriends.size(); i++){
+            assertEquals(true, testFriends.get(i).equals(actualFriends.get(i)));
+        }
+
+    }
 }

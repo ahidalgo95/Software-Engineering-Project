@@ -46,6 +46,7 @@ public class DisplayLocation {
         try {
             //Log.i("DisplayLocation" , "Passed in lat and long" + myLocation.getLatitude() +
              //", " + myLocation.getLongitude());
+            Log.i("DisplayLocation", myLocation.getLatitude() + myLocation.getLongitude() + "");
             URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?latlng="
                     + myLocation.getLatitude() + "," + myLocation.getLongitude() + "&source=true");
             // Making connection
