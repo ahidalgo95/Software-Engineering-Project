@@ -20,7 +20,7 @@ public class CopiedGalleryTest {
     @Test
     public void testConstructor(){
         Context context= mainActivity.getActivity().getApplicationContext();
-        CopiedGallery gallery= new CopiedGallery();
+        DejaPhotoCopied gallery= new DejaPhotoCopied();
         assertEquals(gallery.copiedQueue.poll(), null);
         //assertEquals(gallery.copiedAL.size(), 0);
     }
@@ -30,7 +30,7 @@ public class CopiedGalleryTest {
     @Test
     public void getPQTest(){
         Context context= mainActivity.getActivity().getApplicationContext();
-        CopiedGallery gallery= new CopiedGallery();
+        DejaPhotoCopied gallery= new DejaPhotoCopied();
         assertEquals(gallery.copiedQueue.size(), 0);
         assertEquals(gallery.getPQ(), gallery.copiedQueueCopy);
         assertEquals(gallery.copiedQueueCopy.size(), 0);

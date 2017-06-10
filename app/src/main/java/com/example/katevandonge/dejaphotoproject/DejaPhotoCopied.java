@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
  * Copied Gallery class to hold photos selected from galleries within phone's external memory.
  */
 
-public class CopiedGallery implements GalleriesInterface {
+public class DejaPhotoCopied implements GalleriesInterface {
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> copiedQueue; //main queue for this class
     static PriorityQueue<Photo> copiedQueueCopy;
@@ -21,10 +21,10 @@ public class CopiedGallery implements GalleriesInterface {
 
 
     /*
-    * Constructor for CopiedGallery class.
+    * Constructor for DejaPhotoCopied class.
     * */
     @TargetApi(24)
-    public CopiedGallery() {
+    public DejaPhotoCopied() {
         photoComparator = new PhotoComparator();
         copiedQueue = new PriorityQueue<Photo>(photoComparator); //this isn't an error
 
@@ -51,7 +51,7 @@ public class CopiedGallery implements GalleriesInterface {
     }
 
     /*
-    * Helper method to return the priority queue of photos we want to display when CopiedGallery
+    * Helper method to return the priority queue of photos we want to display when DejaPhotoCopied
     * should be displayed.
     * returns: priorityQueue
     * */

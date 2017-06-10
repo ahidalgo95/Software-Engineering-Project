@@ -23,10 +23,10 @@ import java.util.Date;
 import java.util.PriorityQueue;
 
 /**
- * DejaPhotoGallery class to hold photos taken within Deja Photo app.
+ * DejaPhoto class to hold photos taken within Deja Photo app.
  */
 
-public class DejaPhotoGallery implements GalleriesInterface{
+public class DejaPhoto implements GalleriesInterface{
 
     Comparator<Photo> photoComparator;
     static PriorityQueue<Photo> djQueue;        //main queue photos are stored in
@@ -38,10 +38,10 @@ public class DejaPhotoGallery implements GalleriesInterface{
 
 
     /*
-    * Constructor for DejaPhotoGallery class.
+    * Constructor for DejaPhoto class.
     * */
     @TargetApi(24)
-    public DejaPhotoGallery(Context context) {
+    public DejaPhoto(Context context) {
         con= context;
         queryCall=0;
         counter = 0;

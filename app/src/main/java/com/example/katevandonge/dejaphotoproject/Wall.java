@@ -65,7 +65,6 @@ public class Wall extends Activity {
         Qsize = pListOld.size();
         Rsize = pList.size();
         if(Rsize==0){
-            Log.v("Wall", "adding a first");
             Rsize=1;
             photoArr = new Photo[Rsize];
             photoArr[0] = curr;
@@ -73,7 +72,6 @@ public class Wall extends Activity {
         else {
             photoArr = new Photo[Rsize];
         }
-        Log.v("wall up arr", ""+Rsize);
         for (int i = 0; i < Qsize; i++) { //poll photos length of input pqueue
             allGall[i] = pListOld.poll();
         }
