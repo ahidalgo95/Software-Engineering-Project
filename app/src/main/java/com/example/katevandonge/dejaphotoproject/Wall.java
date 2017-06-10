@@ -63,11 +63,16 @@ public class Wall extends Activity {
     }
     public static void updateArray(){
         Qsize = pListOld.size();
-        if(pList.size()==0){
-            pList.add(curr);
-        }
         Rsize = pList.size();
-        photoArr = new Photo[Rsize];
+        if(Rsize==0){
+            Log.v("Wall", "adding a first");
+            Rsize=1;
+            photoArr = new Photo[Rsize];
+            photoArr[0] = curr;
+        }
+        else {
+            photoArr = new Photo[Rsize];
+        }
         Log.v("wall up arr", ""+Rsize);
         for (int i = 0; i < Qsize; i++) { //poll photos length of input pqueue
             allGall[i] = pListOld.poll();
