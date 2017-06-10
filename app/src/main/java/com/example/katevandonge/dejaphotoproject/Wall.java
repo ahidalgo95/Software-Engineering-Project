@@ -61,6 +61,10 @@ public class Wall extends Activity {
         photoArr = new Photo[Rsize];
         updateArray();
     }
+
+    /**
+     * Updates the array that you display
+     */
     public static void updateArray(){
         Qsize = pListOld.size();
         Rsize = pList.size();

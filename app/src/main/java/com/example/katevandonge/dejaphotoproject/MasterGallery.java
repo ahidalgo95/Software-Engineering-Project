@@ -103,6 +103,9 @@ public class MasterGallery {
         //Wall.photoArr = myArr;
     }
 
+    /**
+     * Helper method for helping test the update
+     */
     public static void updateHack(){
         Log.i("updatehack", "lololol");
         MasterQueueCopy = new PriorityQueue<Photo>(MasterQueue);
@@ -145,6 +148,10 @@ public class MasterGallery {
 
     }
 
+    /**
+     * Helps add friends photos
+     * @throws InterruptedException
+     */
     public void addFriends() throws InterruptedException {
         Log.i("MasterGallery: ", "addFriends");
         friendSet = MainActivity.friendGall.getPQ(); //new PriorityQueue<Photo>(temp.userFriendGall); //
@@ -173,6 +180,10 @@ public class MasterGallery {
             }
         }*/
     }
+
+    /**
+     * Helps get friends list
+     */
     public static void restOfFriends(){
         //Log.i("Master logging size"," "+temp.userFriendGall.size());
         friendSet = MainActivity.friendGall.getPQ(); //new PriorityQueue<Photo>(temp.userFriendGall); //
@@ -210,13 +221,9 @@ public class MasterGallery {
         while(MasterShared.size() != 0){
             Log.i("MasterGallery: ", "createSharedArray i");
             pic = MasterShared.poll(); //poll photo from queue
-
             myArr.add(pic);
-            //MasterShared.add(pic);
-           // i++;
 
         }
-      //  Log.i("MasterGallery: ", "createSharedArray of size" + i+1);
         return;
 
 
@@ -252,7 +259,6 @@ public class MasterGallery {
     * Method to convert a respective photo array to a respective priorityQueue.
      * return: priorityQueue
     * */
-
     @TargetApi(24)
     public PriorityQueue<Photo> convertToPQ(int album){
         PriorityQueue<Photo> newPQ = new PriorityQueue<Photo>(photoComparator);
