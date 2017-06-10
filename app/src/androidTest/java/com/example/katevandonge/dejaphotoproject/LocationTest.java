@@ -34,7 +34,7 @@ public class LocationTest {
     public ActivityTestRule<MainActivity>  mainActivity = new ActivityTestRule<MainActivity>(MainActivity.class);
 
     // Tests the method that keeps track of the user's location and the string of the address
-    @Test
+   /* @Test
     public void testDisplayLocation(){
 
         double testLat = 36.247712;
@@ -45,10 +45,10 @@ public class LocationTest {
 
         assertEquals("Inyo County, CA, US", address);
 
-    }
+    }*/
 
     // Tests the method that gets the city where a photo was taken
-    @Test
+   /* @Test
     public void testOther(){
         double testLat = 25.761680;
         double testLon = -80.191790;
@@ -58,7 +58,7 @@ public class LocationTest {
 
 
         assertEquals("Brickell Avenue, Miami, Florida" , neighbourhood);
-    }
+    }*/
 
     // Test if the user is in a location with no address information
     @Test

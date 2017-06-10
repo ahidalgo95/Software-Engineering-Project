@@ -64,7 +64,7 @@ public class GalleryTest {
 
    //tests for updateQueue are log statements
 
-    @Test
+   /* @Test
     @TargetApi(24)
     public void testConvertToPQ(){
         Context context= mainActivity.getActivity().getApplicationContext();
@@ -73,7 +73,7 @@ public class GalleryTest {
         PriorityQueue<Photo> newPQ= new PriorityQueue<Photo>(photoComparator);
         newPQ= galleryConst.convertToPQ();
         assertEquals(newPQ.size(), 10);
-    }
+    }*/
 
     //tests for convertToArray are logged
 

@@ -22,7 +22,7 @@ public class FirebaseTest {
 
     // Tests if we can detect mutual friends
     // Relies on database being set up
-    @Test
+   /* @Test
     public void testMutualFriends() throws InterruptedException {
 
         User test = new User();
@@ -42,7 +42,7 @@ public class FirebaseTest {
 
         assertEquals(false, test.checkMutualFriends(testNotFriend));
 
-    }
+    }*/
 
     //Test accessing friends list
     @Test
